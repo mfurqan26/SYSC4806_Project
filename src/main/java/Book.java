@@ -13,6 +13,7 @@ public class Book {
     private String description;
 
     private String publisher;
+    private float price;
     private ByteArrayInputStream cover;
 
 

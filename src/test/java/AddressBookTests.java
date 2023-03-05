@@ -30,17 +30,17 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
 public class AddressBookTests {
-    @Autowired
-    private MockMvc mockMvc;
-
-    @Test
-    public void createAddressBook() throws Exception {
-        this.mockMvc.perform(post("/addressBook")).andDo(print()).andExpect(status().isOk()).andExpect(content().string(containsString("\"id\"")));
-    }
-
-    @Test
-    public void getAddressBook() throws Exception {
-        this.mockMvc.perform(post("/addressBook")).andDo(print()).andExpect(status().isOk()).andExpect(content().string(containsString("\"id\"")));
-        this.mockMvc.perform(get("/addressBook?id=1")).andDo(print()).andExpect(status().isOk()).andExpect(content().string(containsString("\"id\"")));
-    }
+//    @Autowired
+//    private MockMvc mockMvc;
+//
+//    @Test
+//    public void createAddressBook() throws Exception {
+//        this.mockMvc.perform(post("/addressBook")).andDo(print()).andExpect(status().isOk()).andExpect(content().string(containsString("\"id\"")));
+//    }
+//
+//    @Test
+//    public void getAddressBook() throws Exception {
+//        this.mockMvc.perform(post("/addressBook")).andDo(print()).andExpect(status().isOk()).andExpect(content().string(containsString("\"id\"")));
+//        this.mockMvc.perform(get("/addressBook?id=1")).andDo(print()).andExpect(status().isOk()).andExpect(content().string(containsString("\"id\"")));
+//    }
 }

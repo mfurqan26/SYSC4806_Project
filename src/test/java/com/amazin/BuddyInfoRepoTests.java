@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package example;
+package com.amazin;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

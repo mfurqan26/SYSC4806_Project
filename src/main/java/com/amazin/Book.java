@@ -1,4 +1,4 @@
-package example;
+package com.amazin;
 
 import jakarta.persistence.*;
 

@@ -1,4 +1,4 @@
-package example;
+package com.amazin;
 
 import java.util.ArrayList;
 import java.lang.Number;

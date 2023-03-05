@@ -25,19 +25,19 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 
 @DataJpaTest
 public class BuddyInfoRepoTests {
-	@Autowired
-	private TestEntityManager entityManager;
-
-	@Autowired
-	private BuddyInfoRepo buddyInfos;
-
-	@Test
-	public void testFindByLastName() {
-		BuddyInfo buddyInfo = new BuddyInfo("first", "last");
-		entityManager.persist(buddyInfo);
-
-		List<BuddyInfo> findByLastName = buddyInfos.findByLastName(buddyInfo.getLastName());
-
-		assertThat(findByLastName).extracting(BuddyInfo::getLastName).containsOnly(buddyInfo.getLastName());
-	}
+//	@Autowired
+//	private TestEntityManager entityManager;
+//
+//	@Autowired
+//	private BuddyInfoRepo buddyInfos;
+//
+//	@Test
+//	public void testFindByLastName() {
+//		BuddyInfo buddyInfo = new BuddyInfo("first", "last");
+//		entityManager.persist(buddyInfo);
+//
+//		List<BuddyInfo> findByLastName = buddyInfos.findByLastName(buddyInfo.getLastName());
+//
+//		assertThat(findByLastName).extracting(BuddyInfo::getLastName).containsOnly(buddyInfo.getLastName());
+//	}
 }

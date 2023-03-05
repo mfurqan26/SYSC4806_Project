@@ -1,0 +1,7 @@
+-------------------------------------------------------------------------------
+Test set: example.BuddyInfoTests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0 s <<< FAILURE! - in example.BuddyInfoTests
+example.BuddyInfoTests  Time elapsed: 0 s  <<< ERROR!
+java.lang.NullPointerException: Cannot invoke "java.lang.Class.getName()" because "found" is null
+

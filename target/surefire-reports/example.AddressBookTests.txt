@@ -1,0 +1,7 @@
+-------------------------------------------------------------------------------
+Test set: example.AddressBookTests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.235 s <<< FAILURE! - in example.AddressBookTests
+example.AddressBookTests  Time elapsed: 0.234 s  <<< ERROR!
+java.lang.NullPointerException: Cannot invoke "java.lang.Class.getName()" because "found" is null
+

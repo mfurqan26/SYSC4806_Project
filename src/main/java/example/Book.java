@@ -1,21 +1,19 @@
+package example;
+
 import jakarta.persistence.*;
 
 import java.io.ByteArrayInputStream;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 
 @Entity
 public class Book {
     @Id
-    private ISBN id;
+    private int id;
     private String name;
     private String description;
-
     private String publisher;
-    private ByteArrayInputStream cover;
+    // private ByteArrayInputStream cover;
 
-
-
-
+    public int getId() {
+        return id;
+    }
 }

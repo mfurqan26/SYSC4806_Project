@@ -1,25 +1,20 @@
 package amazin;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class BookController {
     private BookRepository bookRepository;
 
     @Autowired
-    public BookController(BookRepository BookRepository) {
-        this.bookRepository = BookRepository;
+    public BookController(BookRepository bookRepository) {
+        this.bookRepository = bookRepository;
     }
 
     @RequestMapping("/book")
-    public Book createBook(){
-        Book addressBook = new Book();
-        bookRepository.save(addressBook);
-        return addressBook;
+    public void createBook(@RequestBody Book book) {
+        bookRepository.save(book);
     }
 
     @RequestMapping(value = "/book", method = RequestMethod.GET)

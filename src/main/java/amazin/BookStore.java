@@ -20,7 +20,9 @@ public class BookStore {
     public CommandLineRunner demo(BookRepository repository1) {
         return (args) -> {
             Book book1 = new Book("abc");
+            Book book2 = new Book("book 2");
             repository1.save(book1);
+            repository1.save(book2);
         };
     }
 

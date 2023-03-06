@@ -7,14 +7,12 @@ public class Book {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
-
     private String name;
     private String description;
-
     private String publisher;
+    private Long ISBN;
 
     //private ByteArrayInputStream cover;
-
     public Book() {
     }
 
@@ -48,5 +46,13 @@ public class Book {
 
     public void setPublisher(String publisher) {
         this.publisher = publisher;
+    }
+
+    public Long getISBN() {
+        return ISBN;
+    }
+
+    public void setISBN(Long ISBN) {
+        this.ISBN = ISBN;
     }
 }

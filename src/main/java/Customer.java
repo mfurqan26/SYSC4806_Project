@@ -1,10 +1,25 @@
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+
 import java.util.*;
 
+@Entity
 public class Customer {
-    private String name;
+
+    @Id
+    @GeneratedValue
     private Integer id;
-    private List<Book> purchasedBooks;
-    private Map<Book, Integer> bookReviews;
+    @OneToMany
+    //FIXME
+    private List<BookId> purchasedBooks;
+    @OneToMany
+    private Map<BookId, CustomerReview> bookReviews;
+    private String name;
+
+    //TODO add sensitive info to purchasing.
+    //private creditInfo
 
     public Customer(){
         purchasedBooks = new ArrayList<>();
@@ -27,31 +42,31 @@ public class Customer {
         this.id = id;
     }
 
-    public List<Book> getPurchasedBooks() {
+    public List<BookId> getPurchasedBooks() {
         return purchasedBooks;
     }
 
-    public void setPurchasedBooks(List<Book> purchasedBooks) {
+    public void setPurchasedBooks(List<BookId> purchasedBooks) {
         this.purchasedBooks = purchasedBooks;
     }
 
-    public void addPurchasedBook(Book book){
+    public void addPurchasedBook(BookId book){
         purchasedBooks.add(book);
     }
 
-    public Map<Book, Integer> getBookReviews() {
+    public Map<BookId, CustomerReview> getBookReviews() {
         return bookReviews;
     }
 
-    public void setBookReviews(Map<Book, Integer> bookReviews) {
+    public void setBookReviews(Map<BookId, CustomerReview> bookReviews) {
         this.bookReviews = bookReviews;
     }
 
-    public void addBookReview(Book book, Integer rating){
+    public void addBookReview(BookId book, CustomerReview rating){
         bookReviews.put(book, rating);
     }
 
-    public Integer getBookReview(Book book){
+    public CustomerReview getBookReview(BookId book){
         return bookReviews.get(book);
     }
 

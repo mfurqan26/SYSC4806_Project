@@ -19,7 +19,8 @@ public class BookStore {
     @Bean
     public CommandLineRunner demo(BookRepository repository1) {
         return (args) -> {
-
+            Book book1 = new Book("abc");
+            repository1.save(book1);
         };
     }
 

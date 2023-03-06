@@ -1,3 +1,5 @@
+package amazin;
+
 import java.util.ArrayList;
 import java.lang.Number;
 import java.util.Arrays;

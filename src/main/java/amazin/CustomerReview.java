@@ -1,3 +1,5 @@
+package amazin;
+
 import jakarta.persistence.*;
 
 @Entity

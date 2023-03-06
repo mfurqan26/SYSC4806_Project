@@ -1,3 +1,5 @@
+package amazin;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -12,8 +14,7 @@ public class Customer {
     @GeneratedValue
     private Integer id;
     @OneToMany
-    //FIXME
-    private List<BookId> purchasedBooks;
+    private List<Book> purchasedBooks;
     @OneToMany
     private Map<BookId, CustomerReview> bookReviews;
     private String name;
@@ -42,15 +43,15 @@ public class Customer {
         this.id = id;
     }
 
-    public List<BookId> getPurchasedBooks() {
+    public List<Book> getPurchasedBooks() {
         return purchasedBooks;
     }
 
-    public void setPurchasedBooks(List<BookId> purchasedBooks) {
+    public void setPurchasedBooks(List<Book> purchasedBooks) {
         this.purchasedBooks = purchasedBooks;
     }
 
-    public void addPurchasedBook(BookId book){
+    public void addPurchasedBook(Book book){
         purchasedBooks.add(book);
     }
 
@@ -80,10 +81,10 @@ public class Customer {
 
     @Override
     public String toString() {
-        return "Customer{" +
+        return "amazin.Customer{" +
                 "name='" + name + '\'' +
                 ", id=" + id +
-                ", purchasedBooks=" + purchasedBooks +
+                ", purchasedBooks=" + purchasedBooks.toString() +
                 ", bookReviews=" + bookReviews +
                 '}';
     }

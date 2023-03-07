@@ -1,4 +1,4 @@
-package amazin;
+package amazin.model;
 
 import jakarta.persistence.*;
 

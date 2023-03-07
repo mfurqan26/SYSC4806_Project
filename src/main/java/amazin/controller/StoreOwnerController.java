@@ -15,7 +15,7 @@ public class StoreOwnerController {
     }
 
     @RequestMapping("/storeOwner")
-    public void createCustomer(@RequestBody StoreOwner storeOwner){
+    public void createStoreOwner(@RequestBody StoreOwner storeOwner){
         storeOwnerRepository.save(storeOwner);
     }
 

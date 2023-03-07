@@ -1,4 +1,4 @@
-package amazin;
+package amazin.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -81,7 +81,7 @@ public class Customer {
 
     @Override
     public String toString() {
-        return "amazin.Customer{" +
+        return "amazin.model.Customer{" +
                 "name='" + name + '\'' +
                 ", id=" + id +
                 ", purchasedBooks=" + purchasedBooks.toString() +

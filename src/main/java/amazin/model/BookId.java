@@ -1,9 +1,6 @@
-package amazin;
+package amazin.model;
 
-import java.util.ArrayList;
 import java.lang.Number;
-import java.util.Arrays;
-import java.util.List;
 import java.io.Serializable;
 
 

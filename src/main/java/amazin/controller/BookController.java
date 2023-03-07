@@ -1,5 +1,7 @@
-package amazin;
+package amazin.controller;
 
+import amazin.model.Book;
+import amazin.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

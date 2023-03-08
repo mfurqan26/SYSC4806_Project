@@ -22,6 +22,6 @@ public class BookController {
 
     @RequestMapping(value = "/book", method = RequestMethod.GET)
     public Book getBook(@RequestParam("id") BookId id){
-        return bookRepository.findBookById(id);
+        return bookRepository.findById(id).get();
     }
 }

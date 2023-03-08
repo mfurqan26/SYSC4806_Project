@@ -61,8 +61,6 @@ public class Book {
         return new BookId(this.isbn, this.version);
     }
 
-    public int id;
-
     public final String name;
     private String description;
     public final String publisher;

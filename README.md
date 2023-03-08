@@ -14,7 +14,9 @@ This is done by looking for users whose purchases are most similar (using Jaccar
 
 Run the main method in BookStore.java or
 
-Run `proj2-1.0-SNAPSHOT.jar`
+Run maven life cycle package in IntelliJ and then
+
+Run `proj2-1.0-SNAPSHOT.jar` in the /target output folder to run the program using the generated jar file
 
 And visit:
 

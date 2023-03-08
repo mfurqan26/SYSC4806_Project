@@ -10,69 +10,57 @@ public class Book {
 
 
     public static class BookId implements Serializable  {
-        protected ISBN isbn;
+        protected String isbn;
         protected int version;
 
-        protected BookId(ISBN isbn, int version) {
+        protected BookId(String isbn, int version) {
             this.isbn = isbn;
             this.version = version;
         }
 
-        public BookId() {
+        public BookId() {}
 
+        public String getIsbn() {
+            return this.isbn;
         }
-    }
 
-    protected static class ISBN extends Number {
-        Number[] value;
-
-        protected ISBN(Number[] isbn) {
-            this.value = isbn;
+        public int getVersion() {
+            return this.version;
         }
 
         @Override
-        public int intValue() {
-            return 0;
+        public String toString() {
+            return isbn + ":" + version; 
         }
 
-        @Override
-        public long longValue() {
-            return 0;
+        public void setIsbn(String isbn) {
+            this.isbn = isbn;
         }
 
-        @Override
-        public float floatValue() {
-            return 0;
-        }
-
-        @Override
-        public double doubleValue() {
-            return 0;
+        public void setVersion(int version) {
+            this.version = version;
         }
     }
 
     @Id
-    protected ISBN isbn;
+    protected String isbn;
 
     @Id
     protected int version;
 
-    public BookId getId() {
-        return new BookId(this.isbn, this.version);
-    }
-
     public final String name;
     private String description;
     public final String publisher;
-
     //private ByteArrayInputStream cover;
-    public Book(Number[] isbn, int version, String name, String description, String publisher) {
-        this.isbn = new ISBN(isbn);
+
+    public Book(String isbn, int version, 
+            String name, String description, 
+            String publisher) {
+        this.isbn = isbn;
         this.version = version;
         this.name = name;
         this.description = description;
         this.publisher = publisher;
-
     }
 
     public Book() {
@@ -96,6 +84,14 @@ public class Book {
 
     public String getDescription() {
         return description;
+    }
+
+    public String getIsbn() {
+        return this.isbn;
+    }
+
+    public BookId getId() {
+        return new BookId(this.isbn, this.version);
     }
 
     public void setDescription(String description) {

@@ -21,7 +21,10 @@ public class BookController {
     }
 
     @RequestMapping(value = "/book", method = RequestMethod.GET)
-    public Book getBook(@RequestParam("id") BookId id){
+    public Book getBook(@ModelAttribute BookId id){
+        System.out.println("Finding book with ID:");
+        System.out.println(id);
         return bookRepository.findById(id).get();
+
     }
 }

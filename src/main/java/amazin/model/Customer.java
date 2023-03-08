@@ -7,6 +7,8 @@ import jakarta.persistence.OneToMany;
 
 import java.util.*;
 
+import amazin.model.Book.BookId;
+
 @Entity
 public class Customer {
 

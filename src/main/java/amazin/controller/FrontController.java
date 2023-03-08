@@ -1,6 +1,7 @@
 package amazin.controller;
 
 import amazin.model.Book;
+import amazin.model.Book.BookId;
 import amazin.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,9 +19,9 @@ public class FrontController {
 
     @GetMapping("/landing")
     public String greeting(Model model) {
+        model.addAttribute("bookId", new BookId());
         Iterable<Book> books = bookRepository.findAll();
         model.addAttribute("bookRepo", books);
-//        model.addAttribute("bookRepo", bookRepository);
-        return "landing";
+        return "Landing";
     }
 }

@@ -17,8 +17,10 @@ public class BookStore {
     @Bean
     public CommandLineRunner demo(BookRepository repository1) {
         return (args) -> {
-            Book book1 = new Book("abc");
-            Book book2 = new Book("book 2");
+            Book book1 = new Book("978-0-122453-12-1", 1, 
+                "Book1" , "desc 1", "abc");
+            Book book2 = new Book("948-0-123456-47-2", 1, 
+                "Book2" , "desc 2", "abc");
             repository1.save(book1);
             repository1.save(book2);
         };

@@ -1,6 +1,7 @@
 package amazin.controller;
 
 import amazin.model.Book;
+import amazin.model.Book.BookId;
 import amazin.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +21,10 @@ public class BookController {
     }
 
     @RequestMapping(value = "/book", method = RequestMethod.GET)
-    public Book getBook(@RequestParam("id") Long id){
-        return bookRepository.findBookById(id);
+    public Book getBook(@ModelAttribute BookId id){
+        System.out.println("Finding book with ID:");
+        System.out.println(id);
+        return bookRepository.findById(id).get();
+
     }
 }

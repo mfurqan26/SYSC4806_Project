@@ -60,8 +60,12 @@ complete landing page thymeleaf html
 
 # Group Members
 
-YouHeng Zhou
-Sahil Agrawal
-Muhammad Furqan
-Sabin Plaiasu
-Nikolas Paterson
+- YouHeng Zhou
+
+- Sahil Agrawal
+
+- Muhammad Furqan
+
+- Sabin Plaiasu
+
+- Nikolas Paterson

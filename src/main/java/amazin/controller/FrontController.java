@@ -21,6 +21,6 @@ public class FrontController {
         Iterable<Book> books = bookRepository.findAll();
         model.addAttribute("bookRepo", books);
 //        model.addAttribute("bookRepo", bookRepository);
-        return "landing";
+        return "Landing";
     }
 }

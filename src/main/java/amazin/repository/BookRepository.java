@@ -1,11 +1,12 @@
 package amazin.repository;
 
 import amazin.model.Book;
+import amazin.model.Book.BookId;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 @RepositoryRestResource
-public interface BookRepository extends CrudRepository<Book, Long> {
-    Book findBookById(long id);
+public interface BookRepository extends CrudRepository<Book, BookId> {
+    Book findBookById(BookId id);
 
 }

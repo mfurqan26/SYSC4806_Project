@@ -10,7 +10,7 @@
 <!--<p th:text="'Book Information Here: ' + ${book} + '!'" />-->
 <h1>Book Information</h1>
 <p th:each="book: ${bookRepo}">
-    Book ID: <b><span th:text="${book.id}"/></b>
+    Book ID: <b><span th:text="${book.isbn}"/></b>
     Book Name: <b><span th:text="${book.name}"/></b>
 </p>
 </body>

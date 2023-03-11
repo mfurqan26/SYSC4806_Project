@@ -24,6 +24,11 @@ http://localhost:8080/landing
 
 To see the mock landing page we have right now
 
+# Entity Relation Diagram 
+
+![Alt text](./docs/er_diagram.svg)
+<img src="./er_diagram.svg">
+
 # Milestone 1 use case flow
 
 The 1 use case we have completed is to query for books in the database.

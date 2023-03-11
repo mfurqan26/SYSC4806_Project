@@ -26,7 +26,6 @@ To see the mock landing page we have right now
 
 # Entity Relation Diagram 
 
-![Alt text](./docs/er_diagram.svg)
 <img src="./docs/er_diagram.svg">
 
 # Milestone 1 use case flow

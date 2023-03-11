@@ -10,7 +10,7 @@
             <h2>Create Book</h2>
 
             <form action="/action_page.php">
-                <label for="search">Add Book To Store:</label><br />
+                <label for="book">Add Book To Store:</label><br />
 
                 <div style="margin-top: 10px">
                     <label>Name:</label><br />
@@ -20,6 +20,16 @@
                 <div style="margin-top: 10px">
                     <label>ISBN:</label><br />
                     <input type="text" id="isbn" name="isbn" value="" /><br />
+                </div>
+
+                <div style="margin-top: 10px">
+                    <label>Version Number:</label><br />
+                    <input
+                        type="text"
+                        id="version"
+                        name="version"
+                        value=""
+                    /><br />
                 </div>
 
                 <div style="margin-top: 10px">
@@ -58,12 +68,22 @@
 
         <div style="margin: 50px">
             <form action="/action_page.php">
-                <label for="search">Create Book Listing For Selling:</label
+                <label for="listing">Create Book Listing For Selling:</label
                 ><br />
 
                 <div style="margin-top: 10px">
                     <label>ISBN:</label><br />
                     <input type="text" id="isbn" name="isbn" value="" /><br />
+                </div>
+
+                <div style="margin-top: 10px">
+                    <label>Version Number:</label><br />
+                    <input
+                        type="text"
+                        id="version"
+                        name="version"
+                        value=""
+                    /><br />
                 </div>
 
                 <div style="margin-top: 10px">
@@ -74,6 +94,11 @@
                         name="description"
                         value=""
                     /><br />
+                </div>
+
+                <div style="margin-top: 10px">
+                    <label>Price:</label><br />
+                    <input type="text" id="Price" name="Price" value="" /><br />
                 </div>
 
                 <div style="margin-top: 10px">
@@ -104,21 +129,31 @@
             </div>
 
             <form action="/action_page.php">
-                <label for="search">Edit Book:</label><br />
+                <label for="edit">Edit Book:</label><br />
 
                 <div style="margin-top: 10px">
                     <label>Description:</label><br />
-                    <input type="text" id="name" name="name" value="" /><br />
+                    <input
+                        type="text"
+                        id="description"
+                        name="description"
+                        value=""
+                    /><br />
                 </div>
 
                 <div style="margin-top: 10px">
                     <label>Price:</label><br />
-                    <input type="text" id="isbn" name="isbn" value="" /><br />
+                    <input type="text" id="price" name="price" value="" /><br />
                 </div>
 
                 <div style="margin-top: 10px">
                     <label>Inventory:</label><br />
-                    <input type="text" id="isbn" name="isbn" value="" /><br />
+                    <input
+                        type="text"
+                        id="inventory"
+                        name="inventory"
+                        value=""
+                    /><br />
                 </div>
 
                 <input type="submit" />

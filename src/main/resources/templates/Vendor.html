@@ -7,8 +7,10 @@
     <body>
         <h1 style="margin: 50px">Vendor</h1>
         <div style="margin: 50px">
+            <h2>Create Book</h2>
+
             <form action="/action_page.php">
-                <label for="search">Add Book:</label><br />
+                <label for="search">Add Book To Store:</label><br />
 
                 <div style="margin-top: 10px">
                     <label>Name:</label><br />
@@ -50,6 +52,20 @@
                     /><br />
                 </div>
 
+                <input type="submit" />
+            </form>
+        </div>
+
+        <div style="margin: 50px">
+            <form action="/action_page.php">
+                <label for="search">Create Book Listing For Selling:</label
+                ><br />
+
+                <div style="margin-top: 10px">
+                    <label>ISBN:</label><br />
+                    <input type="text" id="isbn" name="isbn" value="" /><br />
+                </div>
+
                 <div style="margin-top: 10px">
                     <label>Description:</label><br />
                     <input
@@ -68,6 +84,41 @@
                         name="inventory"
                         value=""
                     /><br />
+                </div>
+
+                <input type="submit" />
+            </form>
+        </div>
+
+        <div style="margin: 50px">
+            <h2>Edit Book Information</h2>
+
+            <form action="/action_page.php">
+                <label for="search">Search Books:</label><br />
+                <input type="text" id="search" name="search" value="" /><br />
+                <input type="submit" value="Search" />
+            </form>
+
+            <div style="margin-top: 50px; margin-bottom: 50px">
+                should display the book here
+            </div>
+
+            <form action="/action_page.php">
+                <label for="search">Edit Book:</label><br />
+
+                <div style="margin-top: 10px">
+                    <label>Description:</label><br />
+                    <input type="text" id="name" name="name" value="" /><br />
+                </div>
+
+                <div style="margin-top: 10px">
+                    <label>Price:</label><br />
+                    <input type="text" id="isbn" name="isbn" value="" /><br />
+                </div>
+
+                <div style="margin-top: 10px">
+                    <label>Inventory:</label><br />
+                    <input type="text" id="isbn" name="isbn" value="" /><br />
                 </div>
 
                 <input type="submit" />

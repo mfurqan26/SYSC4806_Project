@@ -8,7 +8,6 @@ import java.io.Serializable;
 @Entity
 public class Book {
 
-
     public static class BookId implements Serializable  {
         protected String isbn;
         protected int version;

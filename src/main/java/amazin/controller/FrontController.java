@@ -30,9 +30,14 @@ public class FrontController {
 
     @GetMapping("/login")
     public String login(@RequestParam(
-            value = "accountId", required=true) long accountId,
+            value = "userName", required=false) String userName,
             Model model) {
-        Optional<Account> result = accountRepository.findById(accountId);
+        if (userName == null || userName.equals("")) {
+            return "Login";
+        }
+
+        Optional<Account> result = accountRepository
+            .findAccountByUserName(userName);
         Account account = null;
         if (result.isPresent()) {
             account = result.get();
@@ -44,10 +49,10 @@ public class FrontController {
 
         if (account.getType() == Account.Type.CUSTOMER) {
             model.addAttribute("customerId", account.getId());
-            return "Login";
+            return "Shop";
         } else if (account.getType() == Account.Type.VENDOR) {
             model.addAttribute("vendorId", account.getId());
-            return "Login";
+            return "Vendor";
         } 
         model.addAttribute("errorCode", "400");
         model.addAttribute("errorMessage", "Bad account");

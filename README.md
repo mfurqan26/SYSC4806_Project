@@ -24,6 +24,10 @@ http://localhost:8080/landing
 
 To see the mock landing page we have right now
 
+# Entity Relation Diagram 
+
+<img src="./docs/er_diagram.svg">
+
 # Milestone 1 use case flow
 
 The 1 use case we have completed is to query for books in the database.
@@ -60,8 +64,12 @@ complete landing page thymeleaf html
 
 # Group Members
 
-YouHeng Zhou
-Sahil Agrawal
-Muhammad Furqan
-Sabin Plaiasu
-Nikolas Paterson
+- Sabin Plaiasu
+
+- YouHeng Zhou
+
+- Sahil Agrawal
+
+- Muhammad Furqan
+
+- Nikolas Paterson

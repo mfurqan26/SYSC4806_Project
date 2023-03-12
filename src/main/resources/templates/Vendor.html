@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Vendor</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    </head>
+    <body>
+        <h1 style="margin: 50px">Vendor</h1>
+        <div style="margin: 50px">
+            <h2>Create Book</h2>
+
+            <form action="/action_page.php">
+                <label for="book">Add Book To Store:</label><br />
+
+                <div style="margin-top: 10px">
+                    <label>Name:</label><br />
+                    <input type="text" id="name" name="name" value="" /><br />
+                </div>
+
+                <div style="margin-top: 10px">
+                    <label>ISBN:</label><br />
+                    <input type="text" id="isbn" name="isbn" value="" /><br />
+                </div>
+
+                <div style="margin-top: 10px">
+                    <label>Version Number:</label><br />
+                    <input
+                        type="text"
+                        id="version"
+                        name="version"
+                        value=""
+                    /><br />
+                </div>
+
+                <div style="margin-top: 10px">
+                    <label>Picture:</label><br />
+                    <input
+                        type="text"
+                        id="picture"
+                        name="picture"
+                        value=""
+                    /><br />
+                </div>
+
+                <div style="margin-top: 10px">
+                    <label>Author:</label><br />
+                    <input
+                        type="text"
+                        id="author"
+                        name="author"
+                        value=""
+                    /><br />
+                </div>
+
+                <div style="margin-top: 10px">
+                    <label>Publisher:</label><br />
+                    <input
+                        type="text"
+                        id="publisher"
+                        name="publisher"
+                        value=""
+                    /><br />
+                </div>
+
+                <input type="submit" />
+            </form>
+        </div>
+
+        <div style="margin: 50px">
+            <form action="/action_page.php">
+                <label for="listing">Create Book Listing For Selling:</label
+                ><br />
+
+                <div style="margin-top: 10px">
+                    <label>ISBN:</label><br />
+                    <input type="text" id="isbn" name="isbn" value="" /><br />
+                </div>
+
+                <div style="margin-top: 10px">
+                    <label>Version Number:</label><br />
+                    <input
+                        type="text"
+                        id="version"
+                        name="version"
+                        value=""
+                    /><br />
+                </div>
+
+                <div style="margin-top: 10px">
+                    <label>Description:</label><br />
+                    <input
+                        type="text"
+                        id="description"
+                        name="description"
+                        value=""
+                    /><br />
+                </div>
+
+                <div style="margin-top: 10px">
+                    <label>Price:</label><br />
+                    <input type="text" id="Price" name="Price" value="" /><br />
+                </div>
+
+                <div style="margin-top: 10px">
+                    <label>Inventory:</label><br />
+                    <input
+                        type="text"
+                        id="inventory"
+                        name="inventory"
+                        value=""
+                    /><br />
+                </div>
+
+                <input type="submit" />
+            </form>
+        </div>
+
+        <div style="margin: 50px">
+            <h2>Edit Book Information</h2>
+
+            <form action="/action_page.php">
+                <label for="search">Search Books:</label><br />
+                <input type="text" id="search" name="search" value="" /><br />
+                <input type="submit" value="Search" />
+            </form>
+
+            <div style="margin-top: 50px; margin-bottom: 50px">
+                should display the book here
+            </div>
+
+            <form action="/action_page.php">
+                <label for="edit">Edit Book:</label><br />
+
+                <div style="margin-top: 10px">
+                    <label>Description:</label><br />
+                    <input
+                        type="text"
+                        id="description"
+                        name="description"
+                        value=""
+                    /><br />
+                </div>
+
+                <div style="margin-top: 10px">
+                    <label>Price:</label><br />
+                    <input type="text" id="price" name="price" value="" /><br />
+                </div>
+
+                <div style="margin-top: 10px">
+                    <label>Inventory:</label><br />
+                    <input
+                        type="text"
+                        id="inventory"
+                        name="inventory"
+                        value=""
+                    /><br />
+                </div>
+
+                <input type="submit" />
+            </form>
+        </div>
+    </body>
+</html>

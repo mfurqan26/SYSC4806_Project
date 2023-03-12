@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Shop</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    </head>
+    <body>
+        <h1 style="margin: 50px">Shop</h1>
+        <div style="margin: 50px">
+            <div style="margin-bottom: 25px">
+                <label for="filter">filter:</label>
+                <select name="filter" id="filter">
+                    <option value="by-name">By Name</option>
+                    <option value="by-author">By Author</option>
+                    <option value="by-publisher">By Publisher</option>
+                </select>
+            </div>
+
+            <form action="/action_page.php">
+                <label for="search">Search Books:</label><br />
+                <input type="text" id="search" name="search" value="" /><br />
+                <input type="submit" value="Search" />
+            </form>
+
+            <div style="margin-top: 30px; margin-bottom: 30px">
+                should query for all "for sale" booklisting here, via a table or
+                something ignore duplicate books for the booklisting, books can
+                be the same and have different prices by different store vendors
+
+                <div style="margin-top: 30px; margin-bottom: 30px">
+                    next step is to have a + and - button for adding and
+                    removing inventory
+                </div>
+            </div>
+        </div>
+
+        <div style="margin: 50px"><button>Purchase</button></div>
+    </body>
+</html>

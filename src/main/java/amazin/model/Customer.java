@@ -8,42 +8,33 @@ import jakarta.persistence.OneToMany;
 import java.util.*;
 
 import amazin.model.Book.BookId;
+import amazin.model.Account;
 
 @Entity
-public class Customer {
+public class Customer extends Account {
 
-    @Id
-    @GeneratedValue
-    private Integer id;
     @OneToMany
     private List<Book> purchasedBooks;
     @OneToMany
     private Map<BookId, CustomerReview> bookReviews;
-    private String name;
 
     //TODO add sensitive info to purchasing.
     //private creditInfo
 
-    public Customer(){
+    public Customer(String userName) {
+        super(userName, Account.Type.CUSTOMER);
         purchasedBooks = new ArrayList<>();
         bookReviews = new HashMap<>();
     }
 
+    public Customer() {
+        super();
+    }
+
     public String getName() {
-        return name;
+        return this.userName;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public List<Book> getPurchasedBooks() {
         return purchasedBooks;
@@ -73,21 +64,14 @@ public class Customer {
         return bookReviews.get(book);
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Customer customer = (Customer) o;
-        return name.equals(customer.name) && id.equals(customer.id) && Objects.equals(purchasedBooks, customer.purchasedBooks) && Objects.equals(bookReviews, customer.bookReviews);
-    }
 
     @Override
     public String toString() {
         return "amazin.model.Customer{" +
-                "name='" + name + '\'' +
-                ", id=" + id +
-                ", purchasedBooks=" + purchasedBooks.toString() +
-                ", bookReviews=" + bookReviews +
+                "userName='" + this.userName + '\'' +
+                ", id=" + this.getId() +
+                ", purchasedBooks=" + this.purchasedBooks.toString() +
+                ", bookReviews=" + this.bookReviews +
                 '}';
     }
 }

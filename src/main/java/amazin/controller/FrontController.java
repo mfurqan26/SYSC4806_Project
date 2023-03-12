@@ -37,14 +37,20 @@ public class FrontController {
         if (result.isPresent()) {
             account = result.get();
         } else {
-            return "400";
+            model.addAttribute("errorCode", "404");
+            model.addAttribute("errorMessage", "account not found");
+            return "Error";
         }
 
         if (account.getType() == Account.Type.CUSTOMER) {
             model.addAttribute("customerId", account.getId());
+            return "Login";
         } else if (account.getType() == Account.Type.VENDOR) {
             model.addAttribute("vendorId", account.getId());
+            return "Login";
         } 
-        return "400"; 
+        model.addAttribute("errorCode", "400");
+        model.addAttribute("errorMessage", "Bad account");
+        return "Error";
     }
 }

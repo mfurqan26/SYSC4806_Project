@@ -5,7 +5,7 @@ Amazin online bookstore
 
 Bookstore Owner can upload and edit amazin.model.Book information (ISBN, picture, description, author, publisher,...) and inventory. 
 User can search for, and browse through, the books in the bookstore, sort/filter them based on the above information. 
-User can then decide to purchase one or many books by putting them in the Shopping Cart and proceeding to Checkout. 
+User can then decide to purchase one or many books by putting them in the Shopping amazin.model.Cart and proceeding to amazin.model.Checkout. 
 The purchase itself will obviously be simulated, but purchases cannot exceed the inventory. 
 User can also view amazin.model.Book Recommendations based on past purchases. 
 This is done by looking for users whose purchases are most similar (using Jaccard distance: Google it!), and then recommending books purchased by those similar users but that the current User hasn't yet purchased.
@@ -41,6 +41,34 @@ And then we can enter `1` as the version
 And we will be taken to a page where we have the book object from the BookRepository in JSON data form
 
 ![image](https://user-images.githubusercontent.com/60205850/223817964-b267d204-4533-49f8-ae9d-353e917ea1fc.png)
+
+# Functional Requirements:
+
+- The system must allow users to search for books using name, isbn and publisher
+- The system must allow users to browse for books using name, isbn and publisher
+- The system must allow users to filter books based off price, release date and popularity
+- The system must allow users to create an account
+- The system must update inventory to have an accurate representation
+- Users must be able to add items to their carts
+- Users must be able to checkout their cart in a secure manner
+- The system must provide recommendations to users based on their shopping history using the Jaccard method
+- The system must allow Book Store owners to upload information about a book
+- The system must allow Book Store owners to edit their book information
+- The system should have real time updating of the inventory
+
+# Non-Functional Requirements
+
+### Performance Requirements
+- The landing page must not take longer than 5 seconds to load
+- The system must be able to handle high traffic
+### Compatibility Requirements
+- The system must be compatible with chrome, safari and firefox
+### Reliability Requirements
+- The system must perform without a failure in 100 percent of the use cases
+### Security Requirements
+- All transactions must be done through secure channels
+- The system must accurately protect user access depending on their account
+- The system should be secure and protect user information from unauthorized access.
 
 # Milestone 1 Plan
 

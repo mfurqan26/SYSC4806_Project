@@ -50,6 +50,8 @@ public class Book {
     public final String name;
     private String description;
     public final String publisher;
+    private int stock;
+    private float price;
     //private ByteArrayInputStream cover;
 
     public Book(String isbn, int version, 
@@ -101,4 +103,19 @@ public class Book {
         return publisher;
     }
 
+    public int getStock() {
+        return stock;
+    }
+
+    public void setStock(int stock) {
+        this.stock = stock;
+    }
+
+    public float getPrice() {
+        return price;
+    }
+
+    public void setPrice(float price) {
+        this.price = price;
+    }
 }

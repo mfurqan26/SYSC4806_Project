@@ -12,17 +12,29 @@
             <a th:href="@{/VendorEdit}">Search Books</a>
         </div>
 
-        <table style="border: solid black 2px; width: 80%; text-align: center">
+        <div style="margin: 50px">
+            <h2>All Books</h2>
+
+        <table style="border: solid black 2px; width: 100%; text-align: center">
             <tbody class="tbody">
+            <thead>
+                <th>ISBN</th>
+                <th>Version</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Stock</th>
+                <th>Description</th>
+            </thead>
             <tr th:each="book: ${books}">
-                <td th:text="'Book ISBN: '+${book.isbn}" />
-                <td th:text="'Version: '+${book.version}" />
-                <td th:text="'Name: '+${book.name}" />
-                <td th:text="'Price: '+${book.price}" />
-                <td th:text="'Stock: '+${book.stock}" />
-                <td th:text="'Description: '+${book.description}"/>
+                <td th:text="${book.isbn}" />
+                <td th:text="${book.version}" />
+                <td th:text="${book.name}" />
+                <td th:text="${book.price}" />
+                <td th:text="${book.stock}" />
+                <td th:text="${book.description}"/>
             </tr>
             </tbody>
         </table>
+        </div>
     </body>
 </html>

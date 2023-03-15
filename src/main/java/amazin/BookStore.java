@@ -21,9 +21,9 @@ public class BookStore {
         return (args) -> {
 
             Book book1 = new Book("978-0-122453-12-1", 1, 
-                "Book1" , "desc 1", "abc");
+                "Book1" , "desc 1", "abc",5,10.0);
             Book book2 = new Book("948-0-123456-47-2", 1, 
-                "Book2" , "desc 2", "abc");
+                "Book2" , "desc 2", "abc",3,20.0);
             books.save(book1);
             books.save(book2);
 

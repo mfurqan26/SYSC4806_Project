@@ -8,6 +8,18 @@ import java.io.Serializable;
 @Entity
 public class Book {
 
+    @Id
+    protected String isbn;
+
+    @Id
+    protected int version;
+    private final String name;
+    private String description;
+    private final String publisher;
+    private int stock;
+    private double price;
+    //private ByteArrayInputStream cover;
+
     public static class BookId implements Serializable  {
         protected String isbn;
         protected int version;
@@ -41,25 +53,16 @@ public class Book {
         }
     }
 
-    @Id
-    protected String isbn;
-
-    @Id
-    protected int version;
-
-    public final String name;
-    private String description;
-    public final String publisher;
-    //private ByteArrayInputStream cover;
-
     public Book(String isbn, int version, 
             String name, String description, 
-            String publisher) {
+            String publisher, int stock, double price) {
         this.isbn = isbn;
         this.version = version;
         this.name = name;
         this.description = description;
         this.publisher = publisher;
+        this.stock = stock;
+        this.price = price;
     }
 
     public Book() {
@@ -77,28 +80,38 @@ public class Book {
         this.id = id;
     }*/
 
-    public String getName() {
-        return name;
+    public String getName() {return name;}
+
+    public int getVersion(){return this.version;}
+
+    public String getDescription() {return description;}
+
+    public String getIsbn() {return this.isbn;}
+
+    public BookId getId() {return new BookId(this.isbn, this.version);}
+
+    public void setDescription(String description) {this.description = description;}
+
+    public String getPublisher() {return publisher;}
+
+    public int getStock() {return stock;}
+    public void setStock(int stock) {this.stock = stock;}
+    public void addStock(int amount){this.stock += amount;}
+
+    /** Return true if removing was successful
+     * Else returns false if it can not remove*/
+    public Boolean removeStock(int amount){
+        int currentStock = this.stock;
+        if(currentStock >= amount){
+            this.stock -= amount;
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public String getIsbn() {
-        return this.isbn;
-    }
-
-    public BookId getId() {
-        return new BookId(this.isbn, this.version);
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getPublisher() {
-        return publisher;
-    }
+    public double getPrice() {return price;}
+    public void setPrice(float price) {this.price = price;}
 
 }

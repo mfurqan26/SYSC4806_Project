@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Vendor</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1 style="margin: 50px">Vendor</h1>
+<div id="navbar">
+    <a th:href="@{/Vendor}">View Books</a>
+    <a th:href="@{/VendorCreate}">Create Books</a>
+    <a th:href="@{/VendorEdit}">Search Books</a>
+</div>
+
+<div style="margin: 50px">
+    <h2>Edit Book Information</h2>
+
+    <table style="width: 100%">
+        <tbody style="width: 100%">
+        <tr>
+            <td>
+                <form method="post" action="" th:object="${book}">
+                    <p>Add New Book</p>
+                    <label>ISBN:<input type="text" placeholder="Enter ISBN" name="isbn"/></label>
+                    <label>Version: <input type="text" placeholder="Enter Version" name="version"/></label>
+                    <label>Name: <input type="text" placeholder="Enter Name" name="name" ></label>
+                    <label>Description: <input type="text" placeholder="Enter Description" name="description"/></label>
+                    <label>Publisher: <input type="text" placeholder="Enter Publisher" name="publisher"/></label>
+                    <label>Stock: <input type="text" placeholder="Enter Stock" name="stock"/></label>
+                    <label>Price: <input type="text" placeholder="Enter Price" name="price"/></label>
+                    <input type="submit" value="EditBook" name="EditBook">
+                    <input type="reset" value="Reset" />
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+</body>
+</html>

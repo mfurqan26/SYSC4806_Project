@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import javax.swing.plaf.metal.OceanTheme;
 import java.util.Optional;
 
 @Controller
@@ -65,7 +67,24 @@ public class VendorController {
     }
 
     @GetMapping("/VendorEdit")
-    public String VendorEdit(Model model) {
+    public String VendorEdit() {
+        return "VendorEdit";
+    }
+    @PostMapping(value="/VendorEdit", params="SearchBook")
+    public String BookSearch(@RequestParam(name="name", required=false, defaultValue = "") String name,Model model) {
+        Optional<Iterable<Book>> foundBooks = bookRepository.findBooksByName(name);
+        //Return all books by empty input
+        if(name.equals("")){
+            Iterable<Book> allBooks = bookRepository.findAll();
+            model.addAttribute("books",allBooks);
+        }
+        //If there found books then add them to model
+        else if(foundBooks.get().iterator().hasNext()){
+            model.addAttribute("books",foundBooks.get());
+        }
+        else{
+            model.addAttribute("BookSearchError","No Books Found by that name!");
+        }
         return "VendorEdit";
     }
 

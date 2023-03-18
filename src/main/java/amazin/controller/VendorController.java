@@ -35,11 +35,12 @@ public class VendorController {
                                @RequestParam(name="price", required=false, defaultValue = "") String price, Model model) {
         boolean conditionAnyNotSet = isbn.equals("") || version.equals("") || name.equals("") ||
                 description.equals("") || publisher.equals("") || stock.equals("") || price.equals("");
+        Book bookExists = bookRepository.findBookByIsbn(isbn);
         if(conditionAnyNotSet){
             model.addAttribute("createBookError", "Some Input is Not Set!");
-        }
-
-        else {
+        } else if ((bookExists != null) && (bookExists.getVersion() == Integer.parseInt(version))) {
+            model.addAttribute("createBookError", "A book with matching ISBN and version number already exists!");
+        } else {
             try {
                 int newVersion = Integer.parseInt(version);
                 double newPrice = Double.parseDouble(price);

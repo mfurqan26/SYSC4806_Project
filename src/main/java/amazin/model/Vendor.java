@@ -1,7 +1,7 @@
 package amazin.model;
 
 import jakarta.persistence.Entity;
-import amazin.model.Book.BookId;
+//import amazin.model.Book.BookId;
 import amazin.model.Account;
 
 @Entity

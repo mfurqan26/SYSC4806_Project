@@ -7,7 +7,7 @@ import jakarta.persistence.OneToMany;
 
 import java.util.*;
 
-import amazin.model.Book.BookId;
+//import amazin.model.Book.BookId;
 import amazin.model.Account;
 
 @Entity
@@ -16,7 +16,7 @@ public class Customer extends Account {
     @OneToMany
     private List<Book> purchasedBooks;
     @OneToMany
-    private Map<BookId, CustomerReview> bookReviews;
+    private Map<String, CustomerReview> bookReviews;
 
     //TODO add sensitive info to purchasing.
     //private creditInfo
@@ -48,19 +48,19 @@ public class Customer extends Account {
         purchasedBooks.add(book);
     }
 
-    public Map<BookId, CustomerReview> getBookReviews() {
+    public Map<String, CustomerReview> getBookReviews() {
         return bookReviews;
     }
 
-    public void setBookReviews(Map<BookId, CustomerReview> bookReviews) {
+    public void setBookReviews(Map<String, CustomerReview> bookReviews) {
         this.bookReviews = bookReviews;
     }
 
-    public void addBookReview(BookId book, CustomerReview rating){
+    public void addBookReview(String book, CustomerReview rating){
         bookReviews.put(book, rating);
     }
 
-    public CustomerReview getBookReview(BookId book){
+    public CustomerReview getBookReview(String book){
         return bookReviews.get(book);
     }
 

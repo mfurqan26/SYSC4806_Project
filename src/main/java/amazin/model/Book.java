@@ -4,14 +4,13 @@ import jakarta.persistence.*;
 
 import java.io.Serializable;
 
-@IdClass(Book.BookId.class)
+//@IdClass(Book.BookId.class)
 @Entity
 public class Book {
 
     @Id
     protected String isbn;
 
-    @Id
     protected int version;
     private final String name;
     private String description;
@@ -20,38 +19,38 @@ public class Book {
     private double price;
     //private ByteArrayInputStream cover;
 
-    public static class BookId implements Serializable  {
-        protected String isbn;
-        protected int version;
-
-        protected BookId(String isbn, int version) {
-            this.isbn = isbn;
-            this.version = version;
-        }
-
-        public BookId() {}
-
-        public String getIsbn() {
-            return this.isbn;
-        }
-
-        public int getVersion() {
-            return this.version;
-        }
-
-        @Override
-        public String toString() {
-            return isbn + ":" + version; 
-        }
-
-        public void setIsbn(String isbn) {
-            this.isbn = isbn;
-        }
-
-        public void setVersion(int version) {
-            this.version = version;
-        }
-    }
+//    public static class BookId implements Serializable  {
+//        protected String isbn;
+//        protected int version;
+//
+//        protected BookId(String isbn, int version) {
+//            this.isbn = isbn;
+//            this.version = version;
+//        }
+//
+//        public BookId() {}
+//
+//        public String getIsbn() {
+//            return this.isbn;
+//        }
+//
+//        public int getVersion() {
+//            return this.version;
+//        }
+//
+//        @Override
+//        public String toString() {
+//            return isbn + ":" + version;
+//        }
+//
+//        public void setIsbn(String isbn) {
+//            this.isbn = isbn;
+//        }
+//
+//        public void setVersion(int version) {
+//            this.version = version;
+//        }
+//    }
 
     public Book(String isbn, int version, 
             String name, String description, 
@@ -88,7 +87,7 @@ public class Book {
 
     public String getIsbn() {return this.isbn;}
 
-    public BookId getId() {return new BookId(this.isbn, this.version);}
+//    public BookId getId() {return new BookId(this.isbn, this.version);}
 
     public void setDescription(String description) {this.description = description;}
 

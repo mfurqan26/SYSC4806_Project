@@ -25,41 +25,47 @@ public class VendorController {
     public String VendorCreate() {
         return "VendorCreate";
     }
+
     @PostMapping(value="/VendorCreate", params = "AddBook")
     public String CreateBook(@RequestParam(name="isbn", required=false, defaultValue = "") String isbn,
-                               @RequestParam(name="version", required=false, defaultValue = "") String version,
+                               @RequestParam(name="createNewVariant", required=false, defaultValue= "False") String createNewVariant,
                                @RequestParam(name="name", required=false, defaultValue = "") String name,
                                @RequestParam(name="description", required=false, defaultValue = "") String description,
                                @RequestParam(name="publisher", required=false, defaultValue = "") String publisher,
                                @RequestParam(name="stock", required=false, defaultValue = "") String stock,
                                @RequestParam(name="price", required=false, defaultValue = "") String price, Model model) {
-        boolean conditionAnyNotSet = isbn.equals("") || version.equals("") || name.equals("") ||
+        boolean conditionAnyNotSet = isbn.equals("") || name.equals("") ||
                 description.equals("") || publisher.equals("") || stock.equals("") || price.equals("");
 
-        Book bookExists = bookRepository.findBookByIsbn(isbn);
-        if(conditionAnyNotSet){
+        if (conditionAnyNotSet) {
             model.addAttribute("createBookError", "Some Input is Not Set!");
-        } else if ((bookExists != null) && (bookExists.getVersion() == Integer.parseInt(version))) {
-            model.addAttribute("createBookError", "A book with matching ISBN and version number already exists!");
+            return "VendorCreate";
         }
-        else {
-            try {
-                int newVersion = Integer.parseInt(version);
-                double newPrice = Double.parseDouble(price);
-                int newStock = Integer.parseInt(stock);
-                if(newPrice >= 0 && newStock >= 0 && newVersion >= 1) {
-                    Book newBook = new Book(isbn, newVersion, name, description, publisher, newStock, newPrice);
-                    bookRepository.save(newBook);
-                    return "redirect:/Vendor";
-                }
-                else{
-                    model.addAttribute("createBookError", "Enter Non-Negative numbers for version or stock or price!");
-                }
-            } catch (NumberFormatException nfe) {
-                model.addAttribute("createBookError", "Inputs do not have correct number formating for version or stock or price!");
+
+        Iterable<Book> bookList = bookRepository.findBooksByIsbn(isbn);
+
+        // we have a book with that isbn in the repo, and we do not want to create a new variant
+        if (bookList.iterator().hasNext()) {
+            if (createNewVariant.equals("False")) {
+                System.out.println(createNewVariant);
+                model.addAttribute("createBookError", "Book With That ISBN Already Exist!\nPlease Click 'Create New Variant' To Create A New Variant");
+                return "VendorCreate";
             }
         }
 
+        try {
+            double newPrice = Double.parseDouble(price);
+            int newStock = Integer.parseInt(stock);
+            if (newPrice >= 0 && newStock >= 0) {
+                Book newBook = new Book(isbn, name, description, publisher, newStock, newPrice);
+                bookRepository.save(newBook);
+                return "redirect:/Vendor";
+            } else {
+                model.addAttribute("createBookError", "Enter Non-Negative numbers for version or stock or price!");
+            }
+        } catch (NumberFormatException nfe) {
+            model.addAttribute("createBookError", "Inputs do not have correct number formating for version or stock or price!");
+        }
         return "VendorCreate";
     }
 

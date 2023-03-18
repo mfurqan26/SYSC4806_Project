@@ -5,8 +5,11 @@ import amazin.model.Book.BookId;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
+import java.util.Optional;
+
 @RepositoryRestResource
 public interface BookRepository extends CrudRepository<Book, BookId> {
     Iterable<Book> findBooksByName(String name);
-    Book findBookByIsbn(String isbn);
+    Iterable<Book> findBooksByIsbn(String isbn);
+    Optional<Book> findById(BookId bookId);
 }

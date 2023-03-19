@@ -43,9 +43,13 @@ public class VendorController {
         }
 
         Iterable<Book> bookList = bookRepository.findBooksByIsbn(isbn);
+        int numBooksWithSameISBN = 0;
+        for( Book book : bookList){
+            numBooksWithSameISBN++;
+        }
 
         // we have a book with that isbn in the repo, and we do not want to create a new variant
-        if (bookList.iterator().hasNext()) {
+        if (numBooksWithSameISBN > 0) {
             if (createNewVariant.equals("False")) {
                 System.out.println(createNewVariant);
                 model.addAttribute("createBookError", "Book With That ISBN Already Exist!\nPlease Click 'Create New Variant' To Create A New Variant");
@@ -53,11 +57,13 @@ public class VendorController {
             }
         }
 
+
         try {
             double newPrice = Double.parseDouble(price);
             int newStock = Integer.parseInt(stock);
             if (newPrice >= 0 && newStock >= 0) {
-                Book newBook = new Book(isbn, name, description, publisher, newStock, newPrice);
+                int version = numBooksWithSameISBN + 1;
+                Book newBook = new Book(isbn, version, name, description, publisher, newStock, newPrice);
                 bookRepository.save(newBook);
                 return "redirect:/Vendor";
             } else {

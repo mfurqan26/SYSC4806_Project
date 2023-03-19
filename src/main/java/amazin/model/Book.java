@@ -12,8 +12,6 @@ public class Book {
     protected String isbn;
 
     @Id
-    @GeneratedValue(generator="my_seq")
-    @SequenceGenerator(name="my_seq",sequenceName="MY_SEQ", allocationSize=1)
     protected int version;
     private final String name;
     private String description;
@@ -64,6 +62,18 @@ public class Book {
         this.publisher = publisher;
         this.stock = stock;
         this.price = price;
+    }
+
+    public Book(String isbn, int version,
+                String name, String description,
+                String publisher, int stock, double price) {
+        this.isbn = isbn;
+        this.name = name;
+        this.description = description;
+        this.publisher = publisher;
+        this.stock = stock;
+        this.price = price;
+        this.version = version;
     }
 
     public Book() {

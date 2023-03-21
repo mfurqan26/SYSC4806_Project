@@ -28,34 +28,43 @@ public class FrontController {
         return "Landing";
     }
 
-    @GetMapping("/login")
-    public String login(@RequestParam(
-            value = "userName", required=false) String userName,
-            Model model) {
-        if (userName == null || userName.equals("")) {
-            return "Login";
-        }
+    @GetMapping("/CustomerLogin")
+    public String CustomerLogin(Model model) {
+        return "CustomerLogin";
+    }
 
-        Optional<Account> result = accountRepository
-            .findAccountByUserName(userName);
+    @PostMapping( value = "/CustomerLogin", params = "customerLogin")
+    public String checkCustomerLogin(@RequestParam(name="username", required=false, defaultValue="") String username,Model model) {
+        Optional<Account> result = accountRepository.findAccountByUserName(username);
         Account account = null;
         if (result.isPresent()) {
             account = result.get();
-        } else {
-            model.addAttribute("errorCode", "404");
-            model.addAttribute("errorMessage", "account not found");
-            return "Error";
+            if(account.getType() == Account.Type.CUSTOMER) {
+                model.addAttribute("account", account);
+                return "redirect:/Shop";
+            }
         }
+        model.addAttribute("loginError", "Invalid username");
+        return "CustomerLogin";
+    }
 
-        if (account.getType() == Account.Type.CUSTOMER) {
-            model.addAttribute("customerId", account.getId());
-            return "Shop";
-        } else if (account.getType() == Account.Type.VENDOR) {
-            model.addAttribute("vendorId", account.getId());
-            return "Vendor";
-        } 
-        model.addAttribute("errorCode", "400");
-        model.addAttribute("errorMessage", "Bad account");
-        return "Error";
+    @GetMapping("/VendorLogin")
+    public String VendorLogin(Model model) {
+        return "VendorLogin";
+    }
+
+    @PostMapping( value = "/VendorLogin", params = "vendorLogin")
+    public String checkVendorLogin(@RequestParam(name="username", required=false, defaultValue="") String username,Model model) {
+        Optional<Account> result = accountRepository.findAccountByUserName(username);
+        Account account = null;
+        if (result.isPresent()) {
+            account = result.get();
+            if(account.getType() == Account.Type.VENDOR){
+                model.addAttribute("account", account);
+                return "redirect:/Vendor";
+            }
+        }
+        model.addAttribute("loginError", "Invalid username");
+        return "VendorLogin";
     }
 }

@@ -80,7 +80,7 @@ public class VendorController {
         return "VendorEdit";
     }
     @PostMapping(value="/VendorEdit", params="SearchBook")
-    public String BookeEdit(@RequestParam(name="isbn", required=true, defaultValue = "") String isbn,
+    public String BookEdit(@RequestParam(name="isbn", required=true, defaultValue = "") String isbn,
                             @RequestParam(name="version", required=true, defaultValue = "0") String version,
                             @RequestParam(name="name", required=false, defaultValue = "") String name,
                             @RequestParam(name="description", required=false, defaultValue = "") String description,

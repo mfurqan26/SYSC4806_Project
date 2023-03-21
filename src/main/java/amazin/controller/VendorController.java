@@ -106,10 +106,11 @@ public class VendorController {
                 return "redirect:/Vendor";
             } else {
                 model.addAttribute("BookSearchError", "Enter Non-Negative numbers for version or stock or price!");
+                return "VendorEdit";
             }
         } catch (NumberFormatException nfe) {
             model.addAttribute("BookSearchError", "Inputs do not have correct number formatting for version or stock or price!");
+            return "VendorEdit";
         }
-        return "VendorEdit";
     }
 }

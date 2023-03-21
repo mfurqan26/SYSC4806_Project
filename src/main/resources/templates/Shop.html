@@ -29,7 +29,18 @@
             <td th:text="${book.price}" />
             <td th:text="${book.stock}" />
             <td th:text="${book.description}"/>
-            <td><button type="button">+/-</button></td>
+            <td>
+                <button type="button" th:onclick="inc()">+</button>
+                <input type="number" name="quantity" value = "0" min="0" th:attr="max=${book.stock}" readonly>
+                <button type="button" th:onclick="|window.location.href='/increment'|">-</button>
+                <script type="text/javascript">
+                    function inc(){
+                        console.log("yoyo")
+                    }
+
+                </script>
+            </td>
+            <td th:text="0" />
         </tr>
         </tbody>
     </table>

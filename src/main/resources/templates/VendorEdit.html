@@ -1,60 +1,99 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-<head>
-    <title>Vendor</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-</head>
-<body>
-<h1 style="margin: 50px">Vendor</h1>
-<div id="navbar">
-    <a th:href="@{/Vendor}">View Books</a>
-    <a th:href="@{/VendorCreate}">Create Books</a>
-    <a th:href="@{/VendorEdit}">Search Books</a>
-</div>
+    <head>
+        <title>Vendor</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    </head>
+    <body>
+        <h1 style="margin: 50px">Vendor</h1>
+        <div id="navbar">
+            <a th:href="@{/Vendor}">View Books</a>
+            <a th:href="@{/VendorCreate}">Create Books</a>
+            <a th:href="@{/VendorEdit}">Search Books</a>
+        </div>
 
-<div style="margin: 50px">
-    <h2>Search Book To Edit</h2>
+        <div style="margin: 50px">
+            <h2>Select Book To Edit</h2>
+            <form method="post" action="" th:object="${book}">
+                <label
+                    >ISBN:
+                    <input
+                        type="text"
+                        placeholder="Enter ISBN"
+                        name="isbn" /></label
+                ><br />
+                <label
+                    >Version:
+                    <input
+                        type="text"
+                        placeholder="Enter Version"
+                        name="version" /></label
+                ><br />
+                <label
+                >Name:
+                    <input
+                            type="text"
+                            placeholder="Enter Name"
+                            name="name" /></label
+                ><br />
+                <label
+                    >Description:
+                    <input
+                        type="text"
+                        placeholder="Enter Description"
+                        name="description" /></label
+                ><br />
+                <label
+                    >Publisher:
+                    <input
+                        type="text"
+                        placeholder="Enter Publisher"
+                        name="publisher" /></label
+                ><br />
+                <label
+                    >Stock:
+                    <input
+                        type="text"
+                        placeholder="Enter Stock"
+                        name="stock" /></label
+                ><br />
+                <label
+                    >Price:
+                    <input
+                        type="text"
+                        placeholder="Enter Price"
+                        name="price" /></label
+                ><br />
+                <input type="submit" value="Select Book To Edit" name="SearchBook" />
+                <p style="color: red" th:text="${BookSearchError}"></p>
+            </form>
+        </div>
 
-    <table style="width: 100%">
-        <tbody style="width: 100%">
-        <tr>
-            <td>
-                <form method="post" action="" th:object="${book}">
-                    <label>Name: <input type="text" placeholder="Enter Name" name="name" ></label>
-                    <input type="submit" value="SearchBook" name="SearchBook">
-                    <input type="reset" value="Reset" />
-                    <p style="color: red" th:text="${BookSearchError}"></p>
-                </form>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-</div>
+        <!--        <div style="margin: 50px">-->
+        <!--            <h3>Books Found</h3>-->
 
-<div style="margin: 50px">
-    <h3>Books Found</h3>
-
-    <table style="border: solid black 2px; width: 100%; text-align: center">
-        <tbody class="tbody">
-        <thead>
-        <th>ISBN</th>
-        <th>Version</th>
-        <th>Name</th>
-        <th>Price</th>
-        <th>Stock</th>
-        <th>Description</th>
-        </thead>
-        <tr th:each="book: ${books}">
-            <td th:text="${book.isbn}" />
-            <td th:text="${book.version}" />
-            <td th:text="${book.name}" />
-            <td th:text="${book.price}" />
-            <td th:text="${book.stock}" />
-            <td th:text="${book.description}"/>
-        </tr>
-        </tbody>
-    </table>
-</div>
-
-</body>
+        <!--            <table-->
+        <!--                style="border: solid black 2px; width: 100%; text-align: center"-->
+        <!--            >-->
+        <!--                <tbody class="tbody">-->
+        <!--                    <thead>-->
+        <!--                        <th>ISBN</th>-->
+        <!--                        <th>Version</th>-->
+        <!--                        <th>Name</th>-->
+        <!--                        <th>Price</th>-->
+        <!--                        <th>Stock</th>-->
+        <!--                        <th>Description</th>-->
+        <!--                    </thead>-->
+        <!--                    <tr>-->
+        <!--                        <td th:text="${book.isbn}" />-->
+        <!--                        <td th:text="${book.version}" />-->
+        <!--                        <td th:text="${book.name}" />-->
+        <!--                        <td th:text="${book.price}" />-->
+        <!--                        <td th:text="${book.stock}" />-->
+        <!--                        <td th:text="${book.description}" />-->
+        <!--                    </tr>-->
+        <!--                </tbody>-->
+        <!--            </table>-->
+        <!--        </div>-->
+    </body>
 </html>

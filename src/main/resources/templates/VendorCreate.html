@@ -10,6 +10,7 @@
     <a th:href="@{/Vendor}">View Books</a>
     <a th:href="@{/VendorCreate}">Create Books</a>
     <a th:href="@{/VendorEdit}">Search Books</a>
+    <a th:href="@{/VendorLogin}">Log Out</a>
 </div>
 <div style="margin: 50px">
     <h2>Create Book</h2>
@@ -22,7 +23,6 @@
                     <p>Add New Book</p><br>
                     <label>ISBN:<input type="text" placeholder="Enter ISBN" name="isbn"/></label><br>
                     <label>Create New Variant: <input type="checkbox" name="createNewVariant" value="True"/></label><br>
-<!--                    <label>Do Not Create New Variant: <input type="radio" name="createNewVariant" value="False"/></label><br>-->
                     <label>Name: <input type="text" placeholder="Enter Name" name="name" ></label><br>
                     <label>Description: <input type="text" placeholder="Enter Description" name="description"/></label><br>
                     <label>Publisher: <input type="text" placeholder="Enter Publisher" name="publisher"/></label><br>

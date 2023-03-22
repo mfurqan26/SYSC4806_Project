@@ -57,7 +57,7 @@ We Can Use the "Edit Books: link above to go to the Edit Books page where we can
 
 ![image](https://user-images.githubusercontent.com/91328394/226955994-9d409020-a6a1-4983-9676-3c39c82bf721.png)
 
-If succesful, the Book will be edited in out inventory
+If succesful, the Book will be edited in our inventory
 
 ![image](https://user-images.githubusercontent.com/91328394/226956180-33b5e201-7dc0-418f-92a5-00fbcdd180bd.png)
 

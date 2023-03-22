@@ -52,7 +52,6 @@ public class VendorController {
         // we have a book with that isbn in the repo, and we do not want to create a new variant
         if (numBooksWithSameISBN > 0) {
             if (createNewVariant.equals("False")) {
-                System.out.println(createNewVariant);
                 model.addAttribute("createBookError", "Book With That ISBN Already Exist!\nPlease Click 'Create New Variant' To Create A New Variant");
                 return "VendorCreate";
             }

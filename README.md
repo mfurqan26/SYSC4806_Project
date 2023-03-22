@@ -31,6 +31,9 @@ To see the website from the home page, which is our sign up/prompt for login pag
 
 <img src="./docs/ER_Diagram_Milestone2.png">
 
+# UML Diagram
+<img src="./docs/Uml Class Diagram.png>">
+
 # Milestone 2 use case flow
 
 The Vendor use case we have completed is create a Vendor account, Login, View all Book, Create New Book and Edit Book for books in the database.

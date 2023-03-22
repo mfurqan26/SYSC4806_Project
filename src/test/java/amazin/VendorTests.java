@@ -41,7 +41,7 @@ public class VendorTests {
     }
 
     @Test
-    public void vendorSearchPage() throws Exception {
+    public void vendorEditPage() throws Exception {
         this.mockMvc.perform(get("http://localhost:8080/VendorEdit")).andDo(print()).andExpect(status().isOk());
     }
 }

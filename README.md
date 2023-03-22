@@ -20,7 +20,7 @@ Run `proj2-1.0-SNAPSHOT.jar` in the /target output folder to run the program usi
 
 And visit:
 
-http://localhost:8080/landing
+http://localhost:8080/
 
 To see the mock landing page we have right now
 

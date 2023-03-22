@@ -24,7 +24,10 @@ http://localhost:8080
 
 To see the website from the home page, which is our sign up/prompt for login page
 
-# Entity Relation Diagram 
+# Entity Relation Diagram
+<img src="./docs/er.drawio.svg">
+
+# Entity Relation Diagram (Persistent Entities)
 
 <img src="./docs/ER_Diagram_Milestone2.png">
 

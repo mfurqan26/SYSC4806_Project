@@ -32,18 +32,18 @@ To see the mock landing page we have right now
 
 The Vendor use case we have completed is create a Vendor account, Login, View all Book, Create New Book and Edit Book for books in the database.
 
-On the Sign Up Page we can create a Vendor Account by entering a username, password and selecting the checkbox that this is a Vendor Account.
+On the home page on `localhost:8080`, which double as the sign up page we can create a Vendor Account by entering a username, password and selecting the checkbox that this is a Vendor Account.
 
-![image](https://user-images.githubusercontent.com/91328394/226953721-cdf0a478-3bf3-4c1d-a507-68f1836452dc.png)
+![image](https://user-images.githubusercontent.com/60205850/226985135-d6ce5290-4cd0-4366-ab97-77695a794686.png)
 
 If the Sign Up is succesfully (Non empty username + password And Unique username), then we will redirected to the VendorLogin page.
 On the Vendor Login Page we can log in with our newly created Vendor Account.
 
-![image](https://user-images.githubusercontent.com/91328394/226953213-4ed7f4d3-ff41-438b-9f7a-27debfccdfa2.png)
+![image](https://user-images.githubusercontent.com/60205850/226985248-57f80d8b-066f-4dd3-9bda-607b662b6f66.png)
 
 If our login is succeful, we will be redirected to the Vendor main page which will display all the books currently in inventory.
 
-![image](https://user-images.githubusercontent.com/91328394/226954886-5eff5fbb-2b10-4d32-8e54-f87fc66dd667.png)
+![image](https://user-images.githubusercontent.com/60205850/226985320-e6adc769-ee52-4d8f-a557-2c938f66c4cd.png)
 
 We Can Use the "Create Books" link above to go to the Create Books page where we can create a new Book to add in our inventory.
 
@@ -61,27 +61,27 @@ If succesful, the Book will be edited in our inventory
 
 ![image](https://user-images.githubusercontent.com/91328394/226956180-33b5e201-7dc0-418f-92a5-00fbcdd180bd.png)
 
+# Milestone 3 Plan
 
+For milestone 3, we want to flesh out the shopper and shopping cart features of the project, as well as have better CSS for all of the webpages.
 
-# Milestone 1 Plan
-
-For milestone 1, we want to complete the ground work of the project, that is the schemas for the book object and the Spring backend.
+Also the jaccard distance should be finished.
 
 ## Phase 1
 
-complete Book, BookController, BookRepository
+complete shopper view, the customer view which will list all the books
 
-complete github action files for cicd
-
-complete sample test suite with some simple tests
+the shopper should have two buttons to increment and decreement the books from the inventory and add it/remove it from the shopping cart
 
 ## phase 2
 
-complete FrontController and Main method to run the program by initializing 2 Books
+complete the shopping cart feature which will display all the books in the shopping cart
+
+the shopping cart should checkout and display the total price
 
 ## phase 3
 
-complete landing page thymeleaf html
+complete the jaccard distance feature for our customer and other users to see how similar everyone's code are.
 
 # Group Members
 

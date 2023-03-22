@@ -3,31 +3,38 @@
     <head>
         <title>Login</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <link rel="stylesheet" th:href="@{/css/styles.css}"/>
     </head>
     <body>
         <h1 style="margin: 50px">Vendor Login</h1>
-        <navbar>
+        <div id="navbar" style="background-color: orange">
             <!--    <a th:href="@{/CustomerLogin}">Customer Login</a>-->
             <a th:href="@{/VendorLogin}">Vendor Login</a>
-        </navbar>
+        </div>
 
-        <form method="post" action="" th:object="${vendorAccount}">
-            <label
-                >Username:
-                <input type="text" placeholder="Enter username" name="username"
-            /></label><br>
-            <label
-                >Password:
-                <input type="text" placeholder="Enter password" name="password"
-            /></label>
-            <p style="color: red" th:text="${loginError}"></p>
-            <input type="submit" value="Login" name="vendorLogin" />
-        </form>
+        <div style="margin: 50px">
+            <form method="post" action="" th:object="${vendorAccount}">
+                <label
+                    >Username:
+                    <input
+                        type="text"
+                        placeholder="Enter username"
+                        name="username"
+                /></label>
+                <label
+                    >Password:
+                    <input
+                        type="text"
+                        placeholder="Enter password"
+                        name="password"
+                /></label>
+                <p style="color: red" th:text="${loginError}"></p>
+                <input type="submit" value="Login" name="vendorLogin" />
+            </form>
+        </div>
 
         <div>
             <p>
-                Do Not have an Account? Sign up Here:
+                Do not have an account? Sign up here:
                 <a th:href="@{/}">Sign Up</a>
             </p>
         </div>

@@ -26,7 +26,7 @@ To see the mock landing page we have right now
 
 # Entity Relation Diagram 
 
-<img src="./docs/er_diagram.svg">
+<img src="./docs/ER_Diagram_Milestone2.png">
 
 # Milestone 2 use case flow
 

@@ -6,7 +6,7 @@
     </head>
     <body>
         <h1 style="margin: 50px">Vendor</h1>
-        <div id="navbar">
+        <div id="navbar" style="background-color: orange">
             <a th:href="@{/Vendor}">View Books</a>
             <a th:href="@{/VendorCreate}">Create Books</a>
             <a th:href="@{/VendorEdit}">Edit Books</a>
@@ -31,11 +31,11 @@
                         name="version" /></label
                 ><br />
                 <label
-                >Name:
+                    >Name:
                     <input
-                            type="text"
-                            placeholder="Enter Name"
-                            name="name" /></label
+                        type="text"
+                        placeholder="Enter Name"
+                        name="name" /></label
                 ><br />
                 <label
                     >Description:
@@ -65,7 +65,11 @@
                         placeholder="Enter Price"
                         name="price" /></label
                 ><br />
-                <input type="submit" value="Select Book To Edit" name="EditBook" />
+                <input
+                    type="submit"
+                    value="Select Book To Edit"
+                    name="EditBook"
+                />
                 <p style="color: red" th:text="${BookSearchError}"></p>
             </form>
         </div>

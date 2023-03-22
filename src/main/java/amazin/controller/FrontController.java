@@ -22,21 +22,13 @@ public class FrontController {
     @Autowired
     private AccountRepository accountRepository;
 
-    @GetMapping("/landing")
-    public String greeting(Model model) {
-        model.addAttribute("bookId", new BookId());
-        Iterable<Book> books = bookRepository.findAll();
-        model.addAttribute("bookRepo", books);
-        return "Landing";
-    }
-
-    @GetMapping("/SignUp")
+    @GetMapping("/")
     public String SignUp(Model model) {return "SignUp";}
 
-    @PostMapping( value = "/SignUp", params = "SignUp")
+    @PostMapping( value = "/", params = "SignUp")
     public String newAccountSignUp(@RequestParam(name="username", required=false, defaultValue="") String username,
                                    @RequestParam(name="password", required=false, defaultValue="") String password,
-                                   @RequestParam(name="type", required=false, defaultValue="Customer") String type,
+                                   @RequestParam(name="type", required=false, defaultValue="Vendor") String type,
                                    Model model) {
         Optional<Account> result = accountRepository.findAccountByUserName(username);
         Account account = null;

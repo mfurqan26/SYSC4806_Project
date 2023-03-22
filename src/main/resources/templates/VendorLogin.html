@@ -1,27 +1,35 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-<head>
-    <title>Login</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-</head>
-<body>
+    <head>
+        <title>Login</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    </head>
+    <body>
+        <div id="navbar" style="background-color: orange">
+            <!--    <a th:href="@{/CustomerLogin}">Customer Login</a>-->
+            <a th:href="@{/VendorLogin}">Vendor Login</a>
+        </div>
 
-<div id="navbar">
-<!--    <a th:href="@{/CustomerLogin}">Customer Login</a>-->
-    <a th:href="@{/VendorLogin}">Vendor Login</a>
-</div>
+        <!-- Vendor Login -->
+        <h2 style="margin: 50px">Vendor Login</h2>
+        <form method="post" action="" th:object="${vendorAccount}">
+            <label
+                >Username:
+                <input type="text" placeholder="Enter username" name="username"
+            /></label>
+            <label
+                >Password:
+                <input type="text" placeholder="Enter password" name="password"
+            /></label>
+            <p style="color: red" th:text="${loginError}"></p>
+            <input type="submit" value="Login" name="vendorLogin" />
+        </form>
 
-<!-- Vendor Login -->
-<h2 style="margin: 50px">Vendor Login</h2>
-<form method="post" action="" th:object="${vendorAccount}">
-    <label>Username: <input type="text" placeholder="Enter username" name="username"/></label>
-    <label>Password: <input type="text" placeholder="Enter password" name="password"/></label>
-    <p style="color: red" th:text="${loginError}"></p>
-    <input type="submit" value="Login" name="vendorLogin"/>
-</form>
-
-<div>
-    <p>Do Not have an Account? Sign up Here: <a th:href="@{/SignUp}">Sign Up</a> </p>
-</div>
-</body>
+        <div>
+            <p>
+                Do Not have an Account? Sign up Here:
+                <a th:href="@{/}">Sign Up</a>
+            </p>
+        </div>
+    </body>
 </html>

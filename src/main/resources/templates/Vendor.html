@@ -3,15 +3,16 @@
     <head>
         <title>Vendor</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link rel="stylesheet" th:href="@{/css/styles.css}"/>
     </head>
     <body>
         <h1 style="margin: 50px">Vendor</h1>
-        <div id="navbar" style="background-color: orange">
+        <navbar>
             <a th:href="@{/Vendor}">View Books</a>
             <a th:href="@{/VendorCreate}">Create Books</a>
             <a th:href="@{/VendorEdit}">Edit Books</a>
             <a th:href="@{/VendorLogin}">Log Out</a>
-        </div>
+        </navbar>
 
         <div style="margin: 50px">
             <h2>All Books</h2>

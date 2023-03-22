@@ -3,19 +3,20 @@
     <head>
         <title>Login</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link rel="stylesheet" th:href="@{/css/styles.css}"/>
     </head>
     <body>
         <h1 style="margin: 50px">Vendor Login</h1>
-        <div id="navbar" style="background-color: orange">
+        <navbar>
             <!--    <a th:href="@{/CustomerLogin}">Customer Login</a>-->
             <a th:href="@{/VendorLogin}">Vendor Login</a>
-        </div>
+        </navbar>
 
         <form method="post" action="" th:object="${vendorAccount}">
             <label
                 >Username:
                 <input type="text" placeholder="Enter username" name="username"
-            /></label>
+            /></label><br>
             <label
                 >Password:
                 <input type="text" placeholder="Enter password" name="password"

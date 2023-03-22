@@ -3,14 +3,15 @@
     <head>
         <title>Login</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link rel="stylesheet" th:href="@{/css/styles.css}"/>
     </head>
     <body>
         <h1 style="margin: 50px">Already Signed Up? Head to the Login Page:</h1>
 
-        <div id="navbar" style="background-color: orange">
+        <navbar>
             <!--    <a th:href="@{/CustomerLogin}">Customer Login</a>-->
             <a th:href="@{/VendorLogin}">Vendor Login</a>
-        </div>
+        </navbar>
 
         <div style="margin: 50px">
             <h2>Sign Up</h2>

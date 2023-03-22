@@ -22,7 +22,7 @@ And visit:
 
 http://localhost:8080
 
-To see the mock landing page we have right now
+To see the website from the home page, which is our sign up/prompt for login page
 
 # Entity Relation Diagram 
 

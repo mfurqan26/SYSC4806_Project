@@ -2,11 +2,14 @@ package amazin.repository;
 
 import amazin.model.Book;
 import amazin.model.Book.BookId;
-import java.util.HashMap;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
+import java.util.Optional;
+
 @RepositoryRestResource
 public interface BookRepository extends CrudRepository<Book, BookId> {
-
+    Iterable<Book> findBooksByName(String name);
+    Iterable<Book> findBooksByIsbn(String isbn);
+    Optional<Book> findById(BookId bookId);
 }

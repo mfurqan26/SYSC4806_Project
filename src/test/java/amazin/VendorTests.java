@@ -14,8 +14,6 @@ package amazin;/*
  * limitations under the License.
  */
 
-import amazin.model.Book;
-import amazin.repository.BookRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -28,22 +26,22 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
-public class BookControllerTests {
+public class VendorTests {
     @Autowired
     private MockMvc mockMvc;
 
-    @Autowired
-    private BookRepository bookRepository;
-
     @Test
-    public void getAddressBook() throws Exception {
-        this.mockMvc.perform(get("http://localhost:8080/book?isbn=978-0-122453-12-1&version=1")).andDo(print()).andExpect(status().isOk());
+    public void vendorPage() throws Exception {
+        this.mockMvc.perform(get("http://localhost:8080/Vendor")).andDo(print()).andExpect(status().isOk());
     }
 
     @Test
-    public void createNewBook() throws Exception {
-        Book newBook = new Book("978-0-122453-12-1", 2, "Book1", "description", "publisher", 1, 1);
-        bookRepository.save(newBook);
-        this.mockMvc.perform(get("http://localhost:8080/book?isbn=978-0-122453-12-1&version=2")).andDo(print()).andExpect(status().isOk());
+    public void vendorCreatePage() throws Exception {
+        this.mockMvc.perform(get("http://localhost:8080/VendorCreate")).andDo(print()).andExpect(status().isOk());
+    }
+
+    @Test
+    public void vendorSearchPage() throws Exception {
+        this.mockMvc.perform(get("http://localhost:8080/VendorEdit")).andDo(print()).andExpect(status().isOk());
     }
 }

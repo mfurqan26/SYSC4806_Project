@@ -28,19 +28,40 @@ To see the mock landing page we have right now
 
 <img src="./docs/er_diagram.svg">
 
-# Milestone 1 use case flow
+# Milestone 2 use case flow
 
-The 1 use case we have completed is to query for books in the database.
+The Vendor use case we have completed is create a Vendor account, Login, View all Book, Create New Book and Edit Book for books in the database.
 
-On the landing page, we can enter the book isbn such as `978-0-122453-12-1`
+On the Sign Up Page we can create a Vendor Account by entering a username, password and selecting the checkbox that this is a Vendor Account.
 
-And then we can enter `1` as the version
+![image](https://user-images.githubusercontent.com/91328394/226953721-cdf0a478-3bf3-4c1d-a507-68f1836452dc.png)
 
-![image](https://user-images.githubusercontent.com/60205850/223818456-ab4f3417-ff75-4593-baa8-471ead14638c.png)
+If the Sign Up is succesfully (Non empty username + password And Unique username), then we will redirected to the VendorLogin page.
+On the Vendor Login Page we can log in with our newly created Vendor Account.
 
-And we will be taken to a page where we have the book object from the BookRepository in JSON data form
+![image](https://user-images.githubusercontent.com/91328394/226953213-4ed7f4d3-ff41-438b-9f7a-27debfccdfa2.png)
 
-![image](https://user-images.githubusercontent.com/60205850/223817964-b267d204-4533-49f8-ae9d-353e917ea1fc.png)
+If our login is succeful, we will be redirected to the Vendor main page which will display all the books currently in inventory.
+
+![image](https://user-images.githubusercontent.com/91328394/226954886-5eff5fbb-2b10-4d32-8e54-f87fc66dd667.png)
+
+We Can Use the "Create Books" link above to go to the Create Books page where we can create a new Book to add in our inventory.
+
+![image](https://user-images.githubusercontent.com/91328394/226955189-d387958b-11bd-47f6-81a3-b0d821c8bed0.png)
+
+If succesful, we will be redirected to Vendor Home page and see our newly added book Displayed.
+
+![image](https://user-images.githubusercontent.com/91328394/226955450-3bf69e89-aa3f-4dc2-9ae4-f41cc96e3569.png)
+
+We Can Use the "Edit Books: link above to go to the Edit Books page where we can edit a currently existing Book in our Inventory based on isbn and version.
+
+![image](https://user-images.githubusercontent.com/91328394/226955994-9d409020-a6a1-4983-9676-3c39c82bf721.png)
+
+If succesful, the Book will be edited in out inventory
+
+![image](https://user-images.githubusercontent.com/91328394/226956180-33b5e201-7dc0-418f-92a5-00fbcdd180bd.png)
+
+
 
 # Milestone 1 Plan
 

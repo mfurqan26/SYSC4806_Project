@@ -6,8 +6,8 @@ import amazin.model.Account;
 
 @Entity
 public class Vendor extends Account {
-	public Vendor(String userName) {
-		super(userName, Account.Type.VENDOR);
+	public Vendor(String userName, String password) {
+		super(userName, password, Account.Type.VENDOR);
 	}
 
 	public Vendor() {

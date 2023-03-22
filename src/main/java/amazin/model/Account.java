@@ -6,16 +6,6 @@ import java.io.Serializable;
 @Entity
 public abstract class Account {
 
-	public Account(String userName, Type type) {
-		this.userName = userName;
-		this.type = type;
-	}
-
-	public Account() {
-		this.userName = "";
-		this.type = null;
-	}
-
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long id;
 
@@ -24,25 +14,36 @@ public abstract class Account {
 	@Id
 	protected final String userName;
 
+	private String password;
+
+	public Account(String userName, String password, Type type) {
+		this.userName = userName;
+		this.password = password;
+		this.type = type;
+	}
+
+	public Account() {
+		this.userName = "";
+		this.password = "";
+		this.type = null;
+	}
+
 	public enum Type {
 		VENDOR,
 		CUSTOMER
 	}
 
 
-	public long getId() {
-		return this.id;
-	} 
+	public long getId() {return this.id;}
 
-	public void setId(long id) {
-		this.id = id;
-	}
+	public void setId(long id) {this.id = id;}
 
-	public Type getType() {
-		return this.type;
-	}
+	public Type getType() {return this.type;}
 
-	public String userName() {
-		return this.userName;
-	}
+	public String getUserName() {return this.userName;}
+
+	public String getPassword() {return password;}
+
+	public void setPassword(String password) {this.password = password;}
+
 }

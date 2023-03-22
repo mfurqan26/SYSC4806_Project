@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Login</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+
+<div id="navbar">
+    <h1 style="margin: 10px">Already Signed Up? Pick a login page then:</h1>
+    <a th:href="@{/CustomerLogin}">Customer Login</a>
+    <a th:href="@{/VendorLogin}">Vendor Login</a>
+</div>
+
+<h2 style="margin-top: 50px">Sign Up</h2>
+<form method="post" action="" th:object="${newAccount}">
+    <label>Username: <input type="text" placeholder="Enter username" name="username"/></label><br>
+    <label>Password: <input type="text" placeholder="Enter password" name="password"/></label><br>
+    <label>Is this a Vendor Account? : <input type="checkbox" name="type" value="Vendor"/></label><br>
+    <p style="color: red" th:text="${signUpError}"></p>
+    <input type="submit" value="SignUp" name="SignUp"/>
+</form>
+
+</body>
+</html>

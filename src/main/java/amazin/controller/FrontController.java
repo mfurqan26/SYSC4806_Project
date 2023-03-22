@@ -30,10 +30,10 @@ public class FrontController {
         return "Landing";
     }
 
-    @GetMapping("/SignUp")
+    @GetMapping("/")
     public String SignUp(Model model) {return "SignUp";}
 
-    @PostMapping( value = "/SignUp", params = "SignUp")
+    @PostMapping( value = "/", params = "SignUp")
     public String newAccountSignUp(@RequestParam(name="username", required=false, defaultValue="") String username,
                                    @RequestParam(name="password", required=false, defaultValue="") String password,
                                    @RequestParam(name="type", required=false, defaultValue="Customer") String type,

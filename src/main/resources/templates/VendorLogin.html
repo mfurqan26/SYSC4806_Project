@@ -5,13 +5,12 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     </head>
     <body>
+        <h1 style="margin: 50px">Vendor Login</h1>
         <div id="navbar" style="background-color: orange">
             <!--    <a th:href="@{/CustomerLogin}">Customer Login</a>-->
             <a th:href="@{/VendorLogin}">Vendor Login</a>
         </div>
 
-        <!-- Vendor Login -->
-        <h2 style="margin: 50px">Vendor Login</h2>
         <form method="post" action="" th:object="${vendorAccount}">
             <label
                 >Username:

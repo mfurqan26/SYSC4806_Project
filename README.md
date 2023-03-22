@@ -73,19 +73,19 @@ For milestone 3, we want to flesh out the shopper and shopping cart features of 
 
 Also the jaccard distance should be finished.
 
-## Phase 1
+## phase 1 (sprint 1)
 
 complete shopper view, the customer view which will list all the books
 
 the shopper should have two buttons to increment and decreement the books from the inventory and add it/remove it from the shopping cart
 
-## phase 2
+## phase 2 (sprint 1)
 
 complete the shopping cart feature which will display all the books in the shopping cart
 
 the shopping cart should checkout and display the total price
 
-## phase 3
+## phase 3 (sprint 2)
 
 complete the jaccard distance feature for our customer and other users to see how similar everyone's code are.
 

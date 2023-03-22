@@ -40,7 +40,7 @@ The Vendor use case we have completed is create a Vendor account, Login, View al
 
 On the home page on `localhost:8080`, which double as the sign up page we can create a Vendor Account by entering a username, password and selecting the checkbox that this is a Vendor Account.
 
-![image](https://user-images.githubusercontent.com/60205850/226985135-d6ce5290-4cd0-4366-ab97-77695a794686.png)
+![image](https://user-images.githubusercontent.com/60205850/227032312-0c1f661c-e0f9-4a0b-a9d0-1c8836106800.png)
 
 If the Sign Up is succesfully (Non empty username + password And Unique username), then we will redirected to the VendorLogin page.
 On the Vendor Login Page we can log in with our newly created Vendor Account.

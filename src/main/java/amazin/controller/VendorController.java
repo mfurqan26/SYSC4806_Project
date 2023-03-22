@@ -87,17 +87,17 @@ public class VendorController {
                             @RequestParam(name="publisher", required=false, defaultValue = "") String publisher,
                             @RequestParam(name="stock", required=false, defaultValue = "") String stock,
                             @RequestParam(name="price", required=false, defaultValue = "") String price, Model model) {
-        Book.BookId bookId = new Book.BookId(isbn, Integer.parseInt(version));
-        Optional<Book> foundBook = bookRepository.findById(bookId);
-        if (isbn.equals("") || version.equals("0") || name.equals("") || description.equals("") || publisher.equals("") || stock.equals("") || price.equals("")) {
-            model.addAttribute("BookSearchError", "Please ensure all the book fields are filled!");
-            return "VendorEdit";
-        }
-        if (foundBook.isEmpty()) {
-            model.addAttribute("BookSearchError", "Please enter a ISBN and Version number combination that exists in the repository!");
-            return "VendorEdit";
-        }
         try {
+            Book.BookId bookId = new Book.BookId(isbn, Integer.parseInt(version));
+            Optional<Book> foundBook = bookRepository.findById(bookId);
+            if (isbn.equals("") || version.equals("0") || name.equals("") || description.equals("") || publisher.equals("") || stock.equals("") || price.equals("")) {
+                model.addAttribute("BookSearchError", "Please ensure all the book fields are filled!");
+                return "VendorEdit";
+            }
+            if (foundBook.isEmpty()) {
+                model.addAttribute("BookSearchError", "Please enter a ISBN and Version number combination that exists in the repository!");
+                return "VendorEdit";
+            }
             double newPrice = Double.parseDouble(price);
             int newStock = Integer.parseInt(stock);
             if (newPrice >= 0 && newStock >= 0) {

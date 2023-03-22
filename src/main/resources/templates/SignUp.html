@@ -6,14 +6,7 @@
         <link rel="stylesheet" th:href="@{/css/styles.css}"/>
     </head>
     <body>
-        <h1 style="margin: 50px">Already Signed Up? Head to the Login Page:</h1>
-
-        <navbar>
-            <!--    <a th:href="@{/CustomerLogin}">Customer Login</a>-->
-            <a th:href="@{/VendorLogin}">Vendor Login</a>
-        </navbar>
-
-        <div style="margin: 50px">
+        <div>
             <h2>Sign Up</h2>
             <form method="post" action="" th:object="${newAccount}">
                 <label

@@ -22,14 +22,6 @@ public class FrontController {
     @Autowired
     private AccountRepository accountRepository;
 
-    @GetMapping("/landing")
-    public String greeting(Model model) {
-        model.addAttribute("bookId", new BookId());
-        Iterable<Book> books = bookRepository.findAll();
-        model.addAttribute("bookRepo", books);
-        return "Landing";
-    }
-
     @GetMapping("/")
     public String SignUp(Model model) {return "SignUp";}
 

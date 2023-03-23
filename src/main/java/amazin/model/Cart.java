@@ -1,14 +1,16 @@
+package amazin.model;
+
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
+
 public class Cart {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.AUTO)
     private int cartID;
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    //@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Book> items;
 
     public Cart(){
@@ -44,6 +46,14 @@ public class Cart {
             }
         }
         }
+    }
+
+    public int getCost(){
+        int price = 0;
+        for (Book books:items){
+            price+= books.getPrice();
+        }
+        return price;
     }
 
     public int cartSize(){

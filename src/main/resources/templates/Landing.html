@@ -34,6 +34,33 @@
 <p th:each="book: ${bookRepo}">
     Book ISBN: <b><span th:text="${book.isbn}"/></b>
     Book Name: <b><span th:text="${book.name}"/></b>
+    <button onclick="addToCart('${book.isbn}')">Add to cart</button>
 </p>
+
+<script>
+    async function addToCart(isbn) {
+        const data = {
+            isbn: isbn
+            // Add any other data you want to send to the server
+        };
+
+        try {
+            const response = await fetch('path/to/your/servlet', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            });
+
+            if (response.ok) {
+                console.log('Data submitted successfully');
+            } else {
+                console.error('Error submitting data');}}
+    catch(Exception){
+            console.log(Exception)
+    }
+    }
+</script>
 </body>
 </html>

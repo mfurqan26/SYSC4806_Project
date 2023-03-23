@@ -1,9 +1,6 @@
 package amazin.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 
 import java.util.*;
 
@@ -18,6 +15,9 @@ public class Customer extends Account {
     @OneToMany
     private Map<BookId, CustomerReview> bookReviews;
 
+    @Transient
+    private Cart cart;
+
     //TODO add sensitive info to purchasing.
     //private creditInfo
 
@@ -25,6 +25,7 @@ public class Customer extends Account {
         super(userName, Account.Type.CUSTOMER);
         purchasedBooks = new ArrayList<>();
         bookReviews = new HashMap<>();
+        cart = new Cart();
     }
 
     public Customer() {

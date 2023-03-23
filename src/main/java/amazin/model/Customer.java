@@ -21,8 +21,8 @@ public class Customer extends Account {
     //TODO add sensitive info to purchasing.
     //private creditInfo
 
-    public Customer(String userName) {
-        super(userName, Account.Type.CUSTOMER);
+    public Customer(String userName, String password) {
+        super(userName, password, Account.Type.CUSTOMER);
         purchasedBooks = new ArrayList<>();
         bookReviews = new HashMap<>();
     }

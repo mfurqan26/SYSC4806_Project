@@ -20,47 +20,74 @@ Run `proj2-1.0-SNAPSHOT.jar` in the /target output folder to run the program usi
 
 And visit:
 
-http://localhost:8080/landing
+http://localhost:8080
 
-To see the mock landing page we have right now
+To see the website from the home page, which is our sign up/prompt for login page
 
-# Entity Relation Diagram 
+# Entity Relation Diagram
+<img src="./docs/er.drawio.svg">
 
-<img src="./docs/er_diagram.svg">
+# Entity Relation Diagram (Persistent Entities)
 
-# Milestone 1 use case flow
+<img src="./docs/ER_Diagram_Milestone2.png">
 
-The 1 use case we have completed is to query for books in the database.
+# UML Diagram
+<img src="./docs/Uml Class Diagram.png">
 
-On the landing page, we can enter the book isbn such as `978-0-122453-12-1`
+# Milestone 2 use case flow
 
-And then we can enter `1` as the version
+The Vendor use case we have completed is create a Vendor account, Login, View all Book, Create New Book and Edit Book for books in the database.
 
-![image](https://user-images.githubusercontent.com/60205850/223818456-ab4f3417-ff75-4593-baa8-471ead14638c.png)
+On the home page on `localhost:8080`, which double as the sign up page we can create a Vendor Account by entering a username, password and selecting the checkbox that this is a Vendor Account.
 
-And we will be taken to a page where we have the book object from the BookRepository in JSON data form
+![image](https://user-images.githubusercontent.com/60205850/227032312-0c1f661c-e0f9-4a0b-a9d0-1c8836106800.png)
 
-![image](https://user-images.githubusercontent.com/60205850/223817964-b267d204-4533-49f8-ae9d-353e917ea1fc.png)
+If the Sign Up is succesfully (Non empty username + password And Unique username), then we will redirected to the VendorLogin page.
+On the Vendor Login Page we can log in with our newly created Vendor Account.
 
-# Milestone 1 Plan
+![image](https://user-images.githubusercontent.com/60205850/226985248-57f80d8b-066f-4dd3-9bda-607b662b6f66.png)
 
-For milestone 1, we want to complete the ground work of the project, that is the schemas for the book object and the Spring backend.
+If our login is succeful, we will be redirected to the Vendor main page which will display all the books currently in inventory.
 
-## Phase 1
+![image](https://user-images.githubusercontent.com/60205850/226985320-e6adc769-ee52-4d8f-a557-2c938f66c4cd.png)
 
-complete Book, BookController, BookRepository
+We Can Use the "Create Books" link above to go to the Create Books page where we can create a new Book to add in our inventory.
 
-complete github action files for cicd
+![image](https://user-images.githubusercontent.com/91328394/226955189-d387958b-11bd-47f6-81a3-b0d821c8bed0.png)
 
-complete sample test suite with some simple tests
+If succesful, we will be redirected to Vendor Home page and see our newly added book Displayed.
 
-## phase 2
+![image](https://user-images.githubusercontent.com/91328394/226955450-3bf69e89-aa3f-4dc2-9ae4-f41cc96e3569.png)
 
-complete FrontController and Main method to run the program by initializing 2 Books
+We Can Use the "Edit Books: link above to go to the Edit Books page where we can edit a currently existing Book in our Inventory based on isbn and version.
 
-## phase 3
+![image](https://user-images.githubusercontent.com/91328394/226955994-9d409020-a6a1-4983-9676-3c39c82bf721.png)
 
-complete landing page thymeleaf html
+If succesful, the Book will be edited in our inventory
+
+![image](https://user-images.githubusercontent.com/91328394/226956180-33b5e201-7dc0-418f-92a5-00fbcdd180bd.png)
+
+# Milestone 3 Plan
+
+For milestone 3, we want to flesh out the shopper and shopping cart features of the project, as well as have better CSS for all of the webpages.
+
+Also the jaccard distance should be finished.
+
+## phase 1 (sprint 1)
+
+complete shopper view, the customer view which will list all the books
+
+the shopper should have two buttons to increment and decreement the books from the inventory and add it/remove it from the shopping cart
+
+## phase 2 (sprint 1)
+
+complete the shopping cart feature which will display all the books in the shopping cart
+
+the shopping cart should checkout and display the total price
+
+## phase 3 (sprint 2)
+
+complete the jaccard distance feature for our customer and other users to see how similar everyone's code are.
 
 # Group Members
 

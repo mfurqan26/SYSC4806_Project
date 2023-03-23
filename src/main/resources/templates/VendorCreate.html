@@ -1,42 +1,90 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-<head>
-    <title>Vendor</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-</head>
-<body>
-<h1 style="margin: 50px">Vendor</h1>
-<div id="navbar">
-    <a th:href="@{/Vendor}">View Books</a>
-    <a th:href="@{/VendorCreate}">Create Books</a>
-    <a th:href="@{/VendorEdit}">Search Books</a>
-</div>
-<div style="margin: 50px">
-    <h2>Create Book</h2>
+    <head>
+        <title>Vendor</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    </head>
+    <body>
+        <h1 style="margin: 50px">Vendor</h1>
+        <div id="navbar" style="background-color: orange">
+            <a th:href="@{/Vendor}">View Books</a>
+            <a th:href="@{/VendorCreate}">Create Books</a>
+            <a th:href="@{/VendorEdit}">Search Books</a>
+            <a th:href="@{/VendorLogin}">Log Out</a>
+        </div>
+        <div style="margin: 50px">
+            <h2>Create Book</h2>
 
-    <table style="width: 100%">
-        <tbody style="width: 100%">
-        <tr>
-            <td>
-                <form method="post" action="" th:object="${book}">
-                    <p>Add New Book</p><br>
-                    <label>ISBN:<input type="text" placeholder="Enter ISBN" name="isbn"/></label><br>
-                    <label>Create New Variant: <input type="checkbox" name="createNewVariant" value="True"/></label><br>
-<!--                    <label>Do Not Create New Variant: <input type="radio" name="createNewVariant" value="False"/></label><br>-->
-                    <label>Name: <input type="text" placeholder="Enter Name" name="name" ></label><br>
-                    <label>Description: <input type="text" placeholder="Enter Description" name="description"/></label><br>
-                    <label>Publisher: <input type="text" placeholder="Enter Publisher" name="publisher"/></label><br>
-                    <label>Stock: <input type="text" placeholder="Enter Stock" name="stock"/></label><br>
-                    <label>Price: <input type="text" placeholder="Enter Price" name="price"/></label><br>
-                    <input type="submit" value="AddBook" name="AddBook">
-                    <input type="reset" value="Reset" /><br>
-                    <p style="color: red" th:text="${createBookError}"></p>
-                </form>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-
-</div>
-</body>
+            <table style="width: 100%">
+                <tbody style="width: 100%">
+                    <tr>
+                        <td>
+                            <form method="post" action="" th:object="${book}">
+                                <p>Add New Book</p>
+                                <br />
+                                <label
+                                    >ISBN:<input
+                                        type="text"
+                                        placeholder="Enter ISBN"
+                                        name="isbn" /></label
+                                ><br />
+                                <label
+                                    >Create New Variant:
+                                    <input
+                                        type="checkbox"
+                                        name="createNewVariant"
+                                        value="True" /></label
+                                ><br />
+                                <label
+                                    >Name:
+                                    <input
+                                        type="text"
+                                        placeholder="Enter Name"
+                                        name="name" /></label
+                                ><br />
+                                <label
+                                    >Description:
+                                    <input
+                                        type="text"
+                                        placeholder="Enter Description"
+                                        name="description" /></label
+                                ><br />
+                                <label
+                                    >Publisher:
+                                    <input
+                                        type="text"
+                                        placeholder="Enter Publisher"
+                                        name="publisher" /></label
+                                ><br />
+                                <label
+                                    >Stock:
+                                    <input
+                                        type="text"
+                                        placeholder="Enter Stock"
+                                        name="stock" /></label
+                                ><br />
+                                <label
+                                    >Price:
+                                    <input
+                                        type="text"
+                                        placeholder="Enter Price"
+                                        name="price" /></label
+                                ><br />
+                                <input
+                                    type="submit"
+                                    value="Add Book"
+                                    name="AddBook"
+                                />
+                                <input type="reset" value="Reset" /><br />
+                                <p
+                                    style="color: red"
+                                    th:text="${createBookError}"
+                                ></p>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </body>
 </html>

@@ -27,8 +27,8 @@ public class BookStore {
             books.save(book1);
             books.save(book2);
 
-            Customer c1 = new Customer("customer1");
-            Vendor v1 = new Vendor("vendor1");
+            Customer c1 = new Customer("customer1","123");
+            Vendor v1 = new Vendor("vendor1","123");
             accounts.save(c1);
             accounts.save(v1);
         };

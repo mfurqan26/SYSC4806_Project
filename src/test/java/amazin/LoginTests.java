@@ -15,6 +15,8 @@ package amazin;/*
  */
 
 import amazin.model.Book;
+import amazin.model.Vendor;
+import amazin.repository.AccountRepository;
 import amazin.repository.BookRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,31 +37,22 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
-public class BookControllerTests {
+public class LoginTests {
     @Autowired
     private MockMvc mockMvc;
 
     @Autowired
-    private BookRepository bookRepository;
+    private AccountRepository accountRepository;
 
     @Test
-    public void getAddressBook() throws Exception {
-        this.mockMvc.perform(get("http://localhost:8080/book?isbn=978-0-122453-12-1&version=1")).andDo(print()).andExpect(status().isOk());
+    public void getLogin() throws Exception {
+        this.mockMvc.perform(get("http://localhost:8080/book?username=vendor1&password=123")).andDo(print()).andExpect(status().isOk());
     }
 
     @Test
-    public void createNewBook() throws Exception {
-        Book newBook = new Book("978-0-122453-12-1", 2, "Book1", "description", "publisher", 1, 1);
-        bookRepository.save(newBook);
-        this.mockMvc.perform(get("http://localhost:8080/book?isbn=978-0-122453-12-1&version=2")).andDo(print()).andExpect(status().isOk()).andExpect(content().string(containsString("\"name\":\"Book1\"")));
-    }
-
-    @Test
-    public void editBook() throws Exception {
-        Book newBook = new Book("978-0-122453-12-1", 2, "Book1", "description", "publisher", 1, 1);
-        bookRepository.save(newBook);
-        Book newBookEdited = new Book("978-0-122453-12-1", 2, "Book1Edited", "description", "publisher", 1, 1);
-        bookRepository.save(newBookEdited);
-        this.mockMvc.perform(get("http://localhost:8080/book?isbn=978-0-122453-12-1&version=2")).andDo(print()).andExpect(status().isOk()).andExpect(content().string(containsString("\"name\":\"Book1Edited\"")));
+    public void createLogin() throws Exception {
+        Vendor account = new Vendor("vendor2","123");
+        accountRepository.save(account);
+        this.mockMvc.perform(get("http://localhost:8080/book?username=vendor2&password=123")).andDo(print()).andExpect(status().isOk());
     }
 }

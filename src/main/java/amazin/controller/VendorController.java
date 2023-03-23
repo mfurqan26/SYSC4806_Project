@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
 
 @Controller
 public class VendorController {
@@ -51,12 +52,10 @@ public class VendorController {
         // we have a book with that isbn in the repo, and we do not want to create a new variant
         if (numBooksWithSameISBN > 0) {
             if (createNewVariant.equals("False")) {
-                System.out.println(createNewVariant);
                 model.addAttribute("createBookError", "Book With That ISBN Already Exist!\nPlease Click 'Create New Variant' To Create A New Variant");
                 return "VendorCreate";
             }
         }
-
 
         try {
             double newPrice = Double.parseDouble(price);
@@ -70,7 +69,7 @@ public class VendorController {
                 model.addAttribute("createBookError", "Enter Non-Negative numbers for version or stock or price!");
             }
         } catch (NumberFormatException nfe) {
-            model.addAttribute("createBookError", "Inputs do not have correct number formating for version or stock or price!");
+            model.addAttribute("createBookError", "Inputs do not have correct number formatting for version or stock or price!");
         }
         return "VendorCreate";
     }
@@ -79,22 +78,38 @@ public class VendorController {
     public String VendorEdit() {
         return "VendorEdit";
     }
-    @PostMapping(value="/VendorEdit", params="SearchBook")
-    public String BookSearch(@RequestParam(name="name", required=false, defaultValue = "") String name,Model model) {
-        Iterable<Book> foundBooks = bookRepository.findBooksByName(name);
-        //Return all books by empty input
-        if(name.equals("")){
-            Iterable<Book> allBooks = bookRepository.findAll();
-            model.addAttribute("books",allBooks);
+    @PostMapping(value="/VendorEdit", params="EditBook")
+    public String BookEdit(@RequestParam(name="isbn", required=true, defaultValue = "") String isbn,
+                            @RequestParam(name="version", required=true, defaultValue = "0") String version,
+                            @RequestParam(name="name", required=false, defaultValue = "") String name,
+                            @RequestParam(name="description", required=false, defaultValue = "") String description,
+                            @RequestParam(name="publisher", required=false, defaultValue = "") String publisher,
+                            @RequestParam(name="stock", required=false, defaultValue = "") String stock,
+                            @RequestParam(name="price", required=false, defaultValue = "") String price, Model model) {
+        try {
+            Book.BookId bookId = new Book.BookId(isbn, Integer.parseInt(version));
+            Optional<Book> foundBook = bookRepository.findById(bookId);
+            if (isbn.equals("") || version.equals("0") || name.equals("") || description.equals("") || publisher.equals("") || stock.equals("") || price.equals("")) {
+                model.addAttribute("BookSearchError", "Please ensure all the book fields are filled!");
+                return "VendorEdit";
+            }
+            if (foundBook.isEmpty()) {
+                model.addAttribute("BookSearchError", "Please enter a ISBN and Version number combination that exists in the repository!");
+                return "VendorEdit";
+            }
+            double newPrice = Double.parseDouble(price);
+            int newStock = Integer.parseInt(stock);
+            if (newPrice >= 0 && newStock >= 0) {
+                Book newBook = new Book(isbn, Integer.parseInt(version), name, description, publisher, newStock, newPrice);
+                bookRepository.save(newBook);
+                return "redirect:/Vendor";
+            } else {
+                model.addAttribute("BookSearchError", "Enter Non-Negative numbers for version or stock or price!");
+                return "VendorEdit";
+            }
+        } catch (NumberFormatException nfe) {
+            model.addAttribute("BookSearchError", "Inputs do not have correct number formatting for version or stock or price!");
+            return "VendorEdit";
         }
-        //If there found books then add them to model
-        else if(foundBooks.iterator().hasNext()){
-            model.addAttribute("books",foundBooks);
-        }
-        else{
-            model.addAttribute("BookSearchError","No Books Found by that name!");
-        }
-        return "VendorEdit";
     }
-
 }

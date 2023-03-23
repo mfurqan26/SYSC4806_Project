@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Book</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1>Book</h1>
+<h1>Book Information Here:</h1>
+<!--<p th:text="'Book Information Here: ' + ${book} + '!'" />-->
+
+<h2>Query for Book</h2>
+<form action="#" 
+        th:action="@{/book}" 
+        th:object="${bookId}" 
+        method="get">
+    <label for="ISBN">Book ISBN</label><br>
+    <input type="text" id="ISBN" 
+        name="ISBN" value="978-0-123456-47-2" th:field="*{isbn}"/>
+    <br/>
+    <label for="version">version number</label><br>
+    <input type="text" id="version" 
+        name="version" value="1" th:field="*{version}"/>
+    <p>
+        <input type="submit" 
+            value="Submit" /> 
+        <input type="reset" 
+            value="Reset" />
+    </p>
+</form>
+
+
+<h1>Book Information</h1>
+<p th:each="book: ${bookRepo}">
+    Book ISBN: <b><span th:text="${book.isbn}"/></b>
+    Book Name: <b><span th:text="${book.name}"/></b>
+</p>
+</body>
+</html>

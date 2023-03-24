@@ -46,13 +46,13 @@ public class LoginTests {
 
     @Test
     public void getLogin() throws Exception {
-        this.mockMvc.perform(get("http://localhost:8080/book?username=vendor1&password=123")).andDo(print()).andExpect(status().isOk());
+        this.mockMvc.perform(get("http://localhost:8080/book?username=vendor1&password=123&type=Vendor")).andDo(print()).andExpect(status().isOk());
     }
 
     @Test
     public void createLogin() throws Exception {
         Vendor account = new Vendor("vendor2","123");
         accountRepository.save(account);
-        this.mockMvc.perform(get("http://localhost:8080/book?username=vendor2&password=123")).andDo(print()).andExpect(status().isOk());
+        this.mockMvc.perform(get("http://localhost:8080/book?username=vendor2&password=123&type=Vendor")).andDo(print()).andExpect(status().isOk());
     }
 }

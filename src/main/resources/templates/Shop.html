@@ -27,25 +27,25 @@
             <div>
                 <p style="color: red" th:text="${searchError}"></p>
                 <table>
-                    <tbody class="tbody">
-                    <thead>
-                    <th>ISBN</th>
-                    <th>Version</th>
-                    <th>Name</th>
-                    <th>Publisher</th>
-                    <th>Price</th>
-                    <th>Stock</th>
-                    <th>Description</th>
-                    </thead>
-                    <tr th:each="book: ${books}">
-                        <td th:text="${book.isbn}" />
-                        <td th:text="${book.version}" />
-                        <td th:text="${book.name}" />
-                        <td th:text="${book.publisher}" />
-                        <td th:text="${book.price}" />
-                        <td th:text="${book.stock}" />
-                        <td th:text="${book.description}" />
-                    </tr>
+                    <tbody>
+                        <thead>
+                            <th>ISBN</th>
+                            <th>Version</th>
+                            <th>Name</th>
+                            <th>Publisher</th>
+                            <th>Price</th>
+                            <th>Stock</th>
+                            <th>Description</th>
+                        </thead>
+                        <tr th:each="book: ${books}">
+                            <td th:text="${book.isbn}" />
+                            <td th:text="${book.version}" />
+                            <td th:text="${book.name}" />
+                            <td th:text="${book.publisher}" />
+                            <td th:text="${book.price}" />
+                            <td th:text="${book.stock}" />
+                            <td th:text="${book.description}" />
+                        </tr>
                     </tbody>
                 </table>
 

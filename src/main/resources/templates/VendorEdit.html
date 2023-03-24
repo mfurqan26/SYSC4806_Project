@@ -16,63 +16,71 @@
 
         <div style="margin: 50px">
             <h2>Select Book To Edit</h2>
-            <form method="post" action="" th:object="${book}">
-                <label
-                    >ISBN:
-                    <input
-                        type="text"
-                        placeholder="Enter ISBN"
-                        name="isbn" /></label
-                ><br />
-                <label
-                    >Version:
-                    <input
-                        type="text"
-                        placeholder="Enter Version"
-                        name="version" /></label
-                ><br />
-                <label
-                    >Name:
-                    <input
-                        type="text"
-                        placeholder="Enter Name"
-                        name="name" /></label
-                ><br />
-                <label
-                    >Description:
-                    <input
-                        type="text"
-                        placeholder="Enter Description"
-                        name="description" /></label
-                ><br />
-                <label
-                    >Publisher:
-                    <input
-                        type="text"
-                        placeholder="Enter Publisher"
-                        name="publisher" /></label
-                ><br />
-                <label
-                    >Stock:
-                    <input
-                        type="text"
-                        placeholder="Enter Stock"
-                        name="stock" /></label
-                ><br />
-                <label
-                    >Price:
-                    <input
-                        type="text"
-                        placeholder="Enter Price"
-                        name="price" /></label
-                ><br />
-                <input
-                    type="submit"
-                    value="Select Book To Edit"
-                    name="EditBook"
-                />
-                <p style="color: red" th:text="${BookSearchError}"></p>
-            </form>
+            <table>
+                <tbody>
+                <tr>
+                    <td>
+                        <form method="post" action="" th:object="${book}">
+                            <label
+                                >ISBN:
+                                <input
+                                    type="text"
+                                    placeholder="Enter ISBN"
+                                    name="isbn" /></label
+                            ><br />
+                            <label
+                                >Version:
+                                <input
+                                    type="text"
+                                    placeholder="Enter Version"
+                                    name="version" /></label
+                            ><br />
+                            <label
+                                >Name:
+                                <input
+                                    type="text"
+                                    placeholder="Enter Name"
+                                    name="name" /></label
+                            ><br />
+                            <label
+                                >Description:
+                                <input
+                                    type="text"
+                                    placeholder="Enter Description"
+                                    name="description" /></label
+                            ><br />
+                            <label
+                                >Publisher:
+                                <input
+                                    type="text"
+                                    placeholder="Enter Publisher"
+                                    name="publisher" /></label
+                            ><br />
+                            <label
+                                >Stock:
+                                <input
+                                    type="text"
+                                    placeholder="Enter Stock"
+                                    name="stock" /></label
+                            ><br />
+                            <label
+                                >Price:
+                                <input
+                                    type="text"
+                                    placeholder="Enter Price"
+                                    name="price" /></label
+                            ><br />
+                            <input
+                                type="submit"
+                                value="Select Book To Edit"
+                                name="EditBook"
+                            />
+                            <p style="color: red" th:text="${BookSearchError}"></p>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
         </div>
     </body>
 </html>

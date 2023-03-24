@@ -17,14 +17,13 @@
         <div style="margin: 50px">
             <h2>All Books</h2>
 
-            <table
-                style="border: solid black 2px; width: 100%; text-align: center"
-            >
+            <table>
                 <tbody class="tbody">
                     <thead>
                         <th>ISBN</th>
                         <th>Version</th>
                         <th>Name</th>
+                        <th>Publisher</th>
                         <th>Price</th>
                         <th>Stock</th>
                         <th>Description</th>
@@ -33,6 +32,7 @@
                         <td th:text="${book.isbn}" />
                         <td th:text="${book.version}" />
                         <td th:text="${book.name}" />
+                        <td th:text="${book.publisher}" />
                         <td th:text="${book.price}" />
                         <td th:text="${book.stock}" />
                         <td th:text="${book.description}" />

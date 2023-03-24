@@ -1,9 +1,9 @@
 * {
-    background-color: lightskyblue;
+    background-color: lightblue;
 }
 
 navbar, navbar *{
-    background-color: lightblue;
+    background-color: lightskyblue;
     margin-top: 1em;
     margin-bottom: 1em;
     padding: 0.5em;
@@ -22,6 +22,10 @@ navbar a:hover{
     color: white;
 }
 
-input {
+form input, form label, form h2{
     margin: 0.5em;
+}
+
+table {
+    border: solid black 2px; width: 100%; text-align: center
 }

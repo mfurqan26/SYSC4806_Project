@@ -23,6 +23,44 @@ public class CustomerController {
         return "Shop";
     }
 
+    @PostMapping(value="/Shop", params = "AllBooks")
+    public String SearchAllBook(Model model){
+        Iterable<Book> books = bookRepository.findAll();
+        model.addAttribute("books", books);
+        return "Shop";
+    }
+
+    @PostMapping(value="/Shop", params = "SearchBook")
+    public String SearchBook(@RequestParam(name="search", required=false, defaultValue = "") String search,
+                             @RequestParam(name="filter", required=false, defaultValue = "") String filter,
+                             Model model){
+        if(!search.equals("")){
+            Iterable<Book> books;
+            if(filter.equals("by-publisher")){
+                books = bookRepository.findBooksByPublisher(search);
+            }
+            else if(filter.equals("by-name")){
+                books = bookRepository.findBooksByName(search);
+            }
+            else {
+                books = bookRepository.findAll();
+            }
+
+            //If any book is Found
+            if(books.iterator().hasNext()){
+                model.addAttribute("books",books);
+            }
+            else {
+                model.addAttribute("searchError", "No Books Found With that Name.");
+            }
+        }
+        else{
+            Iterable<Book> books = bookRepository.findAll();
+            model.addAttribute("books",books);
+        }
+        return "Shop";
+    }
+
     @GetMapping("/ShoppingCart")
     public String Customer(){
         return "ShoppingCart";

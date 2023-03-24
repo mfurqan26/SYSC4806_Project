@@ -23,12 +23,12 @@ public class FrontController {
     private AccountRepository accountRepository;
 
     @GetMapping("/")
-    public String SignUp(Model model) {return "SignUp";}
+    public String SignUp() {return "SignUp";}
 
     @PostMapping( value = "/", params = "SignUp")
     public String newAccountSignUp(@RequestParam(name="username", required=false, defaultValue="") String username,
                                    @RequestParam(name="password", required=false, defaultValue="") String password,
-                                   @RequestParam(name="type", required=false, defaultValue="Vendor") String type,
+                                   @RequestParam(name="type", required=false, defaultValue="Customer") String type,
                                    Model model) {
         Optional<Account> result = accountRepository.findAccountByUserName(username);
         Account account = null;
@@ -82,7 +82,7 @@ public class FrontController {
     }
 
     @GetMapping("/VendorLogin")
-    public String VendorLogin(Model model) {
+    public String VendorLogin() {
         return "VendorLogin";
     }
 

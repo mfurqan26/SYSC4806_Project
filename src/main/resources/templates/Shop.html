@@ -3,29 +3,51 @@
     <head>
         <title>Shop</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link rel="stylesheet" th:href="@{/css/styles.css}"/>
     </head>
     <body>
-        <h1 style="margin: 50px">Shop</h1>
-        <div style="margin: 50px">
-            <div style="margin-bottom: 25px">
-                <label for="filter">filter:</label>
+        <h1>Shop</h1>
+        <div>
+
+            <form action="" method="post" th:object="${search}">
+                <h2>Search Books:</h2><br />
+
+                <label for="filter">Search By:</label>
                 <select name="filter" id="filter">
                     <option value="by-name">By Name</option>
-                    <option value="by-author">By Author</option>
                     <option value="by-publisher">By Publisher</option>
-                </select>
-            </div>
+                </select> <br />
 
-            <form action="/action_page.php">
-                <label for="search">Search Books:</label><br />
+                <label for="search">Search For:</label>
                 <input type="text" id="search" name="search" value="" /><br />
-                <input type="submit" value="Search" />
+                <input type="submit" value="Search Book" name="SearchBook"/><br />
+                <input type="submit" value="View All Books" name="AllBooks"/>
             </form>
 
-            <div style="margin-top: 30px; margin-bottom: 30px">
-                should query for all "for sale" booklisting here, via a table or
-                something ignore duplicate books for the booklisting, books can
-                be the same and have different prices by different store vendors
+            <div>
+                <p style="color: red" th:text="${searchError}"></p>
+                <table>
+                    <tbody class="tbody">
+                    <thead>
+                    <th>ISBN</th>
+                    <th>Version</th>
+                    <th>Name</th>
+                    <th>Publisher</th>
+                    <th>Price</th>
+                    <th>Stock</th>
+                    <th>Description</th>
+                    </thead>
+                    <tr th:each="book: ${books}">
+                        <td th:text="${book.isbn}" />
+                        <td th:text="${book.version}" />
+                        <td th:text="${book.name}" />
+                        <td th:text="${book.publisher}" />
+                        <td th:text="${book.price}" />
+                        <td th:text="${book.stock}" />
+                        <td th:text="${book.description}" />
+                    </tr>
+                    </tbody>
+                </table>
 
                 <div style="margin-top: 30px; margin-bottom: 30px">
                     next step is to have a + and - button for adding and

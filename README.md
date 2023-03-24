@@ -40,7 +40,7 @@ The Vendor use case we have completed is create a Vendor account, Login, View al
 
 On the home page on `localhost:8080`, which double as the sign up page we can create a Vendor Account by entering a username, password and selecting the checkbox that this is a Vendor Account.
 
-![image](https://user-images.githubusercontent.com/60205850/226985135-d6ce5290-4cd0-4366-ab97-77695a794686.png)
+![image](https://user-images.githubusercontent.com/60205850/227032312-0c1f661c-e0f9-4a0b-a9d0-1c8836106800.png)
 
 If the Sign Up is succesfully (Non empty username + password And Unique username), then we will redirected to the VendorLogin page.
 On the Vendor Login Page we can log in with our newly created Vendor Account.
@@ -73,19 +73,19 @@ For milestone 3, we want to flesh out the shopper and shopping cart features of 
 
 Also the jaccard distance should be finished.
 
-## Phase 1
+## phase 1 (sprint 1)
 
 complete shopper view, the customer view which will list all the books
 
 the shopper should have two buttons to increment and decreement the books from the inventory and add it/remove it from the shopping cart
 
-## phase 2
+## phase 2 (sprint 1)
 
 complete the shopping cart feature which will display all the books in the shopping cart
 
 the shopping cart should checkout and display the total price
 
-## phase 3
+## phase 3 (sprint 2)
 
 complete the jaccard distance feature for our customer and other users to see how similar everyone's code are.
 

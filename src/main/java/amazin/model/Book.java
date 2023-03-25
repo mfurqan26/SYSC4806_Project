@@ -1,24 +1,21 @@
 package amazin.model;
 
-import jakarta.persistence.*;
+
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
 
-@IdClass(Book.BookId.class)
-@Entity
+@Document
 public class Book {
 
     @Id
-    protected String isbn;
-
-    @Id
-    protected int version;
+    protected BookId bookId;
     private final String name;
     private String description;
     private final String publisher;
     private int stock;
     private double price;
-    //private ByteArrayInputStream cover;
 
     public static class BookId implements Serializable  {
         protected String isbn;
@@ -53,27 +50,17 @@ public class Book {
         }
     }
 
-    public Book(String isbn,
-            String name, String description, 
-            String publisher, int stock, double price) {
-        this.isbn = isbn;
-        this.name = name;
-        this.description = description;
-        this.publisher = publisher;
-        this.stock = stock;
-        this.price = price;
-    }
+
 
     public Book(String isbn, int version,
-                String name, String description,
-                String publisher, int stock, double price) {
-        this.isbn = isbn;
+            String name, String description, 
+            String publisher, int stock, double price) {
+        this.bookId = new BookId(isbn, version);
         this.name = name;
         this.description = description;
         this.publisher = publisher;
         this.stock = stock;
         this.price = price;
-        this.version = version;
     }
 
     public Book() {
@@ -93,13 +80,13 @@ public class Book {
 
     public String getName() {return name;}
 
-    public int getVersion(){return this.version;}
+    public int getVersion(){return this.bookId.getVersion();}
 
     public String getDescription() {return description;}
 
-    public String getIsbn() {return this.isbn;}
+    public String getIsbn() {return this.bookId.getIsbn();}
 
-    public BookId getId() {return new BookId(this.isbn, this.version);}
+    public BookId getId() {return this.bookId; }
 
     public void setDescription(String description) {this.description = description;}
 

@@ -1,11 +1,11 @@
 package amazin.repository;
 
 import amazin.model.Account;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
-import java.util.Optional;
+import reactor.core.publisher.Mono;
 
 @RepositoryRestResource
-public interface AccountRepository extends CrudRepository<Account, Long> {
-	public Optional<Account> findAccountByUserName(String userName);
+public interface AccountRepository extends ReactiveCrudRepository<Account, Long> {
+	public Mono<Account> findAccountByUserName(String userName);
 }

@@ -2,15 +2,16 @@ package amazin.repository;
 
 import amazin.model.Book;
 import amazin.model.Book.BookId;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
-
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 import java.util.Optional;
 
 @RepositoryRestResource
-public interface BookRepository extends CrudRepository<Book, BookId> {
-    Iterable<Book> findBooksByName(String name);
-    Iterable<Book> findBooksByIsbn(String isbn);
-    Iterable<Book> findBooksByPublisher(String publisher);
-    Optional<Book> findById(BookId bookId);
+public interface BookRepository extends ReactiveCrudRepository<Book, BookId> {
+    Flux<Book> findBooksByName(String name);
+    Flux<Book> findBooksByIsbn(String isbn);
+    Flux<Book> findBooksByPublisher(String publisher);
+    Mono<Book> findById(BookId bookId);
 }

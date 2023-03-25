@@ -5,9 +5,13 @@ import amazin.repository.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.mongodb.repository.config.EnableReactiveMongoRepositories;
 import org.springframework.context.annotation.Bean;
+import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
 
-@SpringBootApplication
+@SpringBootApplication(exclude={MongoAutoConfiguration.class})
+@EnableReactiveMongoRepositories(
+    basePackageClasses = BookRepository.class)
 public class BookStore {
 
     public static void main(String[] args) {
@@ -19,18 +23,17 @@ public class BookStore {
             BookRepository books, 
             AccountRepository accounts) {
         return (args) -> {
-
             Book book1 = new Book("978-0-122453-12-1", 1,
                 "Book1" , "desc 1", "abc",5,10.0);
             Book book2 = new Book("948-0-123456-47-2",1,
                 "Book2" , "desc 2", "abc",3,20.0);
             books.save(book1);
-            books.save(book2);
+            //books.save(book2);
 
             Customer c1 = new Customer("customer1","123");
             Vendor v1 = new Vendor("vendor1","123");
-            accounts.save(c1);
-            accounts.save(v1);
+            //accounts.save(c1);
+            //accounts.save(v1);
         };
     }
 

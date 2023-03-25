@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
+
 @Controller
 public class FrontController {
 
@@ -23,14 +24,23 @@ public class FrontController {
     private AccountRepository accountRepository;
 
     @GetMapping("/")
-    public String SignUp() {return "SignUp";}
+    public String Landing(Model model) {
+        model.addAttribute("bookId", new BookId());
+        return "Landing";
+    }
 
-    @PostMapping( value = "/", params = "SignUp")
+    @GetMapping("/SignUp")
+    public String SignUp(Model model) {
+        return "SignUp";
+    }
+
+    @PostMapping(value = "/", params = "SignUp")
     public String newAccountSignUp(@RequestParam(name="username", required=false, defaultValue="") String username,
                                    @RequestParam(name="password", required=false, defaultValue="") String password,
                                    @RequestParam(name="type", required=false, defaultValue="Customer") String type,
                                    Model model) {
-        Optional<Account> result = accountRepository.findAccountByUserName(username);
+        Optional<Account> result = accountRepository
+            .findAccountByUserName(username).blockOptional();
         Account account = null;
         if (!result.isPresent()) {
             if(!username.equals("") && !password.equals("")) {
@@ -67,7 +77,8 @@ public class FrontController {
     public String checkCustomerLogin(@RequestParam(name="username", required=false, defaultValue="") String username,
                                      @RequestParam(name="password", required=false, defaultValue="") String password,
                                      Model model) {
-        Optional<Account> result = accountRepository.findAccountByUserName(username);
+        Optional<Account> result = accountRepository
+            .findAccountByUserName(username).blockOptional();
         Account account = null;
         if (result.isPresent()) {
             account = result.get();
@@ -90,7 +101,8 @@ public class FrontController {
     public String checkVendorLogin(@RequestParam(name="username", required=false, defaultValue="") String username,
                                    @RequestParam(name="password", required=false, defaultValue="") String password,
                                    Model model) {
-        Optional<Account> result = accountRepository.findAccountByUserName(username);
+        Optional<Account> result = accountRepository
+            .findAccountByUserName(username).blockOptional();
         Account account = null;
         if (result.isPresent()) {
             account = result.get();

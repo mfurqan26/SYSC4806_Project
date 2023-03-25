@@ -7,18 +7,20 @@ import amazin.model.Book;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.Optional;
+import reactor.core.publisher.Flux;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestTemplate;
 
 @Controller
 public class VendorController {
+
     @Autowired
-    private BookRepository bookRepository;
+    BookRepository bookRepository;
 
     @GetMapping("/Vendor")
     public String Vendor(Model model) {
-        Iterable<Book> books = bookRepository.findAll();
-        model.addAttribute("books", books);
+        model.addAttribute("books", bookRepository.findAll());
         return "Vendor";
     }
 
@@ -43,9 +45,9 @@ public class VendorController {
             return "VendorCreate";
         }
 
-        Iterable<Book> bookList = bookRepository.findBooksByIsbn(isbn);
+        Flux<Book> bookList = bookRepository.findBooksByIsbn(isbn);
         int numBooksWithSameISBN = 0;
-        for( Book book : bookList){
+        for( Book book : bookList.toIterable()){
             numBooksWithSameISBN++;
         }
 
@@ -88,7 +90,7 @@ public class VendorController {
                             @RequestParam(name="price", required=false, defaultValue = "") String price, Model model) {
         try {
             Book.BookId bookId = new Book.BookId(isbn, Integer.parseInt(version));
-            Optional<Book> foundBook = bookRepository.findById(bookId);
+            Optional<Book> foundBook = bookRepository.findById(bookId).blockOptional();
             if (isbn.equals("") || version.equals("0") || name.equals("") || description.equals("") || publisher.equals("") || stock.equals("") || price.equals("")) {
                 model.addAttribute("BookSearchError", "Please ensure all the book fields are filled!");
                 return "VendorEdit";
@@ -100,7 +102,10 @@ public class VendorController {
             double newPrice = Double.parseDouble(price);
             int newStock = Integer.parseInt(stock);
             if (newPrice >= 0 && newStock >= 0) {
-                Book newBook = new Book(isbn, Integer.parseInt(version), name, description, publisher, newStock, newPrice);
+                Book newBook = new Book(isbn, 
+                    Integer.parseInt(version), 
+                    name, description, 
+                    publisher, newStock, newPrice);
                 bookRepository.save(newBook);
                 return "redirect:/Vendor";
             } else {

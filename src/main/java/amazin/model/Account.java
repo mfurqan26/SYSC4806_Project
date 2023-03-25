@@ -1,12 +1,12 @@
 package amazin.model;
 
-import jakarta.persistence.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 import java.io.Serializable;
 
-@Entity
+@Document
 public abstract class Account {
 
-	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long id;
 
 	private final Type type;

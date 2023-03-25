@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
 import org.springframework.stereotype.Controller;
+import reactor.core.publisher.Flux;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestTemplate;
 
 @Controller
 public class CustomerController {
@@ -17,16 +20,15 @@ public class CustomerController {
     private BookRepository bookRepository;
 
     @GetMapping("/Shop")
-    public String Customer(Model model){
-        Iterable<Book> books = bookRepository.findAll();
+    public String Customer(Model model) {
+        Flux<Book> books = bookRepository.findAll();
         model.addAttribute("books", books);
         return "Shop";
     }
 
     @PostMapping(value="/Shop", params = "AllBooks")
-    public String SearchAllBook(Model model){
-        Iterable<Book> books = bookRepository.findAll();
-        model.addAttribute("books", books);
+    public String SearchAllBook(Model model) {
+        model.addAttribute("books", bookRepository.findAll());
         return "Shop";
     }
 
@@ -35,7 +37,7 @@ public class CustomerController {
                              @RequestParam(name="filter", required=false, defaultValue = "") String filter,
                              Model model){
         if(!search.equals("")){
-            Iterable<Book> books;
+            Flux<Book> books;
             if(filter.equals("by-publisher")){
                 books = bookRepository.findBooksByPublisher(search);
             }
@@ -47,19 +49,21 @@ public class CustomerController {
             }
 
             //If any book is Found
-            if(books.iterator().hasNext()){
-                model.addAttribute("books",books);
+            if(books.toIterable().iterator().hasNext()) {
+                model.addAttribute("books", books);
             }
             else {
                 model.addAttribute("searchError", "No Books Found With that Name.");
             }
         }
-        else{
-            Iterable<Book> books = bookRepository.findAll();
+        else {
+            Flux<Book> books = bookRepository.findAll();
             model.addAttribute("books",books);
         }
         return "Shop";
     }
+
+
 
     @GetMapping("/ShoppingCart")
     public String Customer(){

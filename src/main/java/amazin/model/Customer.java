@@ -1,21 +1,19 @@
 package amazin.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
 
-import java.util.*;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 import amazin.model.Book.BookId;
 import amazin.model.Account;
 
-@Entity
+@Document
 public class Customer extends Account {
-
-    @OneToMany
     private List<Book> purchasedBooks;
-    @OneToMany
     private Map<BookId, CustomerReview> bookReviews;
 
     //TODO add sensitive info to purchasing.

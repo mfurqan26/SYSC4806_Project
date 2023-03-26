@@ -8,7 +8,6 @@ import java.io.Serializable;
 
 @Document
 public class Book {
-
     @Id
     protected BookId bookId;
     private final String name;
@@ -49,8 +48,6 @@ public class Book {
             this.version = version;
         }
     }
-
-
 
     public Book(String isbn, int version,
             String name, String description, 

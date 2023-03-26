@@ -11,7 +11,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import amazin.model.Book.BookId;
 import amazin.model.Account;
 
-@Document
+@Document(collection = "AccountRepository")
 public class Customer extends Account {
     private List<Book> purchasedBooks;
     private Map<BookId, CustomerReview> bookReviews;

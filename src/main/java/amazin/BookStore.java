@@ -29,12 +29,12 @@ public class BookStore {
             Book book2 = new Book("948-0-123456-47-2",1,
                 "Book2" , "desc 2", "abc",3,20.0);
             books.save(book1);
-            //books.save(book2);
+            books.save(book2);
 
             Customer c1 = new Customer("customer1","123");
             Vendor v1 = new Vendor("vendor1","123");
-            //accounts.save(c1);
-            //accounts.save(v1);
+            accounts.save(c1);
+            accounts.save(v1);
         };
     }
 

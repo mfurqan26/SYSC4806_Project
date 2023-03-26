@@ -4,7 +4,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import java.io.Serializable;
 
-@Document
+@Document(collection = "AccountRepository")
 public abstract class Account {
 
 	private long id;

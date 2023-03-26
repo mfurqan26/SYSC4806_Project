@@ -8,6 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.mongodb.repository.config.EnableReactiveMongoRepositories;
 import org.springframework.context.annotation.Bean;
 import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
+import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 
 @SpringBootApplication(exclude={MongoAutoConfiguration.class})
 @EnableReactiveMongoRepositories(

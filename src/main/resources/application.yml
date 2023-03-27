@@ -1,4 +1,4 @@
 spring:
   data:
     mongodb:
-      uri: mongodb+srv://sysc:sysc4806@clustername.mongodb.net/Amazin?retryWrites=true&w=majority
+      uri: mongodb+srv://sysc:123@clustername.mongodb.net/Amazin?retryWrites=true&w=majority

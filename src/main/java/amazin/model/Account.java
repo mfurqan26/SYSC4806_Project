@@ -9,10 +9,10 @@ public abstract class Account {
 
 	private long id;
 
-	private final Type type;
+	private Type type;
 
 	@Id
-	protected final String userName;
+	protected String userName;
 
 	private String password;
 
@@ -40,7 +40,11 @@ public abstract class Account {
 
 	public Type getType() {return this.type;}
 
+	public void setType(Type type){this.type = type;}
+
 	public String getUserName() {return this.userName;}
+
+	public void setUserName(String userName){this.userName = userName;}
 
 	public String getPassword() {return password;}
 

@@ -10,9 +10,11 @@ import java.io.Serializable;
 public class Book {
     @Id
     protected BookId bookId;
-    private final String name;
+
+    private String name;
     private String description;
-    private final String publisher;
+
+    private String publisher;
     private int stock;
     private double price;
 
@@ -47,6 +49,7 @@ public class Book {
         public void setVersion(int version) {
             this.version = version;
         }
+
     }
 
     public Book(String isbn, int version,
@@ -80,6 +83,7 @@ public class Book {
     public int getVersion(){return this.bookId.getVersion();}
 
     public String getDescription() {return description;}
+    public void setName(String name) {this.name = name;}
 
     public String getIsbn() {return this.bookId.getIsbn();}
 
@@ -88,6 +92,8 @@ public class Book {
     public void setDescription(String description) {this.description = description;}
 
     public String getPublisher() {return publisher;}
+
+    public void setPublisher(String publisher) {this.publisher = publisher;}
 
     public int getStock() {return stock;}
     public void setStock(int stock) {this.stock = stock;}

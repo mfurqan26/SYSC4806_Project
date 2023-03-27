@@ -7,6 +7,8 @@ import amazin.model.Book;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 import java.util.Optional;
 import reactor.core.publisher.Flux;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +22,9 @@ public class VendorController {
 
     @GetMapping("/Vendor")
     public String Vendor(Model model) {
-        model.addAttribute("books", bookRepository.findAll());
+        Flux<Book> books = bookRepository.findAll();
+        List<Book> bookList = books.collectList().block();
+        model.addAttribute("books", bookList);
         return "Vendor";
     }
 

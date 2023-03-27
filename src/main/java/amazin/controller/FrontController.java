@@ -23,13 +23,17 @@ public class FrontController {
     private AccountRepository accountRepository;
 
     @GetMapping("/")
-    public String SignUp() {return "SignUp";}
+    public String landing() {return "Landing";}
 
-    @PostMapping( value = "/", params = "SignUp")
-    public String newAccountSignUp(@RequestParam(name="username", required=false, defaultValue="") String username,
-                                   @RequestParam(name="password", required=false, defaultValue="") String password,
-                                   @RequestParam(name="type", required=false, defaultValue="Customer") String type,
-                                   Model model) {
+    @GetMapping("/SignUp")
+    public String signUp() {return "SignUp";}
+
+    @PostMapping("/SignUp")
+    public String signUp(
+            @RequestParam(name="username", required=false, defaultValue="") String username,
+            @RequestParam(name="password", required=false, defaultValue="") String password,
+            @RequestParam(name="type", required=false, defaultValue="Customer") String type,
+            Model model) {
         Optional<Account> result = accountRepository.findAccountByUserName(username);
         Account account = null;
         if (!result.isPresent()) {

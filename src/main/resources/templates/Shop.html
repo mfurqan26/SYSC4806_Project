@@ -45,14 +45,32 @@
                             <td th:text="${book.price}" />
                             <td th:text="${book.stock}" />
                             <td th:text="${book.description}" />
+                            <td>
+                                <button type="button" th:attr="onclick='incrementQuantity(\'' + ${book.stock}+ '\'' + ',' + '\'' + ${book.isbn}+ '\');'" >+</button>
+                                <label>
+                                    <input type="number" th:id="${book.isbn}" name="quantity" th:value = "0" min="0" th:attr="max=${book.stock}" readonly>
+                                </label>
+                                <button type="button" th:attr="onclick='decrementQuantity(\'' + ${book.isbn}+  '\');'">-</button>
+                                <script type="text/javascript">
+                                    function incrementQuantity(maxValue, elementId){
+                                        let currentValue = document.getElementById(elementId).value;
+                                        if (currentValue < maxValue){
+                                            document.getElementById(elementId).value++;
+                                        }
+                                    }
+
+                                    function decrementQuantity(elementId){
+                                        let currentValue = document.getElementById(elementId).value;
+                                        if (currentValue > 0){
+                                            document.getElementById(elementId).value--;
+                                        }
+                                    }
+
+                                </script>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
-
-                <div style="margin-top: 30px; margin-bottom: 30px">
-                    next step is to have a + and - button for adding and
-                    removing inventory
-                </div>
             </div>
         </div>
 

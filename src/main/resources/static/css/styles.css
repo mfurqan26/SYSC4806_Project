@@ -16,6 +16,7 @@ navbar a{
     color: black;
     font-size: 18px;
     font-weight: bold;
+    border-right: 2px solid black;
 }
 navbar a:hover{
     background-color: darkblue;

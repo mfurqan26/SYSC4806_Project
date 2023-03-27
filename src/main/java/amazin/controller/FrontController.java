@@ -7,6 +7,7 @@ import amazin.model.Customer;
 import amazin.model.Vendor;
 import amazin.repository.BookRepository;
 import amazin.repository.AccountRepository;
+import amazin.repository.CartRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +22,9 @@ public class FrontController {
 
     @Autowired
     private AccountRepository accountRepository;
+
+    @Autowired
+    private CartRepository cartRepository;
 
     @GetMapping("/")
     public String landing() {return "Landing";}
@@ -46,7 +50,7 @@ public class FrontController {
                 }
                 //Customer Account
                 else {
-                    account = new Customer(username,password);
+                    account = new Customer(username, password, cartRepository);
                     accountRepository.save(account);
                     return "redirect:/CustomerLogin";
                 }

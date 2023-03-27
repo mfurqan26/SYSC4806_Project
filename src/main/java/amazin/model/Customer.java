@@ -4,11 +4,13 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Transient;
 import java.util.*;
 
 import amazin.model.Book.BookId;
 import amazin.model.Account;
+import amazin.repository.CartRepository;
 
 @Entity
 public class Customer extends Account {
@@ -17,17 +19,19 @@ public class Customer extends Account {
     private List<Book> purchasedBooks;
     @OneToMany
     private Map<BookId, CustomerReview> bookReviews;
-    
+    @OneToOne
     private Cart cart;
 
     //TODO add sensitive info to purchasing.
     //private creditInfo
 
-    public Customer(String userName, String password) {
+    public Customer(String userName, String password, 
+            CartRepository cartRepository) {
         super(userName, password, Account.Type.CUSTOMER);
         this.purchasedBooks = new ArrayList<>();
         this.bookReviews = new HashMap<>();
         this.cart = new Cart();
+        cartRepository.save(this.cart);
     }
 
     public Customer() {

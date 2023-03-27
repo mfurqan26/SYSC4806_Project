@@ -9,12 +9,9 @@ import java.util.Optional;
 
 @RestController
 public class BookController {
-    private BookRepository bookRepository;
 
     @Autowired
-    public BookController(BookRepository bookRepository) {
-        this.bookRepository = bookRepository;
-    }
+    private BookRepository bookRepository;
 
     @RequestMapping("/book")
     public void createBook(@RequestBody Book book) {

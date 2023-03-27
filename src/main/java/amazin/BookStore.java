@@ -46,15 +46,15 @@ public class BookStore extends AbstractReactiveMongoConfiguration {
             Book book1 = new Book("978-0-122453-12-1", 1, "Book1", "desc 1", "abc", 5, 10.0);
             Book book2 = new Book("948-0-123456-47-2", 1, "Book2", "desc 2", "abc", 3, 20.0);
 
-            Flux<Book> bookFlux = books.saveAll(Flux.just(book1, book2));
+//            Flux<Book> bookFlux = books.saveAll(Flux.just(book1, book2));
 
             Customer c1 = new Customer("customer1", "123");
             Vendor v1 = new Vendor("vendor1", "123");
 
-            Flux<Account> accountFlux = accounts.saveAll(Flux.just(c1, v1));
+//            Flux<Account> accountFlux = accounts.saveAll(Flux.just(c1, v1));
 
             // Block until all the data is saved, this should be used only in non-reactive context
-            bookFlux.thenMany(accountFlux).blockLast();
+//            bookFlux.thenMany(accountFlux).blockLast();
         };
     }
 

@@ -50,10 +50,10 @@ public class VendorController {
         }
 
         Flux<Book> bookList = bookRepository.findBooksByIsbn(isbn);
-        int numBooksWithSameISBN = 0;
-        for( Book book : bookList.toIterable()){
-            numBooksWithSameISBN++;
-        }
+        int numBooksWithSameISBN = bookList.collectList().block().size();
+        //for( Book book : bookList.toIterable()){
+        //    numBooksWithSameISBN++;
+        //}
 
         // we have a book with that isbn in the repo, and we do not want to create a new variant
         if (numBooksWithSameISBN > 0) {
@@ -69,7 +69,7 @@ public class VendorController {
             if (newPrice >= 0 && newStock >= 0) {
                 int version = numBooksWithSameISBN + 1;
                 Book newBook = new Book(isbn, version, name, description, publisher, newStock, newPrice);
-                bookRepository.save(newBook);
+                bookRepository.saveAll(Flux.just(newBook));
                 return "redirect:/Vendor";
             } else {
                 model.addAttribute("createBookError", "Enter Non-Negative numbers for version or stock or price!");
@@ -110,7 +110,7 @@ public class VendorController {
                     Integer.parseInt(version), 
                     name, description, 
                     publisher, newStock, newPrice);
-                bookRepository.save(newBook);
+                bookRepository.saveAll(Flux.just(newBook));
                 return "redirect:/Vendor";
             } else {
                 model.addAttribute("BookSearchError", "Enter Non-Negative numbers for version or stock or price!");

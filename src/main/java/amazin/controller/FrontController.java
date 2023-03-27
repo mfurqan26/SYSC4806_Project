@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Flux;
+
 import java.util.Optional;
 
 
@@ -34,26 +36,25 @@ public class FrontController {
         return "SignUp";
     }
 
-    @PostMapping(value = "/", params = "SignUp")
+    @PostMapping(value = "/SignUp", params = "SignUp")
     public String newAccountSignUp(@RequestParam(name="username", required=false, defaultValue="") String username,
                                    @RequestParam(name="password", required=false, defaultValue="") String password,
                                    @RequestParam(name="type", required=false, defaultValue="Customer") String type,
                                    Model model) {
-        Optional<Account> result = accountRepository
-            .findAccountByUserName(username).blockOptional();
+        Optional<Account> result = accountRepository.findAccountByUserName(username).blockOptional();
         Account account = null;
         if (!result.isPresent()) {
             if(!username.equals("") && !password.equals("")) {
                 //Vendor Account
                 if(type.equals("Vendor")) {
                     account = new Vendor(username,password);
-                    accountRepository.save(account);
+                    accountRepository.saveAll(Flux.just(account));
                     return "redirect:/VendorLogin";
                 }
                 //Customer Account
                 else {
                     account = new Customer(username,password);
-                    accountRepository.save(account);
+                    accountRepository.saveAll(Flux.just(account));
                     return "redirect:/CustomerLogin";
                 }
             }

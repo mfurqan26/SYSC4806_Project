@@ -9,5 +9,5 @@ import reactor.core.publisher.Mono;
 
 @RepositoryRestResource
 public interface AccountRepository extends ReactiveMongoRepository<Account, Long> {
-	public Mono<Account> findAccountByUserName(String userName);
+	Mono<Account> findAccountByUserName(String userName);
 }

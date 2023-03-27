@@ -18,6 +18,9 @@ public class Book {
     private int stock;
     private double price;
 
+    protected String isbn;
+    protected int version;
+
     public static class BookId implements Serializable  {
         protected String isbn;
         protected int version;
@@ -56,6 +59,8 @@ public class Book {
             String name, String description, 
             String publisher, int stock, double price) {
         this.bookId = new BookId(isbn, version);
+        this.version = version;
+        this.isbn = isbn;
         this.name = name;
         this.description = description;
         this.publisher = publisher;
@@ -80,12 +85,16 @@ public class Book {
 
     public String getName() {return name;}
 
-    public int getVersion(){return this.bookId.getVersion();}
+    public int getVersion(){return this.version;}
+
+    public void setVersion(int version) {this.version = version;}
 
     public String getDescription() {return description;}
     public void setName(String name) {this.name = name;}
 
-    public String getIsbn() {return this.bookId.getIsbn();}
+    public String getIsbn() {return this.isbn;}
+
+    public void setIsbn(String isbn) {this.isbn = isbn;}
 
     public BookId getId() {return this.bookId; }
 

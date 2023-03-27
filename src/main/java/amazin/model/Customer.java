@@ -17,7 +17,7 @@ public class Customer extends Account {
     private List<Book> purchasedBooks;
     @OneToMany
     private Map<BookId, CustomerReview> bookReviews;
-    @Transient
+    
     private Cart cart;
 
     //TODO add sensitive info to purchasing.

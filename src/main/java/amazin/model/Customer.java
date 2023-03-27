@@ -38,6 +38,9 @@ public class Customer extends Account {
         return this.userName;
     }
 
+    public Cart getCart() {
+        return this.cart;
+    }
 
     public List<Book> getPurchasedBooks() {
         return purchasedBooks;

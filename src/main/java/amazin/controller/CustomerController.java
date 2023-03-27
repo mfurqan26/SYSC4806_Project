@@ -1,6 +1,7 @@
 package amazin.controller;
 
 import amazin.model.Book;
+import amazin.model.Cart;
 import amazin.model.Customer;
 import amazin.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,9 +30,10 @@ public class CustomerController {
     }
 
     @PostMapping(value="/Shop", params = "SearchBook")
-    public String SearchBook(@RequestParam(name="search", required=false, defaultValue = "") String search,
-                             @RequestParam(name="filter", required=false, defaultValue = "") String filter,
-                             Model model){
+    public String SearchBook(
+            @RequestParam(name="search", required=false, defaultValue = "") String search,
+            @RequestParam(name="filter", required=false, defaultValue = "") String filter,
+            Model model){
         if(!search.equals("")){
             Iterable<Book> books;
             if(filter.equals("by-publisher")){
@@ -57,6 +59,12 @@ public class CustomerController {
             model.addAttribute("books",books);
         }
         return "Shop";
+    }
+
+    @PostMapping("/Checkout")
+    public String checkout(Model model, @ModelAttribute("cart") Cart cart) {
+        model.addAttribute("cart", cart);
+        return "Checkout";
     }
 
     @GetMapping("/ShoppingCart")

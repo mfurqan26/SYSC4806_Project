@@ -28,13 +28,14 @@ public class VendorController {
     }
 
     @PostMapping(value="/VendorCreate", params = "AddBook")
-    public String CreateBook(@RequestParam(name="isbn", required=false, defaultValue = "") String isbn,
-                               @RequestParam(name="createNewVariant", required=false, defaultValue= "False") String createNewVariant,
-                               @RequestParam(name="name", required=false, defaultValue = "") String name,
-                               @RequestParam(name="description", required=false, defaultValue = "") String description,
-                               @RequestParam(name="publisher", required=false, defaultValue = "") String publisher,
-                               @RequestParam(name="stock", required=false, defaultValue = "") String stock,
-                               @RequestParam(name="price", required=false, defaultValue = "") String price, Model model) {
+    public String CreateBook(
+            @RequestParam(name="isbn", required=false, defaultValue = "") String isbn,
+            @RequestParam(name="createNewVariant", required=false, defaultValue= "False") String createNewVariant,
+            @RequestParam(name="name", required=false, defaultValue = "") String name,
+            @RequestParam(name="description", required=false, defaultValue = "") String description,
+            @RequestParam(name="publisher", required=false, defaultValue = "") String publisher,
+            @RequestParam(name="stock", required=false, defaultValue = "") String stock,
+            @RequestParam(name="price", required=false, defaultValue = "") String price, Model model) {
         boolean conditionAnyNotSet = isbn.equals("") || name.equals("") ||
                 description.equals("") || publisher.equals("") || stock.equals("") || price.equals("");
 
@@ -79,13 +80,14 @@ public class VendorController {
         return "VendorEdit";
     }
     @PostMapping(value="/VendorEdit", params="EditBook")
-    public String BookEdit(@RequestParam(name="isbn", required=true, defaultValue = "") String isbn,
-                            @RequestParam(name="version", required=true, defaultValue = "0") String version,
-                            @RequestParam(name="name", required=false, defaultValue = "") String name,
-                            @RequestParam(name="description", required=false, defaultValue = "") String description,
-                            @RequestParam(name="publisher", required=false, defaultValue = "") String publisher,
-                            @RequestParam(name="stock", required=false, defaultValue = "") String stock,
-                            @RequestParam(name="price", required=false, defaultValue = "") String price, Model model) {
+    public String BookEdit(
+            @RequestParam(name="isbn", required=true, defaultValue = "") String isbn,
+            @RequestParam(name="version", required=true, defaultValue = "0") String version,
+            @RequestParam(name="name", required=false, defaultValue = "") String name,
+            @RequestParam(name="description", required=false, defaultValue = "") String description,
+            @RequestParam(name="publisher", required=false, defaultValue = "") String publisher,
+            @RequestParam(name="stock", required=false, defaultValue = "") String stock,
+            @RequestParam(name="price", required=false, defaultValue = "") String price, Model model) {
         try {
             Book.BookId bookId = new Book.BookId(isbn, Integer.parseInt(version));
             Optional<Book> foundBook = bookRepository.findById(bookId);

@@ -68,16 +68,18 @@ public class FrontController {
     public String CustomerLogin(Model model) {return "CustomerLogin";}
 
     @PostMapping( value = "/CustomerLogin", params = "customerLogin")
-    public String checkCustomerLogin(@RequestParam(name="username", required=false, defaultValue="") String username,
-                                     @RequestParam(name="password", required=false, defaultValue="") String password,
-                                     Model model) {
+    public String checkCustomerLogin(
+            @RequestParam(name="username", required=false, defaultValue="") String username,
+            @RequestParam(name="password", required=false, defaultValue="") String password,
+            Model model) {
         Optional<Account> result = accountRepository.findAccountByUserName(username);
         Account account = null;
         if (result.isPresent()) {
             account = result.get();
             String accountPassword = account.getPassword();
-            if(account.getType().equals(Account.Type.CUSTOMER) && accountPassword.equals(password)) {
-                model.addAttribute("account", account);
+            if(account.getType().equals(Account.Type.CUSTOMER) 
+                    && accountPassword.equals(password)) {
+                model.addAttribute("account", (Customer) account);
                 return "redirect:/Shop";
             }
         }
@@ -91,9 +93,10 @@ public class FrontController {
     }
 
     @PostMapping( value = "/VendorLogin", params = "vendorLogin")
-    public String checkVendorLogin(@RequestParam(name="username", required=false, defaultValue="") String username,
-                                   @RequestParam(name="password", required=false, defaultValue="") String password,
-                                   Model model) {
+    public String checkVendorLogin(
+            @RequestParam(name="username", required=false, defaultValue="") String username,
+            @RequestParam(name="password", required=false, defaultValue="") String password,
+            Model model) {
         Optional<Account> result = accountRepository.findAccountByUserName(username);
         Account account = null;
         if (result.isPresent()) {

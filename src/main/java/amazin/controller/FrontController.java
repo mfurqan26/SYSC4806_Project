@@ -68,19 +68,23 @@ public class FrontController {
     @GetMapping("/CustomerLogin")
     public String CustomerLogin(Model model) {return "CustomerLogin";}
 
-    @PostMapping(value = "/CustomerLogin", params = "customerLogin")
-    public String checkCustomerLogin(@RequestParam(name="username", required=false, defaultValue="") String username,
-                                     @RequestParam(name="password", required=false, defaultValue="") String password,
-                                     HttpSession session,
-                                     Model model) {
+    @PostMapping( value = "/CustomerLogin", params = "customerLogin")
+    public String checkCustomerLogin(
+            @RequestParam(name="username", required=false, defaultValue="") String username,
+            @RequestParam(name="password", required=false, defaultValue="") String password,
+            HttpSession session, Model model) {
         Optional<Account> result = accountRepository.findAccountByUserName(username);
         Account account = null;
         if (result.isPresent()) {
             account = result.get();
             String accountPassword = account.getPassword();
-            if(account.getType().equals(Account.Type.CUSTOMER) && accountPassword.equals(password)) {
+            if(account.getType().equals(Account.Type.CUSTOMER) 
+                    && accountPassword.equals(password)) {
+                model.addAttribute("account", (Customer) account);
+                Iterable<Book> books = bookRepository.findAll();
                 session.setAttribute("account", account);
-                return "redirect:/Shop";
+                model.addAttribute("books", books);
+                return "Shop";
             }
         }
         model.addAttribute("loginError", "Invalid username or password");
@@ -96,8 +100,7 @@ public class FrontController {
     public String checkVendorLogin(
             @RequestParam(name="username", required=false, defaultValue="") String username,
             @RequestParam(name="password", required=false, defaultValue="") String password,
-            HttpSession session,
-            Model model) {
+            HttpSession session, Model model) {
         Optional<Account> result = accountRepository.findAccountByUserName(username);
         Account account = null;
         if (result.isPresent()) {

@@ -66,7 +66,6 @@
                                             document.getElementById(elementId).value--;
                                         }
                                     }
-
                                 </script>
                             </td>
                         </tr>
@@ -74,16 +73,15 @@
                 </table>
             </div>
         </div>
-        <!--<p style="color: red" th:text="${account.cart}"></p><!-->
         
         <div style="margin: 50px">
-            <button 
-                    method="post" 
-                    th:action="@{/Checkout}"
-                    modelAttribute="cart" 
-                    th:object="${account.getCart()}">
-                Purchase
-            </button>
+            <form 
+                method="post" 
+                th:action="@{/Checkout}"
+                modelAttribute="account" 
+                th:object="${account}">
+                <button>Purchase</button>
+            </form>
         </div> 
     </body>
 </html>

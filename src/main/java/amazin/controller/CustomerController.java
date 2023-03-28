@@ -1,9 +1,11 @@
 package amazin.controller;
 
+import amazin.model.Account;
 import amazin.model.Book;
 import amazin.model.Cart;
 import amazin.model.Customer;
 import amazin.repository.BookRepository;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
@@ -16,8 +18,14 @@ public class CustomerController {
     private BookRepository bookRepository;
 
     @GetMapping("/Shop")
-    public String Customer(Model model){
+    public String customer(Model model, HttpSession session) {
+        Account account = (Account) session.getAttribute("account");
+        if (account == null || account.getType() != Account.Type.CUSTOMER) {
+            // redirect to login page
+            return "redirect:/CustomerLogin";
+        }
         Iterable<Book> books = bookRepository.findAll();
+        model.addAttribute("account", account);
         model.addAttribute("books", books);
         return "Shop";
     }
@@ -68,7 +76,12 @@ public class CustomerController {
     }
 
     @GetMapping("/ShoppingCart")
-    public String Customer(){
+    public String Customer(HttpSession session){
+        Account account = (Account) session.getAttribute("account");
+        if (account == null || account.getType() != Account.Type.CUSTOMER) {
+            // redirect to login page
+            return "redirect:/CustomerLogin";
+        }
         return "ShoppingCart";
     }
 

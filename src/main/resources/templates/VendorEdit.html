@@ -6,12 +6,13 @@
         <link rel="stylesheet" th:href="@{/css/styles.css}"/>
     </head>
     <body>
-        <h1 style="margin: 50px">Vendor</h1>
+        <h1 style="margin: 50px">Vendor Edit</h1>
+        <p th:text="${account.userName}+' on this page you can edit books currently stored already!'"></p>
         <navbar>
             <a th:href="@{/Vendor}">View Books</a>
             <a th:href="@{/VendorCreate}">Create Books</a>
             <a th:href="@{/VendorEdit}">Edit Books</a>
-            <a th:href="@{/VendorLogin}">Log Out</a>
+            <a th:href="@{/VendorLogout}">Log Out</a>
         </navbar>
 
         <div style="margin: 50px">

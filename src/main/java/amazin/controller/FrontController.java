@@ -7,6 +7,7 @@ import amazin.model.Customer;
 import amazin.model.Vendor;
 import amazin.repository.BookRepository;
 import amazin.repository.AccountRepository;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -67,19 +68,18 @@ public class FrontController {
     @GetMapping("/CustomerLogin")
     public String CustomerLogin(Model model) {return "CustomerLogin";}
 
-    @PostMapping( value = "/CustomerLogin", params = "customerLogin")
-    public String checkCustomerLogin(
-            @RequestParam(name="username", required=false, defaultValue="") String username,
-            @RequestParam(name="password", required=false, defaultValue="") String password,
-            Model model) {
+    @PostMapping(value = "/CustomerLogin", params = "customerLogin")
+    public String checkCustomerLogin(@RequestParam(name="username", required=false, defaultValue="") String username,
+                                     @RequestParam(name="password", required=false, defaultValue="") String password,
+                                     HttpSession session,
+                                     Model model) {
         Optional<Account> result = accountRepository.findAccountByUserName(username);
         Account account = null;
         if (result.isPresent()) {
             account = result.get();
             String accountPassword = account.getPassword();
-            if(account.getType().equals(Account.Type.CUSTOMER) 
-                    && accountPassword.equals(password)) {
-                model.addAttribute("account", (Customer) account);
+            if(account.getType().equals(Account.Type.CUSTOMER) && accountPassword.equals(password)) {
+                session.setAttribute("account", account);
                 return "redirect:/Shop";
             }
         }
@@ -96,6 +96,7 @@ public class FrontController {
     public String checkVendorLogin(
             @RequestParam(name="username", required=false, defaultValue="") String username,
             @RequestParam(name="password", required=false, defaultValue="") String password,
+            HttpSession session,
             Model model) {
         Optional<Account> result = accountRepository.findAccountByUserName(username);
         Account account = null;
@@ -104,6 +105,7 @@ public class FrontController {
             String accountPassword = account.getPassword();
             if(account.getType().equals(Account.Type.VENDOR) && accountPassword.equals(password)){
                 model.addAttribute("account", account);
+                session.setAttribute("account", account);
                 return "redirect:/Vendor";
             }
         }

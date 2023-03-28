@@ -1,6 +1,7 @@
 package amazin.controller;
 
 import amazin.repository.BookRepository;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import amazin.model.Account;
 import amazin.model.Book;
@@ -16,14 +17,26 @@ public class VendorController {
     private BookRepository bookRepository;
 
     @GetMapping("/Vendor")
-    public String Vendor(Model model) {
+    public String Vendor(Model model, HttpSession session) {
+        Account account = (Account) session.getAttribute("account");
+        if (account == null || account.getType() != Account.Type.VENDOR) {
+            // redirect to login page
+            return "redirect:/VendorLogin";
+        }
         Iterable<Book> books = bookRepository.findAll();
+        model.addAttribute("account", account);
         model.addAttribute("books", books);
         return "Vendor";
     }
 
     @GetMapping("/VendorCreate")
-    public String VendorCreate() {
+    public String VendorCreate(HttpSession session, Model model) {
+        Account account = (Account) session.getAttribute("account");
+        if (account == null || account.getType() != Account.Type.VENDOR) {
+            // redirect to login page
+            return "redirect:/VendorLogin";
+        }
+        model.addAttribute("account", account);
         return "VendorCreate";
     }
 
@@ -76,7 +89,13 @@ public class VendorController {
     }
 
     @GetMapping("/VendorEdit")
-    public String VendorEdit() {
+    public String VendorEdit(HttpSession session, Model model) {
+        Account account = (Account) session.getAttribute("account");
+        if (account == null || account.getType() != Account.Type.VENDOR) {
+            // redirect to login page
+            return "redirect:/VendorLogin";
+        }
+        model.addAttribute("account", account);
         return "VendorEdit";
     }
     @PostMapping(value="/VendorEdit", params="EditBook")
@@ -113,5 +132,11 @@ public class VendorController {
             model.addAttribute("BookSearchError", "Inputs do not have correct number formatting for version or stock or price!");
             return "VendorEdit";
         }
+    }
+
+    @GetMapping("/VendorLogout")
+    public String VendorLogout(HttpSession session, Model model) {
+        session.setAttribute("account",null);
+        return "redirect:/VendorLogin";
     }
 }

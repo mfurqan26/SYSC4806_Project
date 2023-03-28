@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import java.io.Serializable;
 
 @Entity
-public abstract class Account {
+public abstract class Account implements Serializable{
 
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long id;

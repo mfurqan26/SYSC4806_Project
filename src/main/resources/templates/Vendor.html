@@ -7,11 +7,12 @@
     </head>
     <body>
         <h1 style="margin: 50px">Vendor</h1>
+        <p th:text="'Welcome '+${account.userName}+' to the Vendor main page where you can view all books!'"></p>
         <navbar>
             <a th:href="@{/Vendor}">View Books</a>
             <a th:href="@{/VendorCreate}">Create Books</a>
             <a th:href="@{/VendorEdit}">Edit Books</a>
-            <a th:href="@{/VendorLogin}">Log Out</a>
+            <a th:href="@{/VendorLogout}">Log Out</a>
         </navbar>
 
         <div style="margin: 50px">

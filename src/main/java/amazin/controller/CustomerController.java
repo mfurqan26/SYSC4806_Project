@@ -62,9 +62,12 @@ public class CustomerController {
     }
 
     @PostMapping("/Checkout")
-    public String checkout(Model model, @ModelAttribute("cart") Cart cart) {
-        System.out.println("????");
-        model.addAttribute("cart", cart);
+    public String checkout(Model model, @ModelAttribute("account") Customer account) {
+        model.addAttribute("account", account);
+        Cart cart = account.getCart();
+        if (cart != null) {
+            model.addAttribute("totalCost", cart.getPrice());
+        }
         return "Checkout";
     }
 

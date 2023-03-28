@@ -11,11 +11,11 @@ public class Cart {
 	@Autowired
 	BookRepository books;
 
-	ArrayList<CartItem> items;
+	private ArrayList<CartItem> items;
 
 	public static class CartItem {
-		BookId book;
-		int amount;
+		public BookId book;
+		public int amount;
 		CartItem(BookId book, int amount) {
 			this.book = book;
 			this.amount = amount;
@@ -24,6 +24,10 @@ public class Cart {
 
 	Cart() {
 		this.items = new ArrayList<>();
+	}
+
+	public ArrayList<CartItem> getItems() {
+		return this.items;
 	}
 
 	public double getPrice() {

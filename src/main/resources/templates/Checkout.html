@@ -7,10 +7,31 @@
     </head>
     <body>
         <h1 style="margin: 50px">Purchased</h1>
-
-        <div style="margin: 50px">
-            Should just display a text of you have puchased, and how much money
-            you spent
+         <p>Purchasing for user: </p>
+         <p th:text="${account.getName()}"> </p>
+         <table>
+            <tbody>
+                <thead>
+                    <th>ISBN</th>
+                    <th>Version</th>
+                    <th>Name</th>
+                    <th>Publisher</th>
+                    <th>Price</th>
+                    <th>Stock</th>
+                    <th>Description</th>
+                </thead>
+                <tr th:each="book: ${purchasedBooks}">
+                    <td th:text="${book.isbn}" />
+                    <td th:text="${book.version}" />
+                    <td th:text="${book.name}" />
+                    <td th:text="${book.publisher}" />
+                    <td th:text="${book.price}" />
+                </tr>
+            </tbody>
+        </table>
+        <div style="margin-right: 30px">
+            <p>Total Cost: </p>
+            <p th:text="${totalCost}"></p>
         </div>
 
         <button style="margin: 50px">back to main page</button>

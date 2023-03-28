@@ -76,13 +76,13 @@
         <!--<p style="color: red" th:text="${account.cart}"></p><!-->
         
         <div style="margin: 50px">
-            <button 
+            <form 
                     method="post" 
                     th:action="@{/Checkout}"
                     modelAttribute="cart" 
                     th:object="${account.getCart()}">
-                Purchase
-            </button>
+                <button>Purchase</button>
+            </form>
         </div> 
     </body>
 </html>

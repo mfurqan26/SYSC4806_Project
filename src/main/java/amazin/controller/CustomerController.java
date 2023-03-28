@@ -63,6 +63,7 @@ public class CustomerController {
 
     @PostMapping("/Checkout")
     public String checkout(Model model, @ModelAttribute("cart") Cart cart) {
+        System.out.println("????");
         model.addAttribute("cart", cart);
         return "Checkout";
     }

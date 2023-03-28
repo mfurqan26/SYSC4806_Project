@@ -80,7 +80,9 @@ public class FrontController {
             if(account.getType().equals(Account.Type.CUSTOMER) 
                     && accountPassword.equals(password)) {
                 model.addAttribute("account", (Customer) account);
-                return "redirect:/Shop";
+                Iterable<Book> books = bookRepository.findAll();
+                model.addAttribute("books", books);
+                return "Shop";
             }
         }
         model.addAttribute("loginError", "Invalid username or password");

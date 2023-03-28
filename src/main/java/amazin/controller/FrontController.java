@@ -1,12 +1,10 @@
 package amazin.controller;
 
-import amazin.model.Account;
-import amazin.model.Book;
+import amazin.model.*;
 import amazin.model.Book.BookId;
-import amazin.model.Customer;
-import amazin.model.Vendor;
 import amazin.repository.BookRepository;
 import amazin.repository.AccountRepository;
+import amazin.repository.CartRepository;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,6 +21,9 @@ public class FrontController {
     @Autowired
     private AccountRepository accountRepository;
 
+    @Autowired
+    private CartRepository cartRepository;
+
     @GetMapping("/")
     public String landing() {return "Landing";}
 
@@ -36,18 +37,22 @@ public class FrontController {
             @RequestParam(name="type", required=false, defaultValue="Customer") String type,
             Model model) {
         Optional<Account> result = accountRepository.findAccountByUserName(username);
-        Account account = null;
         if (!result.isPresent()) {
             if(!username.equals("") && !password.equals("")) {
                 //Vendor Account
                 if(type.equals("Vendor")) {
-                    account = new Vendor(username,password);
+                    Vendor account = new Vendor(username,password);
                     accountRepository.save(account);
                     return "redirect:/VendorLogin";
                 }
                 //Customer Account
                 else {
-                    account = new Customer(username,password);
+                    Cart cart = new Cart(username);
+                    cartRepository.save(cart);
+
+                    Customer account = new Customer(username,password);
+                    account.setCart(cart);
+
                     accountRepository.save(account);
                     return "redirect:/CustomerLogin";
                 }
@@ -68,18 +73,21 @@ public class FrontController {
     @GetMapping("/CustomerLogin")
     public String CustomerLogin(Model model) {return "CustomerLogin";}
 
-    @PostMapping(value = "/CustomerLogin", params = "customerLogin")
-    public String checkCustomerLogin(@RequestParam(name="username", required=false, defaultValue="") String username,
-                                     @RequestParam(name="password", required=false, defaultValue="") String password,
-                                     HttpSession session,
-                                     Model model) {
+    @PostMapping( value = "/CustomerLogin", params = "customerLogin")
+    public String checkCustomerLogin(
+            @RequestParam(name="username", required=false, defaultValue="") String username,
+            @RequestParam(name="password", required=false, defaultValue="") String password,
+            HttpSession session, Model model) {
         Optional<Account> result = accountRepository.findAccountByUserName(username);
-        Account account = null;
-        if (result.isPresent()) {
-            account = result.get();
+        Optional<Cart> cartResult = cartRepository.findByUserName(username);
+        if (result.isPresent() && cartResult.isPresent()) {
+            Account account = result.get();
             String accountPassword = account.getPassword();
-            if(account.getType().equals(Account.Type.CUSTOMER) && accountPassword.equals(password)) {
+            if(account.getType().equals(Account.Type.CUSTOMER) 
+                    && accountPassword.equals(password)) {
+                Cart cart = cartResult.get();
                 session.setAttribute("account", account);
+                session.setAttribute("cart", cart);
                 return "redirect:/Shop";
             }
         }
@@ -96,8 +104,7 @@ public class FrontController {
     public String checkVendorLogin(
             @RequestParam(name="username", required=false, defaultValue="") String username,
             @RequestParam(name="password", required=false, defaultValue="") String password,
-            HttpSession session,
-            Model model) {
+            HttpSession session, Model model) {
         Optional<Account> result = accountRepository.findAccountByUserName(username);
         Account account = null;
         if (result.isPresent()) {

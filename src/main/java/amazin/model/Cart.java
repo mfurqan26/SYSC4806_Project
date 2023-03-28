@@ -1,39 +1,59 @@
 package amazin.model;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.persistence.*;
 
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.List;
+@Entity
+public class Cart implements Serializable {
 
-import amazin.model.Book.BookId;
-import amazin.repository.BookRepository;
+	@OneToMany(fetch = FetchType.EAGER)
+	private List<CartItem> items;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private long id;
 
-public class Cart {
+	private String userName;
 
-	HashMap<BookId, Book> books;
-
-	ArrayList<CartItem> items;
-
-	public static class CartItem {
-		private BookId book;
-		private int amount;
-		CartItem(BookId book, int amount) {
-			this.book = book;
-			this.amount = amount;
-		}
-
-		public BookId getBook() {return book;}
-
-		public int getAmount() {return amount;}
-	}
-
-	Cart() {
+	public Cart() {
 		this.items = new ArrayList<>();
 	}
 
+	public Cart(String userName) {
+		this.userName = userName;
+		this.items = new ArrayList<>();
+	}
+
+	public String getUserName() {return userName;}
+
+	public long getId() {return id;}
+
+	public void setId(long id) {this.id = id;}
+
+	public void setUserName(String userName) {this.userName = userName;}
+
+	public List<CartItem> getItems() {
+		return this.items;
+	}
+
+	public void setItems(List<CartItem> items) {this.items = items;}
+
+	public void addCartItem(CartItem cartItem) {this.items.add(cartItem);}
+
+	public ArrayList<Book> getCartBooks() {
+		ArrayList<Book> books = new ArrayList<>();
+		for (int i = 0; i < items.size(); i++) {
+			books.add(items.get(i).getBook());
+		}
+		return books;
+	}
+
 	public double getPrice() {
-		return items.stream().map( (cartItem) ->
-			books.get(cartItem.getBook()).getPrice() * cartItem.getAmount())
-				.reduce(0.0, Double::sum);
+		double price = 0;
+		for (int i = 0; i < items.size(); i++) {
+			price += items.get(i).getPrice();
+		}
+		return price;
 	}
 }

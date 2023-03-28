@@ -1,10 +1,7 @@
 package amazin.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Transient;
+import jakarta.persistence.*;
+
 import java.util.*;
 
 import amazin.model.Book.BookId;
@@ -13,11 +10,11 @@ import amazin.model.Account;
 @Entity
 public class Customer extends Account {
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     private List<Book> purchasedBooks;
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     private Map<BookId, CustomerReview> bookReviews;
-    @Transient
+    @OneToOne(fetch = FetchType.EAGER)
     private Cart cart;
 
     //TODO add sensitive info to purchasing.
@@ -27,7 +24,7 @@ public class Customer extends Account {
         super(userName, password, Account.Type.CUSTOMER);
         this.purchasedBooks = new ArrayList<>();
         this.bookReviews = new HashMap<>();
-        this.cart = new Cart();
+        this.cart = new Cart(userName);
     }
 
     public Customer() {
@@ -40,6 +37,16 @@ public class Customer extends Account {
 
     public Cart getCart() {
         return this.cart;
+    }
+
+    public void setCart(Cart cart) {this.cart = cart;}
+
+    public void addCartItem(CartItem cartItem) {
+        this.cart.addCartItem(cartItem);
+    }
+
+    public ArrayList<Book> getCartBooks() {
+        return  this.cart.getCartBooks();
     }
 
     public List<Book> getPurchasedBooks() {
@@ -70,14 +77,4 @@ public class Customer extends Account {
         return bookReviews.get(book);
     }
 
-
-    @Override
-    public String toString() {
-        return "amazin.model.Customer{" +
-                "userName='" + this.userName + '\'' +
-                ", id=" + this.getId() +
-                ", purchasedBooks=" + this.purchasedBooks.toString() +
-                ", bookReviews=" + this.bookReviews +
-                '}';
-    }
 }

@@ -7,12 +7,32 @@
     </head>
     <body>
         <h1 style="margin: 50px">Purchased</h1>
-
-        <div style="margin: 50px">
-            Should just display a text of you have puchased, and how much money
-            you spent
+         <p th:text="'Purchasing for user: '+${account.userName}"> </p>
+         <table>
+            <tbody>
+                <thead>
+                    <th>ISBN</th>
+                    <th>Version</th>
+                    <th>Name</th>
+                    <th>Publisher</th>
+                    <th>Price</th>
+                    <th>Amount</th>
+                </thead>
+                <tr th:each="item: ${purchasedItems}">
+                    <td th:text="${item.book.isbn}" />
+                    <td th:text="${item.book.version}" />
+                    <td th:text="${item.book.name}" />
+                    <td th:text="${item.book.publisher}" />
+                    <td th:text="${item.book.price}" />
+                    <td th:text="${item.amount}" />
+                </tr>
+            </tbody>
+        </table>
+        <div style="margin-right: 30px">
+            <p th:text="'Total Cost: '+${totalCost}"></p>
         </div>
-
-        <button style="margin: 50px">back to main page</button>
+        <form th:action="@{/Shop}" method="get">
+            <input type="submit" value="Return to Shop Page" name="ShopPage"/>
+        </form>
     </body>
 </html>

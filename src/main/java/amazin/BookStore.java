@@ -17,7 +17,8 @@ public class BookStore{
     @Bean
     public CommandLineRunner demo(
             BookRepository books, 
-            AccountRepository accounts) {
+            AccountRepository accounts,
+            CartRepository carts) {
         return (args) -> {
 
             Book book1 = new Book("978-0-122453-12-1", 1,
@@ -27,7 +28,11 @@ public class BookStore{
             books.save(book1);
             books.save(book2);
 
+            Cart cart1 = new Cart("customer1");
+            carts.save(cart1);
+
             Customer c1 = new Customer("customer1","123");
+            c1.setCart(cart1);
             Vendor v1 = new Vendor("vendor1","123");
             accounts.save(c1);
             accounts.save(v1);

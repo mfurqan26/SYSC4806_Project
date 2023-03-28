@@ -47,26 +47,14 @@
                             <td th:text="${book.stock}" />
                             <td th:text="${book.description}" />
                             <td>
-                                <button type="button" th:attr="onclick='incrementQuantity(\'' + ${book.stock}+ '\'' + ',' + '\'' + ${book.isbn}+ '\');'" >+</button>
-                                <label>
-                                    <input type="number" th:id="${book.isbn}" name="quantity" th:value = "0" min="0" th:attr="max=${book.stock}" readonly>
-                                </label>
-                                <button type="button" th:attr="onclick='decrementQuantity(\'' + ${book.isbn}+  '\');'">-</button>
-                                <script type="text/javascript">
-                                    function incrementQuantity(maxValue, elementId){
-                                        let currentValue = document.getElementById(elementId).value;
-                                        if (currentValue < maxValue){
-                                            document.getElementById(elementId).value++;
-                                        }
-                                    }
-
-                                    function decrementQuantity(elementId){
-                                        let currentValue = document.getElementById(elementId).value;
-                                        if (currentValue > 0){
-                                            document.getElementById(elementId).value--;
-                                        }
-                                    }
-                                </script>
+                                <form
+                                        method="post"
+                                        action=""
+                                        th:object="${account}">
+                                    <input type="hidden" name="isbn" th:value="${book.isbn}">
+                                    <input type="hidden" name="version" th:value="${book.version}">
+                                    <input type="submit" name="buyBook" value="Buy Book">
+                                </form>
                             </td>
                         </tr>
                     </tbody>
@@ -80,7 +68,7 @@
                 th:action="@{/Checkout}"
                 modelAttribute="account" 
                 th:object="${account}">
-                <button>Purchase</button>
+                <input type="submit" value="Checkout" name="Checkout">
             </form>
         </div> 
     </body>

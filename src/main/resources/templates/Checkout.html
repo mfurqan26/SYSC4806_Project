@@ -7,8 +7,7 @@
     </head>
     <body>
         <h1 style="margin: 50px">Purchased</h1>
-         <p>Purchasing for user: </p>
-         <p th:text="${account.getName()}"> </p>
+         <p th:text="'Purchasing for user: '+${account.userName}"> </p>
          <table>
             <tbody>
                 <thead>
@@ -17,23 +16,23 @@
                     <th>Name</th>
                     <th>Publisher</th>
                     <th>Price</th>
-                    <th>Stock</th>
-                    <th>Description</th>
+                    <th>Amount</th>
                 </thead>
-                <tr th:each="book: ${purchasedBooks}">
-                    <td th:text="${book.isbn}" />
-                    <td th:text="${book.version}" />
-                    <td th:text="${book.name}" />
-                    <td th:text="${book.publisher}" />
-                    <td th:text="${book.price}" />
+                <tr th:each="item: ${purchasedItems}">
+                    <td th:text="${item.book.isbn}" />
+                    <td th:text="${item.book.version}" />
+                    <td th:text="${item.book.name}" />
+                    <td th:text="${item.book.publisher}" />
+                    <td th:text="${item.book.price}" />
+                    <td th:text="${item.amount}" />
                 </tr>
             </tbody>
         </table>
         <div style="margin-right: 30px">
-            <p>Total Cost: </p>
-            <p th:text="${totalCost}"></p>
+            <p th:text="'Total Cost: '+${totalCost}"></p>
         </div>
-
-        <button style="margin: 50px">back to main page</button>
+        <form th:action="@{/Shop}" method="get">
+            <input type="submit" value="Return to Shop Page" name="ShopPage"/>
+        </form>
     </body>
 </html>

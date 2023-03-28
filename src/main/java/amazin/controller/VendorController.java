@@ -1,6 +1,7 @@
 package amazin.controller;
 
 import amazin.repository.BookRepository;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import amazin.model.Account;
 import amazin.model.Book;
@@ -16,25 +17,38 @@ public class VendorController {
     private BookRepository bookRepository;
 
     @GetMapping("/Vendor")
-    public String Vendor(Model model) {
+    public String Vendor(Model model, HttpSession session) {
+        Account account = (Account) session.getAttribute("account");
+        if (account == null || account.getType() != Account.Type.VENDOR) {
+            // redirect to login page
+            return "redirect:/VendorLogin";
+        }
         Iterable<Book> books = bookRepository.findAll();
+        model.addAttribute("account", account);
         model.addAttribute("books", books);
         return "Vendor";
     }
 
     @GetMapping("/VendorCreate")
-    public String VendorCreate() {
+    public String VendorCreate(HttpSession session, Model model) {
+        Account account = (Account) session.getAttribute("account");
+        if (account == null || account.getType() != Account.Type.VENDOR) {
+            // redirect to login page
+            return "redirect:/VendorLogin";
+        }
+        model.addAttribute("account", account);
         return "VendorCreate";
     }
 
     @PostMapping(value="/VendorCreate", params = "AddBook")
-    public String CreateBook(@RequestParam(name="isbn", required=false, defaultValue = "") String isbn,
-                               @RequestParam(name="createNewVariant", required=false, defaultValue= "False") String createNewVariant,
-                               @RequestParam(name="name", required=false, defaultValue = "") String name,
-                               @RequestParam(name="description", required=false, defaultValue = "") String description,
-                               @RequestParam(name="publisher", required=false, defaultValue = "") String publisher,
-                               @RequestParam(name="stock", required=false, defaultValue = "") String stock,
-                               @RequestParam(name="price", required=false, defaultValue = "") String price, Model model) {
+    public String CreateBook(
+            @RequestParam(name="isbn", required=false, defaultValue = "") String isbn,
+            @RequestParam(name="createNewVariant", required=false, defaultValue= "False") String createNewVariant,
+            @RequestParam(name="name", required=false, defaultValue = "") String name,
+            @RequestParam(name="description", required=false, defaultValue = "") String description,
+            @RequestParam(name="publisher", required=false, defaultValue = "") String publisher,
+            @RequestParam(name="stock", required=false, defaultValue = "") String stock,
+            @RequestParam(name="price", required=false, defaultValue = "") String price, Model model) {
         boolean conditionAnyNotSet = isbn.equals("") || name.equals("") ||
                 description.equals("") || publisher.equals("") || stock.equals("") || price.equals("");
 
@@ -75,17 +89,24 @@ public class VendorController {
     }
 
     @GetMapping("/VendorEdit")
-    public String VendorEdit() {
+    public String VendorEdit(HttpSession session, Model model) {
+        Account account = (Account) session.getAttribute("account");
+        if (account == null || account.getType() != Account.Type.VENDOR) {
+            // redirect to login page
+            return "redirect:/VendorLogin";
+        }
+        model.addAttribute("account", account);
         return "VendorEdit";
     }
     @PostMapping(value="/VendorEdit", params="EditBook")
-    public String BookEdit(@RequestParam(name="isbn", required=true, defaultValue = "") String isbn,
-                            @RequestParam(name="version", required=true, defaultValue = "0") String version,
-                            @RequestParam(name="name", required=false, defaultValue = "") String name,
-                            @RequestParam(name="description", required=false, defaultValue = "") String description,
-                            @RequestParam(name="publisher", required=false, defaultValue = "") String publisher,
-                            @RequestParam(name="stock", required=false, defaultValue = "") String stock,
-                            @RequestParam(name="price", required=false, defaultValue = "") String price, Model model) {
+    public String BookEdit(
+            @RequestParam(name="isbn", required=true, defaultValue = "") String isbn,
+            @RequestParam(name="version", required=true, defaultValue = "0") String version,
+            @RequestParam(name="name", required=false, defaultValue = "") String name,
+            @RequestParam(name="description", required=false, defaultValue = "") String description,
+            @RequestParam(name="publisher", required=false, defaultValue = "") String publisher,
+            @RequestParam(name="stock", required=false, defaultValue = "") String stock,
+            @RequestParam(name="price", required=false, defaultValue = "") String price, Model model) {
         try {
             Book.BookId bookId = new Book.BookId(isbn, Integer.parseInt(version));
             Optional<Book> foundBook = bookRepository.findById(bookId);
@@ -111,5 +132,11 @@ public class VendorController {
             model.addAttribute("BookSearchError", "Inputs do not have correct number formatting for version or stock or price!");
             return "VendorEdit";
         }
+    }
+
+    @GetMapping("/VendorLogout")
+    public String VendorLogout(HttpSession session, Model model) {
+        session.setAttribute("account",null);
+        return "redirect:/VendorLogin";
     }
 }

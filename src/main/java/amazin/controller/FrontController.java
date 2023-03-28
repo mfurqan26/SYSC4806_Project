@@ -7,6 +7,7 @@ import amazin.model.Customer;
 import amazin.model.Vendor;
 import amazin.repository.BookRepository;
 import amazin.repository.AccountRepository;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,13 +24,17 @@ public class FrontController {
     private AccountRepository accountRepository;
 
     @GetMapping("/")
-    public String SignUp() {return "SignUp";}
+    public String landing() {return "Landing";}
 
-    @PostMapping( value = "/", params = "SignUp")
-    public String newAccountSignUp(@RequestParam(name="username", required=false, defaultValue="") String username,
-                                   @RequestParam(name="password", required=false, defaultValue="") String password,
-                                   @RequestParam(name="type", required=false, defaultValue="Customer") String type,
-                                   Model model) {
+    @GetMapping("/SignUp")
+    public String signUp() {return "SignUp";}
+
+    @PostMapping("/SignUp")
+    public String signUp(
+            @RequestParam(name="username", required=false, defaultValue="") String username,
+            @RequestParam(name="password", required=false, defaultValue="") String password,
+            @RequestParam(name="type", required=false, defaultValue="Customer") String type,
+            Model model) {
         Optional<Account> result = accountRepository.findAccountByUserName(username);
         Account account = null;
         if (!result.isPresent()) {
@@ -63,9 +68,10 @@ public class FrontController {
     @GetMapping("/CustomerLogin")
     public String CustomerLogin(Model model) {return "CustomerLogin";}
 
-    @PostMapping( value = "/CustomerLogin", params = "customerLogin")
+    @PostMapping(value = "/CustomerLogin", params = "customerLogin")
     public String checkCustomerLogin(@RequestParam(name="username", required=false, defaultValue="") String username,
                                      @RequestParam(name="password", required=false, defaultValue="") String password,
+                                     HttpSession session,
                                      Model model) {
         Optional<Account> result = accountRepository.findAccountByUserName(username);
         Account account = null;
@@ -73,7 +79,7 @@ public class FrontController {
             account = result.get();
             String accountPassword = account.getPassword();
             if(account.getType().equals(Account.Type.CUSTOMER) && accountPassword.equals(password)) {
-                model.addAttribute("account", account);
+                session.setAttribute("account", account);
                 return "redirect:/Shop";
             }
         }
@@ -87,9 +93,11 @@ public class FrontController {
     }
 
     @PostMapping( value = "/VendorLogin", params = "vendorLogin")
-    public String checkVendorLogin(@RequestParam(name="username", required=false, defaultValue="") String username,
-                                   @RequestParam(name="password", required=false, defaultValue="") String password,
-                                   Model model) {
+    public String checkVendorLogin(
+            @RequestParam(name="username", required=false, defaultValue="") String username,
+            @RequestParam(name="password", required=false, defaultValue="") String password,
+            HttpSession session,
+            Model model) {
         Optional<Account> result = accountRepository.findAccountByUserName(username);
         Account account = null;
         if (result.isPresent()) {
@@ -97,6 +105,7 @@ public class FrontController {
             String accountPassword = account.getPassword();
             if(account.getType().equals(Account.Type.VENDOR) && accountPassword.equals(password)){
                 model.addAttribute("account", account);
+                session.setAttribute("account", account);
                 return "redirect:/Vendor";
             }
         }

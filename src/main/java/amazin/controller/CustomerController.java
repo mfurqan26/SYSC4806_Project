@@ -1,9 +1,11 @@
 package amazin.controller;
 
+import amazin.model.Account;
 import amazin.model.Book;
+import amazin.model.Cart;
 import amazin.model.Customer;
 import amazin.repository.BookRepository;
-import amazin.repository.CustomerRepository;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
@@ -11,14 +13,19 @@ import org.springframework.stereotype.Controller;
 
 @Controller
 public class CustomerController {
-    @Autowired
-    private CustomerRepository customerRepository;
+
     @Autowired
     private BookRepository bookRepository;
 
     @GetMapping("/Shop")
-    public String Customer(Model model){
+    public String customer(Model model, HttpSession session) {
+        Account account = (Account) session.getAttribute("account");
+        if (account == null || account.getType() != Account.Type.CUSTOMER) {
+            // redirect to login page
+            return "redirect:/CustomerLogin";
+        }
         Iterable<Book> books = bookRepository.findAll();
+        model.addAttribute("account", account);
         model.addAttribute("books", books);
         return "Shop";
     }
@@ -31,9 +38,10 @@ public class CustomerController {
     }
 
     @PostMapping(value="/Shop", params = "SearchBook")
-    public String SearchBook(@RequestParam(name="search", required=false, defaultValue = "") String search,
-                             @RequestParam(name="filter", required=false, defaultValue = "") String filter,
-                             Model model){
+    public String SearchBook(
+            @RequestParam(name="search", required=false, defaultValue = "") String search,
+            @RequestParam(name="filter", required=false, defaultValue = "") String filter,
+            Model model){
         if(!search.equals("")){
             Iterable<Book> books;
             if(filter.equals("by-publisher")){
@@ -61,26 +69,20 @@ public class CustomerController {
         return "Shop";
     }
 
+    @PostMapping("/Checkout")
+    public String checkout(Model model, @ModelAttribute("cart") Cart cart) {
+        model.addAttribute("cart", cart);
+        return "Checkout";
+    }
+
     @GetMapping("/ShoppingCart")
-    public String Customer(){
+    public String Customer(HttpSession session){
+        Account account = (Account) session.getAttribute("account");
+        if (account == null || account.getType() != Account.Type.CUSTOMER) {
+            // redirect to login page
+            return "redirect:/CustomerLogin";
+        }
         return "ShoppingCart";
     }
-
-
-    @Autowired
-    public CustomerController(CustomerRepository customerRepository){
-        this.customerRepository = customerRepository;
-    }
-
-    @RequestMapping("/customer")
-    public void createCustomer(@RequestBody Customer customer){
-        customerRepository.save(customer);
-    }
-
-    @RequestMapping(value = "/customer", method = RequestMethod.GET)
-    public Customer getCustomer(@RequestParam("id") Integer id){
-        return customerRepository.findCustomerById(id);
-    }
-
 
 }

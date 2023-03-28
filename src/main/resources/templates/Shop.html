@@ -6,7 +6,8 @@
         <link rel="stylesheet" th:href="@{/css/styles.css}"/>
     </head>
     <body>
-        <h1>Shop</h1>
+        <h1>Shop</h1><br>
+        <p th:text="'Welcome '+${account.userName}+' to the Shop!'"></p><br>
         <div>
 
             <form action="" method="post" th:object="${search}">

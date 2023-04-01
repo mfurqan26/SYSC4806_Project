@@ -9,4 +9,5 @@ import java.util.Optional;
 @RepositoryRestResource
 public interface CartRepository extends CrudRepository<Cart, Long>{
     Optional<Cart> findByUserName(String userName);
+    void deleteCartById(Long Id);
 }

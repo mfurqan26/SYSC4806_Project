@@ -1,13 +1,10 @@
 package amazin.model;
 import jakarta.persistence.*;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import amazin.model.Book.BookId;
-import amazin.repository.BookRepository;
+
 @Entity
-public class CartItem {
+public class CartItem implements Serializable{
     @OneToOne(fetch = FetchType.EAGER)
     private Book book;
     private int amount;
@@ -16,6 +13,10 @@ public class CartItem {
     private long id;
 
     private long cartId;
+
+    @ManyToOne
+    @JoinColumn(name = "cart")
+    private Cart cart;
 
     public CartItem(){
         this.book = new Book();
@@ -36,6 +37,9 @@ public class CartItem {
 
     public void setCartId(int cartId) {this.cartId = cartId;}
 
+    public Cart getCart() {return cart;}
+
+    public void setCart(Cart cart) {this.cart = cart;}
     public Book getBook() {return book;}
 
     public void setBook(Book book) {this.book = book;}

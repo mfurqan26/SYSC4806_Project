@@ -37,7 +37,7 @@ public class FrontController {
             @RequestParam(name="type", required=false, defaultValue="Customer") String type,
             Model model) {
         Optional<Account> result = accountRepository.findAccountByUserName(username);
-        if (!result.isPresent()) {
+        if (result.isEmpty()) {
             if(!username.equals("") && !password.equals("")) {
                 //Vendor Account
                 if(type.equals("Vendor")) {
@@ -85,9 +85,11 @@ public class FrontController {
             String accountPassword = account.getPassword();
             if(account.getType().equals(Account.Type.CUSTOMER) 
                     && accountPassword.equals(password)) {
-                Cart cart = cartResult.get();
-                session.setAttribute("account", account);
-                session.setAttribute("cart", cart);
+                Long cartId = cartResult.get().getId();
+                model.addAttribute("username", username);
+                model.addAttribute("cartId", cartId);
+                session.setAttribute("username", username);
+                session.setAttribute("cartId", cartId);
                 return "redirect:/Shop";
             }
         }
@@ -111,8 +113,8 @@ public class FrontController {
             account = result.get();
             String accountPassword = account.getPassword();
             if(account.getType().equals(Account.Type.VENDOR) && accountPassword.equals(password)){
-                model.addAttribute("account", account);
-                session.setAttribute("account", account);
+                model.addAttribute("username", username);
+                session.setAttribute("username", username);
                 return "redirect:/Vendor";
             }
         }

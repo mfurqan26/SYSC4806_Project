@@ -1,5 +1,6 @@
 package amazin.controller;
 
+import amazin.repository.AccountRepository;
 import amazin.repository.BookRepository;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,27 +17,32 @@ public class VendorController {
     @Autowired
     private BookRepository bookRepository;
 
+    @Autowired
+    private AccountRepository accountRepository;
+
     @GetMapping("/Vendor")
     public String Vendor(Model model, HttpSession session) {
-        Account account = (Account) session.getAttribute("account");
-        if (account == null || account.getType() != Account.Type.VENDOR) {
+        String userName = (String) session.getAttribute("username");
+        Optional<Account> account = accountRepository.findAccountByUserName(userName);
+        if (account.isEmpty() || account.get().getType() != Account.Type.VENDOR) {
             // redirect to login page
             return "redirect:/VendorLogin";
         }
         Iterable<Book> books = bookRepository.findAll();
-        model.addAttribute("account", account);
+        model.addAttribute("account", account.get());
         model.addAttribute("books", books);
         return "Vendor";
     }
 
     @GetMapping("/VendorCreate")
     public String VendorCreate(HttpSession session, Model model) {
-        Account account = (Account) session.getAttribute("account");
-        if (account == null || account.getType() != Account.Type.VENDOR) {
+        String userName = (String) session.getAttribute("username");
+        Optional<Account> account = accountRepository.findAccountByUserName(userName);
+        if (account.isEmpty() || account.get().getType() != Account.Type.VENDOR) {
             // redirect to login page
             return "redirect:/VendorLogin";
         }
-        model.addAttribute("account", account);
+        model.addAttribute("account", account.get());
         return "VendorCreate";
     }
 
@@ -90,12 +96,13 @@ public class VendorController {
 
     @GetMapping("/VendorEdit")
     public String VendorEdit(HttpSession session, Model model) {
-        Account account = (Account) session.getAttribute("account");
-        if (account == null || account.getType() != Account.Type.VENDOR) {
+        String userName = (String) session.getAttribute("username");
+        Optional<Account> account = accountRepository.findAccountByUserName(userName);
+        if (account.isEmpty() || account.get().getType() != Account.Type.VENDOR) {
             // redirect to login page
             return "redirect:/VendorLogin";
         }
-        model.addAttribute("account", account);
+        model.addAttribute("account", account.get());
         return "VendorEdit";
     }
     @PostMapping(value="/VendorEdit", params="EditBook")
@@ -136,7 +143,7 @@ public class VendorController {
 
     @GetMapping("/VendorLogout")
     public String VendorLogout(HttpSession session, Model model) {
-        session.setAttribute("account",null);
+        session.setAttribute("username",null);
         return "redirect:/VendorLogin";
     }
 }

@@ -8,6 +8,14 @@
     <body>
         <h1>Shop</h1><br>
         <p th:text="'Welcome '+${account.userName}+' to the Shop!'"></p><br>
+
+        <navbar>
+            <a th:href="@{/Shop}">Shop</a>
+            <a th:href="@{/ShoppingCart}">My Cart</a>
+            <a th:href="@{/PurchasedBooks}">Purchased Books</a>
+            <a th:href="@{/CustomerLogout}">Log Out</a>
+        </navbar>
+
         <div>
 
             <form action="" method="post" th:object="${search}">
@@ -61,15 +69,6 @@
                 </table>
             </div>
         </div>
-        
-        <div style="margin: 50px">
-            <form 
-                method="post" 
-                th:action="@{/Checkout}"
-                modelAttribute="account" 
-                th:object="${account}">
-                <input type="submit" value="Checkout" name="Checkout">
-            </form>
-        </div> 
+
     </body>
 </html>

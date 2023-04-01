@@ -6,8 +6,16 @@
         <link rel="stylesheet" th:href="@{/css/styles.css}"/>
     </head>
     <body>
-        <h1 style="margin: 50px">Purchased</h1>
+        <h1>Purchasing</h1>
          <p th:text="'Purchasing for user: '+${account.userName}"> </p>
+
+        <navbar>
+            <a th:href="@{/Shop}">Shop</a>
+            <a th:href="@{/ShoppingCart}">My Cart</a>
+            <a th:href="@{/PurchasedBooks}">Purchased Books</a>
+            <a th:href="@{/CustomerLogout}">Log Out</a>
+        </navbar>
+
          <table>
             <tbody>
                 <thead>
@@ -31,8 +39,8 @@
         <div style="margin-right: 30px">
             <p th:text="'Total Cost: '+${totalCost}"></p>
         </div>
-        <form th:action="@{/Shop}" method="get">
-            <input type="submit" value="Return to Shop Page" name="ShopPage"/>
+        <form action="" method="post">
+            <input type="submit" value="Confirm Checkout" name="Checkout"/>
         </form>
     </body>
 </html>

@@ -6,6 +6,7 @@ import amazin.repository.BookRepository;
 import amazin.repository.CartItemRepository;
 import amazin.repository.CartRepository;
 import jakarta.servlet.http.HttpSession;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
@@ -31,21 +32,30 @@ public class CustomerController {
 
     @GetMapping("/Shop")
     public String customer(Model model, HttpSession session) {
-        Account account = (Account) session.getAttribute("account");
-        if (account == null || account.getType() != Account.Type.CUSTOMER) {
+        String userName = (String) session.getAttribute("username");
+        Optional<Account> account = accountRepository.findAccountByUserName(userName);
+        if (account.isEmpty() || account.get().getType() != Account.Type.CUSTOMER) {
             // redirect to login page
             return "redirect:/CustomerLogin";
         }
         Iterable<Book> books = bookRepository.findAll();
-        model.addAttribute("account", account);
+        model.addAttribute("account", account.get());
         model.addAttribute("books", books);
         return "Shop";
     }
 
     @PostMapping(value="/Shop", params = "AllBooks")
-    public String SearchAllBook(Model model){
+    public String SearchAllBook(Model model, HttpSession session){
         Iterable<Book> books = bookRepository.findAll();
+
+        String userName = (String) session.getAttribute("username");
+        Optional<Account> account = accountRepository.findAccountByUserName(userName);
+        if (account.isEmpty() || account.get().getType() != Account.Type.CUSTOMER) {
+            return "redirect:/CustomerLogin";
+        }
+
         model.addAttribute("books", books);
+        model.addAttribute("account", account.get());
         return "Shop";
     }
 
@@ -53,7 +63,7 @@ public class CustomerController {
     public String SearchBook(
             @RequestParam(name="search", required=false, defaultValue = "") String search,
             @RequestParam(name="filter", required=false, defaultValue = "") String filter,
-            Model model){
+            Model model, HttpSession session){
         if(!search.equals("")){
             Iterable<Book> books;
             if(filter.equals("by-publisher")){
@@ -78,6 +88,14 @@ public class CustomerController {
             Iterable<Book> books = bookRepository.findAll();
             model.addAttribute("books",books);
         }
+
+        String userName = (String) session.getAttribute("username");
+        Optional<Account> account = accountRepository.findAccountByUserName(userName);
+        if (account.isEmpty()|| account.get().getType() != Account.Type.CUSTOMER) {
+            return "redirect:/CustomerLogin";
+        }
+
+        model.addAttribute("account", account.get());
         return "Shop";
     }
 
@@ -88,9 +106,10 @@ public class CustomerController {
         HttpSession session, Model model){
         Book.BookId id = new Book.BookId(isbn,version);
         Optional<Book> book = bookRepository.findById(id);
-        Account account = (Account) session.getAttribute("account");
-        if(!book.isEmpty()){
-            model.addAttribute("account", account);
+        String userName = (String) session.getAttribute("username");
+        Optional<Account> account = accountRepository.findAccountByUserName(userName);
+        if(book.isPresent() && account.isPresent()){
+            model.addAttribute("account", account.get());
             model.addAttribute("book", book.get());
             return "ShopItem";
         }
@@ -114,70 +133,139 @@ public class CustomerController {
             @RequestParam(name="isbn", required=false, defaultValue = "") String isbn,
             @RequestParam(name="version", required=false, defaultValue = "") int version,
             @RequestParam(name="quantity", required=false, defaultValue = "") int quantity,
-            HttpSession session, Model model){
+            HttpSession session){
         Book.BookId id = new Book.BookId(isbn,version);
         Optional<Book> book = bookRepository.findById(id);
-        Customer account = (Customer) session.getAttribute("account");
-        Cart cart = (Cart) session.getAttribute("cart");
-        if(!book.isEmpty()){
-            CartItem cartItem = new CartItem(book.get(), quantity, cart.getId());
-            cartItemRepository.save(cartItem);
+        String userName = (String) session.getAttribute("username");
+        Optional<Account> account = accountRepository.findAccountByUserName(userName);
 
+
+        Long cartId = (Long) session.getAttribute("cartId");
+        Optional<Cart> cart = cartRepository.findById(cartId);
+
+        if(book.isPresent() && cart.isPresent() && account.isPresent()){
+            Customer customer = (Customer) account.get();
+            CartItem cartItem = new CartItem(book.get(), quantity, cartId);
+            cartItemRepository.save(cartItem);
             book.get().removeStock(quantity);
-            cart.addCartItem(cartItem);
-            account.setCart(cart);
+
+            Cart myCart = cart.get();
+            myCart.addCartItem(cartItem);
+            customer.setCart(myCart);
+            accountRepository.save(customer);
+            cartRepository.save(myCart);
         }
 
         return "redirect:/Shop";
     }
 
-    @PostMapping("/Checkout")
-    public String checkout(Model model, HttpSession session) {
-        Customer account = (Customer) session.getAttribute("account");
-        Cart cart = (Cart) session.getAttribute("cart");
-        model.addAttribute("account", account);
-
-        if (cart != null) {
-            Long cartId = cart.getId();
-            Iterable<CartItem> cartItems = cartItemRepository.findByCartId(cartId);
-            List<CartItem> items = new ArrayList<>();
-            double price = 0.0;
-
-            for( CartItem cartItem : cartItems){
-                items.add(cartItem);
-                account.addPurchasedBook(cartItem.getBook());
-                price += cartItem.getPrice();
-            }
-
-            model.addAttribute("purchasedItems", items);
-            model.addAttribute("totalCost", price);
+    @GetMapping("/ShoppingCart")
+    public String shoppingCart(Model model, HttpSession session){
+        String userName = (String) session.getAttribute("username");
+        Optional<Account> account = accountRepository.findAccountByUserName(userName);
+        if (account.isEmpty() || account.get().getType() != Account.Type.CUSTOMER) {
+            return "redirect:/CustomerLogin";
         }
-        return "Checkout";
+
+        Long cartId = (Long) session.getAttribute("cartId");
+        Optional<Cart> cart = cartRepository.findById(cartId);
+        List<CartItem> items = new ArrayList<>();
+
+        if (cart.isPresent() && cart.get().getItems().size() != 0) {
+            List<CartItem> cartItems = cart.get().getItems();
+
+            for (CartItem cartItem : cartItems) {
+                items.add(cartItem);
+            }
+        }
+        model.addAttribute("account", account.get());
+        model.addAttribute("purchasedItems", items);
+        return "ShoppingCart";
     }
 
     @GetMapping("/Checkout")
     public String getCheckout(Model model, HttpSession session) {
-        Customer account = (Customer) session.getAttribute("account");
-        if (account == null || account.getType() != Account.Type.CUSTOMER) {
-            // redirect to login page
+        String userName = (String) session.getAttribute("username");
+        Optional<Account> account = accountRepository.findAccountByUserName(userName);
+        if (account.isEmpty() || account.get().getType() != Account.Type.CUSTOMER) {
             return "redirect:/CustomerLogin";
         }
-        model.addAttribute("account", account);
-        Cart cart = account.getCart();
-        if (cart != null) {
-            model.addAttribute("totalCost", cart.getPrice());
+
+        Long cartId = (Long) session.getAttribute("cartId");
+        Optional<Cart> cart = cartRepository.findById(cartId);
+
+        List<CartItem> items = new ArrayList<>();
+        double price = 0.0;
+
+        if (cart.isPresent() && cart.get().getItems().size() != 0) {
+            List<CartItem> cartItems = cart.get().getItems();
+
+            for( CartItem cartItem : cartItems){
+                items.add(cartItem);
+                price += cartItem.getPrice();
+            }
+
         }
+
+        model.addAttribute("account", account.get());
+        model.addAttribute("purchasedItems", items);
+        model.addAttribute("totalCost", price);
         return "Checkout";
     }
 
-    @GetMapping("/ShoppingCart")
-    public String Customer(HttpSession session){
-        Account account = (Account) session.getAttribute("account");
-        if (account == null || account.getType() != Account.Type.CUSTOMER) {
+    @Transactional
+    @PostMapping(value="/Checkout", params="Checkout")
+    public String confirmCheckout(HttpSession session) {
+        String userName = (String) session.getAttribute("username");
+        Optional<Account> account = accountRepository.findAccountByUserName(userName);
+        Long cartId = (Long) session.getAttribute("cartId");
+        Optional<Cart> cart = cartRepository.findById(cartId);
+        
+        //Add Purchased Books to Customer account
+        if (cart.isPresent() && account.isPresent() && cart.get().getItems().size() != 0) {
+
+            List<CartItem> cartItems = cart.get().getItems();
+            Customer customer = (Customer) account.get();
+            for( CartItem cartItem : cartItems){
+                Book book = cartItem.getBook();
+                customer.addPurchasedBook(book);
+            }
+
+            //Create new Empty Cart for customer
+            cartRepository.deleteCartById(cartId);
+            Cart emptyCart = new Cart(userName);
+            cartRepository.save(emptyCart);
+            customer.setCart(emptyCart);
+            accountRepository.save(customer);
+            session.setAttribute("cartId",emptyCart.getId());
+        }
+
+        return "redirect:/PurchasedBooks";
+    }
+
+    @GetMapping("/PurchasedBooks")
+    public String purchasedBooks(Model model, HttpSession session){
+        String userName = (String) session.getAttribute("username");
+        Optional<Account> account = accountRepository.findAccountByUserName(userName);
+        if (account.isEmpty() || account.get().getType() != Account.Type.CUSTOMER) {
             // redirect to login page
             return "redirect:/CustomerLogin";
         }
-        return "ShoppingCart";
+
+        Customer customer = (Customer) account.get();
+        List<Book> books = customer.getPurchasedBooks();
+        if(books.size() == 0){
+            model.addAttribute("emptyBooks", "You have not purchased any books yet.");
+        }
+        model.addAttribute("account", account.get());
+        model.addAttribute("books",books);
+        return "PurchasedBooks";
     }
 
+    @GetMapping("/CustomerLogout")
+    public String CustomerLogout(HttpSession session) {
+        session.setAttribute("username",null);
+        session.setAttribute("cartId",null);
+        return "redirect:/CustomerLogin";
+    }
 }

@@ -10,7 +10,7 @@ import amazin.model.Account;
 @Entity
 public class Customer extends Account {
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<Book> purchasedBooks;
     @OneToMany(fetch = FetchType.EAGER)
     private Map<BookId, CustomerReview> bookReviews;
@@ -57,8 +57,17 @@ public class Customer extends Account {
         this.purchasedBooks = purchasedBooks;
     }
 
+    /** Add purchased book if book with same isbn and version does Not exist already*/
     public void addPurchasedBook(Book book){
-        purchasedBooks.add(book);
+        boolean bookNotContained = true;
+        for(Book purchasedBook : purchasedBooks){
+            if(purchasedBook.getIsbn().equals(book.getIsbn()) && purchasedBook.getVersion() == book.getVersion()){
+                bookNotContained = false;
+            }
+        }
+        if(bookNotContained){
+            purchasedBooks.add(book);
+        }
     }
 
     public Map<BookId, CustomerReview> getBookReviews() {

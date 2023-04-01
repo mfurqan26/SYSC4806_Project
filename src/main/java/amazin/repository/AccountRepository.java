@@ -7,5 +7,5 @@ import java.util.Optional;
 
 @RepositoryRestResource
 public interface AccountRepository extends CrudRepository<Account, Long> {
-	public Optional<Account> findAccountByUserName(String userName);
+	Optional<Account> findAccountByUserName(String userName);
 }

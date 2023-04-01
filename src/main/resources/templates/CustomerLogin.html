@@ -6,15 +6,14 @@
         <link rel="stylesheet" th:href="@{/css/styles.css}"/>
     </head>
     <body>
-
+    <h1 style="margin: 50px">Customer Login</h1>
     <navbar>
         <a th:href="@{/CustomerLogin}">Customer Login</a>
         <a th:href="@{/VendorLogin}">Vendor Login</a>
     </navbar>
 
-        <h2 style="margin: 50px">Customer Login</h2>
         <form method="post" action="" th:object="${customerAccount}">
-            <label>Username: <input type="text" placeholder="Enter username" name="username"/></label>
+            <label>Username: <input type="text" placeholder="Enter username" name="username"/></label><br>
             <label>Password: <input type="text" placeholder="Enter password" name="password"/></label>
             <p style="color: red" th:text="${loginError}"></p>
             <input type="submit" value="Login" name="customerLogin"/>

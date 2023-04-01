@@ -15,6 +15,8 @@ public class Cart implements Serializable {
 	private long id;
 
 	private String userName;
+	@OneToOne(fetch = FetchType.EAGER)
+	private Customer customer;
 
 	public Cart() {
 		this.items = new ArrayList<>();
@@ -31,6 +33,9 @@ public class Cart implements Serializable {
 
 	public void setId(long id) {this.id = id;}
 
+	public Customer getCustomer() {return customer;}
+
+	public void setId(Customer customer) {this.customer = customer;}
 	public void setUserName(String userName) {this.userName = userName;}
 
 	public List<CartItem> getItems() {
@@ -56,4 +61,6 @@ public class Cart implements Serializable {
 		}
 		return price;
 	}
+
+	public void resetCart() {this.items = new ArrayList<>();}
 }

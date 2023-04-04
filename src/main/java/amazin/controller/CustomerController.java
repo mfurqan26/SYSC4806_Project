@@ -30,13 +30,16 @@ public class CustomerController {
     @Autowired
     private CartItemRepository cartItemRepository;
 
-    private void setRecommendedBooks(Customer customer){
+    public void resetRecommendations(){
         //Reset all books to not recommended
         Iterable<Book> allBooks = bookRepository.findAll();
         for(Book book: allBooks){
             book.setRecommended(false);
             bookRepository.save(book);
         }
+    }
+
+    private void setRecommendedBooks(Customer customer){
 
         //Get All other customer accounts other than current customer
         Iterable<Account> allAccounts = accountRepository.findAll();
@@ -90,6 +93,9 @@ public class CustomerController {
         }
         //Set recommendedBooks for customer
         Customer customer = (Customer) account.get();
+
+        //Reset recommendations and set Recommended books if customer does have previous purchased books.
+        resetRecommendations();
         if(customer.getPurchasedBooks().size() > 0){
             setRecommendedBooks(customer);
         }

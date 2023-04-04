@@ -14,14 +14,19 @@ package amazin;/*
  * limitations under the License.
  */
 
+import amazin.model.Vendor;
+import amazin.model.Account;
+import amazin.repository.AccountRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.mock.web.MockHttpSession;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -30,18 +35,24 @@ public class VendorTests {
     @Autowired
     private MockMvc mockMvc;
 
+    @Autowired
+    private AccountRepository accountRepository;
+
     @Test
-    public void vendorPage() throws Exception {
-        this.mockMvc.perform(get("http://localhost:8080/Vendor")).andDo(print()).andExpect(status().isOk());
+    public void vendorPageNoAccount() throws Exception {
+        this.mockMvc.perform(get("/Vendor")).andDo(print()).andExpect(status().isFound())
+                .andExpect(redirectedUrl("/VendorLogin")).andReturn();
     }
 
     @Test
-    public void vendorCreatePage() throws Exception {
-        this.mockMvc.perform(get("http://localhost:8080/VendorCreate")).andDo(print()).andExpect(status().isOk());
+    public void vendorCreatePageNoAccount() throws Exception {
+        this.mockMvc.perform(get("/VendorCreate")).andDo(print()).andExpect(status().isFound())
+                .andExpect(redirectedUrl("/VendorLogin")).andReturn();
     }
 
     @Test
-    public void vendorEditPage() throws Exception {
-        this.mockMvc.perform(get("http://localhost:8080/VendorEdit")).andDo(print()).andExpect(status().isOk());
+    public void vendorEditPageNoAccount() throws Exception {
+        this.mockMvc.perform(get("/VendorEdit")).andDo(print()).andExpect(status().isFound())
+                .andExpect(redirectedUrl("/VendorLogin")).andReturn();
     }
 }

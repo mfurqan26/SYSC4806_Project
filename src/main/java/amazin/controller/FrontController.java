@@ -1,12 +1,11 @@
 package amazin.controller;
 
-import amazin.model.Account;
-import amazin.model.Book;
+import amazin.model.*;
 import amazin.model.Book.BookId;
-import amazin.model.Customer;
-import amazin.model.Vendor;
 import amazin.repository.BookRepository;
 import amazin.repository.AccountRepository;
+import amazin.repository.CartRepository;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,27 +21,38 @@ public class FrontController {
     @Autowired
     private AccountRepository accountRepository;
 
-    @GetMapping("/")
-    public String SignUp(Model model) {return "SignUp";}
+    @Autowired
+    private CartRepository cartRepository;
 
-    @PostMapping( value = "/", params = "SignUp")
-    public String newAccountSignUp(@RequestParam(name="username", required=false, defaultValue="") String username,
-                                   @RequestParam(name="password", required=false, defaultValue="") String password,
-                                   @RequestParam(name="type", required=false, defaultValue="Vendor") String type,
-                                   Model model) {
+    @GetMapping("/")
+    public String landing() {return "Landing";}
+
+    @GetMapping("/SignUp")
+    public String signUp() {return "SignUp";}
+
+    @PostMapping("/SignUp")
+    public String signUp(
+            @RequestParam(name="username", required=false, defaultValue="") String username,
+            @RequestParam(name="password", required=false, defaultValue="") String password,
+            @RequestParam(name="type", required=false, defaultValue="Customer") String type,
+            Model model) {
         Optional<Account> result = accountRepository.findAccountByUserName(username);
-        Account account = null;
-        if (!result.isPresent()) {
+        if (result.isEmpty()) {
             if(!username.equals("") && !password.equals("")) {
                 //Vendor Account
                 if(type.equals("Vendor")) {
-                    account = new Vendor(username,password);
+                    Vendor account = new Vendor(username,password);
                     accountRepository.save(account);
                     return "redirect:/VendorLogin";
                 }
                 //Customer Account
                 else {
-                    account = new Customer(username,password);
+                    Cart cart = new Cart(username);
+                    cartRepository.save(cart);
+
+                    Customer account = new Customer(username,password);
+                    account.setCart(cart);
+
                     accountRepository.save(account);
                     return "redirect:/CustomerLogin";
                 }
@@ -64,16 +74,22 @@ public class FrontController {
     public String CustomerLogin(Model model) {return "CustomerLogin";}
 
     @PostMapping( value = "/CustomerLogin", params = "customerLogin")
-    public String checkCustomerLogin(@RequestParam(name="username", required=false, defaultValue="") String username,
-                                     @RequestParam(name="password", required=false, defaultValue="") String password,
-                                     Model model) {
+    public String checkCustomerLogin(
+            @RequestParam(name="username", required=false, defaultValue="") String username,
+            @RequestParam(name="password", required=false, defaultValue="") String password,
+            HttpSession session, Model model) {
         Optional<Account> result = accountRepository.findAccountByUserName(username);
-        Account account = null;
-        if (result.isPresent()) {
-            account = result.get();
+        Optional<Cart> cartResult = cartRepository.findByUserName(username);
+        if (result.isPresent() && cartResult.isPresent()) {
+            Account account = result.get();
             String accountPassword = account.getPassword();
-            if(account.getType().equals(Account.Type.CUSTOMER) && accountPassword.equals(password)) {
-                model.addAttribute("account", account);
+            if(account.getType().equals(Account.Type.CUSTOMER) 
+                    && accountPassword.equals(password)) {
+                Long cartId = cartResult.get().getId();
+                model.addAttribute("username", username);
+                model.addAttribute("cartId", cartId);
+                session.setAttribute("username", username);
+                session.setAttribute("cartId", cartId);
                 return "redirect:/Shop";
             }
         }
@@ -82,21 +98,23 @@ public class FrontController {
     }
 
     @GetMapping("/VendorLogin")
-    public String VendorLogin(Model model) {
+    public String VendorLogin() {
         return "VendorLogin";
     }
 
     @PostMapping( value = "/VendorLogin", params = "vendorLogin")
-    public String checkVendorLogin(@RequestParam(name="username", required=false, defaultValue="") String username,
-                                   @RequestParam(name="password", required=false, defaultValue="") String password,
-                                   Model model) {
+    public String checkVendorLogin(
+            @RequestParam(name="username", required=false, defaultValue="") String username,
+            @RequestParam(name="password", required=false, defaultValue="") String password,
+            HttpSession session, Model model) {
         Optional<Account> result = accountRepository.findAccountByUserName(username);
         Account account = null;
         if (result.isPresent()) {
             account = result.get();
             String accountPassword = account.getPassword();
             if(account.getType().equals(Account.Type.VENDOR) && accountPassword.equals(password)){
-                model.addAttribute("account", account);
+                model.addAttribute("username", username);
+                session.setAttribute("username", username);
                 return "redirect:/Vendor";
             }
         }

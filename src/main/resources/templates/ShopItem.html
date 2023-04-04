@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Shop</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" th:href="@{/css/styles.css}"/>
+</head>
+<body>
+<h1>Shop</h1><br>
+<p th:text="'Welcome '+${account.userName}+' to the Shop!'"></p><br>
+<div>
+
+    <form th:action="@{/ShopItem}" method="post" th:object="${bookAmount}">
+        <h2>Buy Book:</h2><br />
+
+        <div>
+            <p style="color: red" th:text="${searchError}"></p>
+            <table>
+                <tbody>
+                <input type="hidden" name="isbn" th:value="${book.isbn}">
+                <input type="hidden" name="version" th:value="${book.version}">
+                <input type="hidden" name="price" th:value="${book.price}">
+
+                <tr>
+                    <td th:text="'ISBN: '+${book.isbn}" />
+                </tr>
+                <tr>
+                    <td th:text="'Version: '+${book.version}" />
+                </tr>
+                <tr>
+                    <td th:text="'Name: '+${book.name}" />
+                </tr>
+                <tr>
+                    <td th:text="'Publisher: '+${book.publisher}" />
+                </tr>
+                <tr>
+                    <td th:text="'Price: '+${book.price}" />
+                </tr>
+                <tr>
+                    <td th:text="'Stock: '+${book.stock}" />
+                </tr>
+                <tr>
+                    <td th:text="'Description: '+${book.description}" />
+                </tr>
+                <tr><td>
+                        <button type="button" th:attr="onclick='incrementQuantity(\'' + ${book.stock}+ '\'' + ',' + '\'' + ${book.isbn}+ '\');'" >+</button>
+                        <label>
+                            <input type="number" th:id="${book.isbn}" name="quantity" th:value = "0" min="0" th:attr="max=${book.stock}" readonly>
+                        </label>
+                        <button type="button" th:attr="onclick='decrementQuantity(\'' + ${book.isbn}+  '\');'">-</button>
+                        <script type="text/javascript">
+                            function incrementQuantity(maxValue, elementId){
+                                let currentValue = document.getElementById(elementId).value;
+                                if (currentValue < maxValue){
+                                    document.getElementById(elementId).value++;
+                                }
+                            }
+
+                            function decrementQuantity(elementId){
+                                let currentValue = document.getElementById(elementId).value;
+                                if (currentValue > 0){
+                                    document.getElementById(elementId).value--;
+                                }
+                            }
+                        </script>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <input type="submit" value="Add Book To Cart" name="AddToCart"/>
+        <input type="submit" value="Return to Shop Page" name="ShopPage"/>
+    </form>
+</div>
+
+</body>
+</html>

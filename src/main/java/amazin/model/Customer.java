@@ -1,9 +1,6 @@
 package amazin.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 
 import java.util.*;
 
@@ -13,18 +10,21 @@ import amazin.model.Account;
 @Entity
 public class Customer extends Account {
 
-    @OneToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<Book> purchasedBooks;
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     private Map<BookId, CustomerReview> bookReviews;
+    @OneToOne(fetch = FetchType.EAGER)
+    private Cart cart;
 
     //TODO add sensitive info to purchasing.
     //private creditInfo
 
     public Customer(String userName, String password) {
         super(userName, password, Account.Type.CUSTOMER);
-        purchasedBooks = new ArrayList<>();
-        bookReviews = new HashMap<>();
+        this.purchasedBooks = new ArrayList<>();
+        this.bookReviews = new HashMap<>();
+        this.cart = new Cart(userName);
     }
 
     public Customer() {
@@ -35,6 +35,19 @@ public class Customer extends Account {
         return this.userName;
     }
 
+    public Cart getCart() {
+        return this.cart;
+    }
+
+    public void setCart(Cart cart) {this.cart = cart;}
+
+    public void addCartItem(CartItem cartItem) {
+        this.cart.addCartItem(cartItem);
+    }
+
+    public ArrayList<Book> getCartBooks() {
+        return  this.cart.getCartBooks();
+    }
 
     public List<Book> getPurchasedBooks() {
         return purchasedBooks;
@@ -44,8 +57,17 @@ public class Customer extends Account {
         this.purchasedBooks = purchasedBooks;
     }
 
+    /** Add purchased book if book with same isbn and version does Not exist already*/
     public void addPurchasedBook(Book book){
-        purchasedBooks.add(book);
+        boolean bookNotContained = true;
+        for(Book purchasedBook : purchasedBooks){
+            if(purchasedBook.getIsbn().equals(book.getIsbn()) && purchasedBook.getVersion() == book.getVersion()){
+                bookNotContained = false;
+            }
+        }
+        if(bookNotContained){
+            purchasedBooks.add(book);
+        }
     }
 
     public Map<BookId, CustomerReview> getBookReviews() {
@@ -64,14 +86,4 @@ public class Customer extends Account {
         return bookReviews.get(book);
     }
 
-
-    @Override
-    public String toString() {
-        return "amazin.model.Customer{" +
-                "userName='" + this.userName + '\'' +
-                ", id=" + this.getId() +
-                ", purchasedBooks=" + this.purchasedBooks.toString() +
-                ", bookReviews=" + this.bookReviews +
-                '}';
-    }
 }

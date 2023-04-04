@@ -3,25 +3,25 @@
     <head>
         <title>Vendor</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link rel="stylesheet" th:href="@{/css/styles.css}"/>
     </head>
     <body>
-        <h1 style="margin: 50px">Vendor</h1>
-        <div id="navbar" style="background-color: orange">
+        <h1 style="margin: 50px">Vendor Create</h1>
+        <p th:text="${account.userName}+' on this page you can Create new books to store!'"></p>
+        <navbar>
             <a th:href="@{/Vendor}">View Books</a>
             <a th:href="@{/VendorCreate}">Create Books</a>
             <a th:href="@{/VendorEdit}">Edit Books</a>
-            <a th:href="@{/VendorLogin}">Log Out</a>
-        </div>
+            <a th:href="@{/VendorLogout}">Log Out</a>
+        </navbar>
         <div style="margin: 50px">
             <h2>Create Book</h2>
 
-            <table style="width: 100%">
-                <tbody style="width: 100%">
+            <table>
+                <tbody>
                     <tr>
                         <td>
                             <form method="post" action="" th:object="${book}">
-                                <p>Add New Book</p>
-                                <br />
                                 <label
                                     >ISBN:<input
                                         type="text"

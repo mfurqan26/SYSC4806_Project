@@ -11,5 +11,9 @@ import java.util.Optional;
 public interface BookRepository extends CrudRepository<Book, BookId> {
     Iterable<Book> findBooksByName(String name);
     Iterable<Book> findBooksByIsbn(String isbn);
+    Iterable<Book> findBooksByPublisher(String publisher);
     Optional<Book> findById(BookId bookId);
+
+    //Find All Books and order by recommended First
+    Iterable<Book> findAllByOrderByRecommendedDesc();
 }

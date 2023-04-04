@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+    <head>
+        <title>Checkout</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link rel="stylesheet" th:href="@{/css/styles.css}"/>
+    </head>
+    <body>
+        <h1>Purchasing</h1>
+
+        <navbar>
+            <a th:href="@{/Shop}">Shop</a>
+            <a th:href="@{/ShoppingCart}">My Cart</a>
+            <a th:href="@{/PurchasedBooks}">Purchased Books</a>
+            <a th:href="@{/CustomerLogout}">Log Out</a>
+        </navbar>
+
+        <p th:text="'Purchasing for user: '+${account.userName}"> </p>
+
+         <table>
+            <tbody>
+                <thead>
+                    <th>ISBN</th>
+                    <th>Version</th>
+                    <th>Name</th>
+                    <th>Publisher</th>
+                    <th>Price</th>
+                    <th>Amount</th>
+                </thead>
+                <tr th:each="item: ${purchasedItems}">
+                    <td th:text="${item.book.isbn}" />
+                    <td th:text="${item.book.version}" />
+                    <td th:text="${item.book.name}" />
+                    <td th:text="${item.book.publisher}" />
+                    <td th:text="${item.book.price}" />
+                    <td th:text="${item.amount}" />
+                </tr>
+            </tbody>
+        </table>
+        <div style="margin-right: 30px">
+            <p th:text="'Total Cost: '+${totalCost}"></p>
+        </div>
+        <form action="" method="post">
+            <input type="submit" value="Confirm Checkout" name="Checkout"/>
+        </form>
+    </body>
+</html>

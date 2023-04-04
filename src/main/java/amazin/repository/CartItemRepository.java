@@ -1,12 +1,15 @@
 package amazin.repository;
 
-import amazin.model.Account;
-import amazin.model.Customer;
+import amazin.model.Book;
+import amazin.model.Cart;
+import amazin.model.CartItem;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+
+import java.util.List;
 import java.util.Optional;
 
 @RepositoryRestResource
-public interface AccountRepository extends CrudRepository<Account, Long> {
-	Optional<Account> findAccountByUserName(String userName);
+public interface CartItemRepository extends CrudRepository<CartItem, Long>{
+
 }

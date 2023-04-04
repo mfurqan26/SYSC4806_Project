@@ -14,30 +14,21 @@ package amazin;/*
  * limitations under the License.
  */
 
-import amazin.model.Book;
-import amazin.model.Vendor;
 import amazin.repository.AccountRepository;
-import amazin.repository.BookRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-import static org.hamcrest.Matchers.containsString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
-public class LoginTests {
+public class CustomerTests {
     @Autowired
     private MockMvc mockMvc;
 
@@ -45,14 +36,20 @@ public class LoginTests {
     private AccountRepository accountRepository;
 
     @Test
-    public void getLogin() throws Exception {
-        this.mockMvc.perform(get("http://localhost:8080/book?username=vendor1&password=123&type=Vendor")).andDo(print()).andExpect(status().isOk());
+    public void vendorPageNoAccount() throws Exception {
+        this.mockMvc.perform(get("/Shop")).andDo(print()).andExpect(status().isFound())
+                .andExpect(redirectedUrl("/CustomerLogin")).andReturn();
     }
 
     @Test
-    public void createLogin() throws Exception {
-        Vendor account = new Vendor("vendor2","123");
-        accountRepository.save(account);
-        this.mockMvc.perform(get("http://localhost:8080/book?username=vendor2&password=123&type=Vendor")).andDo(print()).andExpect(status().isOk());
+    public void vendorCreatePageNoAccount() throws Exception {
+        this.mockMvc.perform(get("/ShoppingCart")).andDo(print()).andExpect(status().isFound())
+                .andExpect(redirectedUrl("/CustomerLogin")).andReturn();
+    }
+
+    @Test
+    public void vendorEditPageNoAccount() throws Exception {
+        this.mockMvc.perform(get("/PurchasedBooks")).andDo(print()).andExpect(status().isFound())
+                .andExpect(redirectedUrl("/CustomerLogin")).andReturn();
     }
 }

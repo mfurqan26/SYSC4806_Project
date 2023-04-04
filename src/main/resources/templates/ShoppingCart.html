@@ -1,16 +1,46 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-    <head>
-        <title>Shopping Cart</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    </head>
-    <body>
-        <h1 style="margin: 50px">Shopping Cart</h1>
+<head>
+    <title>My Cart</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" th:href="@{/css/styles.css}"/>
+</head>
+<body>
+<h1>My Cart</h1>
 
-        <div style="margin: 50px">
-            should be like a list of tables here for all the books you have
-        </div>
+<navbar>
+    <a th:href="@{/Shop}">Shop</a>
+    <a th:href="@{/ShoppingCart}">My Cart</a>
+    <a th:href="@{/PurchasedBooks}">Purchased Books</a>
+    <a th:href="@{/CustomerLogout}">Log Out</a>
+</navbar>
 
-        <button style="margin: 50px">purchase</button>
-    </body>
+<p th:text="'Cart for user: '+${account.userName}"> </p>
+
+<table style="margin-top: 2em">
+    <tbody>
+    <thead>
+    <th>ISBN</th>
+    <th>Version</th>
+    <th>Name</th>
+    <th>Publisher</th>
+    <th>Price</th>
+    <th>Amount</th>
+    </thead>
+    <tr th:each="item: ${purchasedItems}">
+        <td th:text="${item.book.isbn}" />
+        <td th:text="${item.book.version}" />
+        <td th:text="${item.book.name}" />
+        <td th:text="${item.book.publisher}" />
+        <td th:text="${item.book.price}" />
+        <td th:text="${item.amount}" />
+    </tr>
+    </tbody>
+</table>
+
+<form style="margin-top: 2em" th:action="@{/Checkout}" method="get">
+    <input type="submit" value="Proceed to Checkout" name="Checkout"/>
+</form>
+
+</body>
 </html>

@@ -1,6 +1,7 @@
 package amazin.repository;
 
 import amazin.model.Account;
+import amazin.model.Customer;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import java.util.Optional;

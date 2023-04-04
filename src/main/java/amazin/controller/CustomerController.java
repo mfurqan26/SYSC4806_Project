@@ -30,6 +30,56 @@ public class CustomerController {
     @Autowired
     private CartItemRepository cartItemRepository;
 
+    private void setRecommendedBooks(Customer customer){
+        //Reset all books to not recommended
+        Iterable<Book> allBooks = bookRepository.findAll();
+        for(Book book: allBooks){
+            book.setRecommended(false);
+            bookRepository.save(book);
+        }
+
+        //Get All other customer accounts other than current customer
+        Iterable<Account> allAccounts = accountRepository.findAll();
+        List<Customer> allOtherCustomers = new ArrayList<>();
+        for(Account account : allAccounts){
+            if(account.getType().equals(Account.Type.CUSTOMER) && !account.equals(customer)){
+                allOtherCustomers.add( (Customer) account);
+            }
+        }
+
+        double thresholdPercentage = 50.0;
+        List<Book> purchasedBooks = customer.getPurchasedBooks();
+
+        //For each other customer
+        for(Customer otherCustomer : allOtherCustomers){
+            List<Book> otherPurchasedBooks = otherCustomer.getPurchasedBooks();
+            int counter = 0;
+
+            //Check number of purchasedBooks matching BookIds with current customer purchased books
+            for (Book purchasedBook: purchasedBooks){
+                if(otherPurchasedBooks.contains(purchasedBook)){
+                    counter += 1;
+                }
+            }
+            //Convert to percentage compared to current customer total  number of books
+            double similarityPercentage = (double) (counter * 100) / purchasedBooks.size();
+
+            //Check percentage compared to threshold
+            if(similarityPercentage >= thresholdPercentage){
+                //If true, set all books that the other customer purchased to recommended true
+                for (Book otherPurchasedBook: otherPurchasedBooks){
+
+                    //Set recommended only if current customer didn't already purchase the other book
+                    if(!purchasedBooks.contains(otherPurchasedBook)){
+                        otherPurchasedBook.setRecommended(true);
+                        bookRepository.save(otherPurchasedBook);
+                    }
+                }
+            }
+        }
+
+    }
+
     @GetMapping("/Shop")
     public String customer(Model model, HttpSession session) {
         String userName = (String) session.getAttribute("username");
@@ -38,15 +88,22 @@ public class CustomerController {
             // redirect to login page
             return "redirect:/CustomerLogin";
         }
-        Iterable<Book> books = bookRepository.findAll();
-        model.addAttribute("account", account.get());
+        //Set recommendedBooks for customer
+        Customer customer = (Customer) account.get();
+        if(customer.getPurchasedBooks().size() > 0){
+            setRecommendedBooks(customer);
+        }
+
+        //Thymeleaf attribute passing
+        Iterable<Book> books = bookRepository.findAllByOrderByRecommendedDesc();
+        model.addAttribute("account", customer);
         model.addAttribute("books", books);
         return "Shop";
     }
 
     @PostMapping(value="/Shop", params = "AllBooks")
     public String SearchAllBook(Model model, HttpSession session){
-        Iterable<Book> books = bookRepository.findAll();
+        Iterable<Book> books = bookRepository.findAllByOrderByRecommendedDesc();
 
         String userName = (String) session.getAttribute("username");
         Optional<Account> account = accountRepository.findAccountByUserName(userName);
@@ -73,7 +130,7 @@ public class CustomerController {
                 books = bookRepository.findBooksByName(search);
             }
             else {
-                books = bookRepository.findAll();
+                books = bookRepository.findAllByOrderByRecommendedDesc();
             }
 
             //If any book is Found
@@ -139,18 +196,42 @@ public class CustomerController {
         String userName = (String) session.getAttribute("username");
         Optional<Account> account = accountRepository.findAccountByUserName(userName);
 
+        //If quantity is 0 or less for some reason, don't add item to add and return to shop page
+        if(quantity <= 0){
+            return "redirect:/Shop";
+        }
 
         Long cartId = (Long) session.getAttribute("cartId");
         Optional<Cart> cart = cartRepository.findById(cartId);
 
         if(book.isPresent() && cart.isPresent() && account.isPresent()){
             Customer customer = (Customer) account.get();
-            CartItem cartItem = new CartItem(book.get(), quantity, cartId);
-            cartItemRepository.save(cartItem);
-            book.get().removeStock(quantity);
-
+            Book purchasingBook = book.get();
             Cart myCart = cart.get();
-            myCart.addCartItem(cartItem);
+            boolean sameBookNotInCart = true;
+
+            //If purchasing book already exists in cart, then update cart item quantity.
+            if (myCart.getItems().size() != 0) {
+                List<CartItem> items = myCart.getItems();
+                for (int i = 0; i < items.size() ;i++) {
+                    CartItem cartItem = items.get(i);
+                    if (cartItem.getBook().equals(purchasingBook) && sameBookNotInCart) {
+                        cartItem.setAmount(cartItem.getAmount() + quantity);
+                        cartItemRepository.save(cartItem);
+                        items.set(i, cartItem);
+                        sameBookNotInCart = false;
+                    }
+                }
+                myCart.setItems(items);
+            }
+            //Else create new cart item for book
+            if(sameBookNotInCart) {
+                CartItem cartItem = new CartItem(purchasingBook, quantity, cartId);
+                cartItemRepository.save(cartItem);
+                myCart.addCartItem(cartItem);
+            }
+
+            purchasingBook.removeStock(quantity);
             customer.setCart(myCart);
             accountRepository.save(customer);
             cartRepository.save(myCart);
@@ -209,7 +290,7 @@ public class CustomerController {
 
         model.addAttribute("account", account.get());
         model.addAttribute("purchasedItems", items);
-        model.addAttribute("totalCost", price);
+        model.addAttribute("totalCost", String.format("%.2f",price));
         return "Checkout";
     }
 

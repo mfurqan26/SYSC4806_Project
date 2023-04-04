@@ -20,6 +20,7 @@ public class Book implements Serializable{
     private String publisher;
     private int stock;
     private double price;
+    private boolean recommended;
 
     public static class BookId implements Serializable  {
         protected String isbn;
@@ -63,6 +64,7 @@ public class Book implements Serializable{
         this.publisher = publisher;
         this.stock = stock;
         this.price = price;
+        this.recommended = false;
     }
 
     public Book(String isbn, int version,
@@ -75,11 +77,13 @@ public class Book implements Serializable{
         this.stock = stock;
         this.price = price;
         this.version = version;
+        this.recommended = false;
     }
 
     public Book() {
         this.name = "";
         this.publisher = "";
+        this.recommended = false;
     }
 
     /**
@@ -132,4 +136,6 @@ public class Book implements Serializable{
     public double getPrice() {return price;}
     public void setPrice(float price) {this.price = price;}
 
+    public boolean getRecommended() {return recommended;}
+    public void setRecommended(boolean recommended) {this.recommended = recommended;}
 }

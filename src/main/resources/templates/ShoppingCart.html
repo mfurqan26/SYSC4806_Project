@@ -7,7 +7,6 @@
 </head>
 <body>
 <h1>My Cart</h1>
-<p th:text="'Cart for user: '+${account.userName}"> </p>
 
 <navbar>
     <a th:href="@{/Shop}">Shop</a>
@@ -15,6 +14,8 @@
     <a th:href="@{/PurchasedBooks}">Purchased Books</a>
     <a th:href="@{/CustomerLogout}">Log Out</a>
 </navbar>
+
+<p th:text="'Cart for user: '+${account.userName}"> </p>
 
 <table style="margin-top: 2em">
     <tbody>

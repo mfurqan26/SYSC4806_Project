@@ -7,7 +7,6 @@
 </head>
 <body>
 <h1>Purchased Books</h1><br>
-<p th:text="${account.userName}+' on this page you will see your previous purchased books!'"></p><br>
 <div>
 
     <navbar>
@@ -17,6 +16,7 @@
         <a th:href="@{/CustomerLogout}">Log Out</a>
     </navbar>
 
+    <p th:text="${account.userName}+' on this page you will see your previous purchased books!'"></p><br>
 
     <div>
         <p style="" th:text="${emptyBooks}"></p>

@@ -7,7 +7,6 @@
     </head>
     <body>
         <h1>Shop</h1><br>
-        <p th:text="'Welcome '+${account.userName}+' to the Shop!'"></p><br>
 
         <navbar>
             <a th:href="@{/Shop}">Shop</a>
@@ -16,6 +15,7 @@
             <a th:href="@{/CustomerLogout}">Log Out</a>
         </navbar>
 
+        <p th:text="'Welcome '+${account.userName}+' to the Shop!'"></p><br>
         <div>
 
             <form action="" method="post" th:object="${search}">
@@ -45,6 +45,7 @@
                             <th>Price</th>
                             <th>Stock</th>
                             <th>Description</th>
+                            <th>Recommended</th>
                         </thead>
                         <tr th:each="book: ${books}">
                             <td th:text="${book.isbn}" />
@@ -54,6 +55,11 @@
                             <td th:text="${book.price}" />
                             <td th:text="${book.stock}" />
                             <td th:text="${book.description}" />
+
+                            <!-- Show Yes if book recommened is true, else show nothing-->
+                            <td th:if="${book.recommended}">Yes</td>
+                            <td th:if="${!book.recommended}"></td>
+
                             <td>
                                 <form
                                         method="post"

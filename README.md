@@ -30,7 +30,6 @@ To see the website from the home page, which is has our login/sign up prompts fo
 
 # UML Diagram
 <img src="./docs/Uml_Class_Diagram_M3.png">
-<<<<<<< HEAD
 
 # Milestone 3, Final Milestone Feature Set
 
@@ -38,11 +37,15 @@ For milestone 3, the final milestone, we have finished the milestone goals we la
 
 We have successfully implemented all of the features along with tests for all the pages and backend repository calls along with CSS styling rework for all of our webpages
 
-![image](https://user-images.githubusercontent.com/60205850/230138195-a4dca2fc-ae9c-4bca-b9d7-261ad5c84bf2.png)
+![image](https://user-images.githubusercontent.com/60205850/230150209-9d3dd3e6-81bd-4751-9ca9-cd478a8c405a.png)
 
-Above is our main page for 
+Above is our main page for the bookstore, which has a nav bar with three buttons, Customer Login, Vendor Login, and Sign Up that leads to each of our user's usecase workflows
 
 ## Login/Create Account Features
+
+Next, we have kept the Sign Up page features the same from previous milestones, except for the CSS styling changes here, which are overhauled to be consistent throughout our entire website.
+
+![image](https://user-images.githubusercontent.com/60205850/230150927-8289fa92-2e7d-413a-88f1-2d96cd94c8c1.png)
 
 ## Customer User Features
 

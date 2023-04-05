@@ -55,9 +55,17 @@ public class VendorController {
             @RequestParam(name="publisher", required=false, defaultValue = "") String publisher,
             @RequestParam(name="author", required=false, defaultValue = "") String author,
             @RequestParam(name="stock", required=false, defaultValue = "") String stock,
-            @RequestParam(name="price", required=false, defaultValue = "") String price, Model model) {
-        boolean conditionAnyNotSet = isbn.equals("") || name.equals("") ||
+            @RequestParam(name="price", required=false, defaultValue = "") String price, HttpSession session, Model model) {
+
+        boolean conditionAnyNotSet = isbn.equals("") || name.equals("") || author.equals("") ||
                 description.equals("") || publisher.equals("") || stock.equals("") || price.equals("");
+
+        String userName = (String) session.getAttribute("username");
+        Optional<Account> account = accountRepository.findAccountByUserName(userName);
+        if (account.isEmpty() || account.get().getType() != Account.Type.VENDOR) {
+            return "redirect:/VendorLogin";
+        }
+        model.addAttribute("account", account.get());
 
         if (conditionAnyNotSet) {
             model.addAttribute("createBookError", "Some Input is Not Set!");
@@ -115,7 +123,15 @@ public class VendorController {
             @RequestParam(name="publisher", required=false, defaultValue = "") String publisher,
             @RequestParam(name="author", required=false, defaultValue = "") String author,
             @RequestParam(name="stock", required=false, defaultValue = "") String stock,
-            @RequestParam(name="price", required=false, defaultValue = "") String price, Model model) {
+            @RequestParam(name="price", required=false, defaultValue = "") String price, HttpSession session, Model model) {
+
+        String userName = (String) session.getAttribute("username");
+        Optional<Account> account = accountRepository.findAccountByUserName(userName);
+        if (account.isEmpty() || account.get().getType() != Account.Type.VENDOR) {
+            return "redirect:/VendorLogin";
+        }
+        model.addAttribute("account", account.get());
+
         try {
             Book.BookId bookId = new Book.BookId(isbn, Integer.parseInt(version));
             Optional<Book> foundBook = bookRepository.findById(bookId);
@@ -144,7 +160,7 @@ public class VendorController {
     }
 
     @GetMapping("/VendorLogout")
-    public String VendorLogout(HttpSession session, Model model) {
+    public String VendorLogout(HttpSession session) {
         session.setAttribute("username",null);
         return "redirect:/VendorLogin";
     }

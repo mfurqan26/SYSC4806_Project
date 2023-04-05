@@ -12,18 +12,13 @@ public class Customer extends Account {
 
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Book> purchasedBooks;
-    @OneToMany(fetch = FetchType.EAGER)
-    private Map<BookId, CustomerReview> bookReviews;
     @OneToOne(fetch = FetchType.EAGER)
     private Cart cart;
 
-    //TODO add sensitive info to purchasing.
-    //private creditInfo
 
     public Customer(String userName, String password) {
         super(userName, password, Account.Type.CUSTOMER);
         this.purchasedBooks = new ArrayList<>();
-        this.bookReviews = new HashMap<>();
         this.cart = new Cart(userName);
     }
 
@@ -69,21 +64,4 @@ public class Customer extends Account {
             purchasedBooks.add(book);
         }
     }
-
-    public Map<BookId, CustomerReview> getBookReviews() {
-        return bookReviews;
-    }
-
-    public void setBookReviews(Map<BookId, CustomerReview> bookReviews) {
-        this.bookReviews = bookReviews;
-    }
-
-    public void addBookReview(BookId book, CustomerReview rating){
-        bookReviews.put(book, rating);
-    }
-
-    public CustomerReview getBookReview(BookId book){
-        return bookReviews.get(book);
-    }
-
 }

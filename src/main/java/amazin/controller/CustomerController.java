@@ -338,7 +338,6 @@ public class CustomerController {
         String userName = (String) session.getAttribute("username");
         Optional<Account> account = accountRepository.findAccountByUserName(userName);
         if (account.isEmpty() || account.get().getType() != Account.Type.CUSTOMER) {
-            // redirect to login page
             return "redirect:/CustomerLogin";
         }
 

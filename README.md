@@ -30,6 +30,7 @@ To see the website from the home page, which is has our login/sign up prompts fo
 
 # UML Diagram
 <img src="./docs/Uml_Class_Diagram_M3.png">
+<<<<<<< HEAD
 
 # Milestone 3, Final Milestone Feature Set
 
@@ -60,6 +61,8 @@ Above is our main page for
 
 
 
+=======
+>>>>>>> html-edits
 
 # Milestone 2 use case flow
 

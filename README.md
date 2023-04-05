@@ -33,7 +33,17 @@ To see the website from the home page, which is has our login/sign up prompts fo
 
 # Milestone 3, Final Milestone Feature Set
 
-For milestone 3, the final milestone, we have finished the milestone goals we layed out in milestone 2, which is to finish the customer shopping cart, buy books, checkout, and jaccard distance recommendation system workflows.
+For milestone 3, the final milestone, we have finished the milestone goals we layed out in milestone 2, which is to:
+
+- customer filter for books by publisher or author
+
+- finish the customer shopping cart
+
+- customer buy books
+
+- customer checkout
+
+- jaccard distance recommendation system workflows.
 
 We have successfully implemented all of the features along with tests for all the pages and backend repository calls along with CSS styling rework for all of our webpages 
 
@@ -116,6 +126,22 @@ Next we proceed to checkout and buy the book in our My Cart shopping cart.
 And volia! The Light of Carleton, a book which customer1 has not bought before, is recommended, since customer1 bought Golden Days, and our other customer, Gary, has also bought Golden Days, and also bought The Light of Carleton, therefore, our system intelligently uses Jaccard Distance to determine our two user's tastes are similar, and recommended The Light of Carleton to this user.
 
 ![image](https://user-images.githubusercontent.com/60205850/230169508-e9e12dc3-c1bf-4ede-b238-6a7b7af0f449.png)
+
+# Vendor Features (From Milestone 2)
+
+Lastly, our Vendor Features are kept the same, as from our demo in Milestone 2, we have merely added new styling to be consistent with our other newer pages.
+
+And here they are below:
+
+![image](https://user-images.githubusercontent.com/60205850/230170370-f0f89fcc-41b4-4b1f-a7c6-54a09517e1de.png)
+
+![image](https://user-images.githubusercontent.com/60205850/230170401-ed1a5dff-8ac7-4de8-b1d6-895d6457b588.png)
+
+![image](https://user-images.githubusercontent.com/60205850/230170420-166abdac-1261-4724-a638-ecb47c82a93f.png)
+
+# Summary/Plans for the Future
+
+Since we have successfully completed all of our initial requirements given by the project descriptions, we have no more plans for the future regarding to future sprints.
 
 # Group Members
 

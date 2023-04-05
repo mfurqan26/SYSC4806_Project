@@ -34,6 +34,30 @@ To see the website from the home page, which is our sign up/prompt for login pag
 # UML Diagram
 <img src="./docs/Uml Class Diagram.png">
 
+# Milestone 3, Final Milestone Feature Set
+
+For milestone 3, the final milestone, we have decided on the final scope of the project as below, and have implemented all of the features along with tests for all the pages and backend repository calls:
+
+## Login/Create Account Features
+
+## Customer User Features
+
+## Jaccard Distance Feature
+
+## Vendor User Features
+
+
+
+
+
+
+
+
+
+
+
+
+
 # Milestone 2 use case flow
 
 The Vendor use case we have completed is create a Vendor account, Login, View all Book, Create New Book and Edit Book for books in the database.

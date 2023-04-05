@@ -24,11 +24,11 @@ public class BookStore{
             Book book1 = new Book("978-0-122453-12-1", 1,
                 "Golden Days" , "Slice of life novel about a high school in Japan.", "Japan Publishing House", "Tora Kaze",5,10.0);
             Book book2 = new Book("948-0-123456-47-2",1,
-                "The Light of Carleton" , "Coming of age novel starring an Engineering class in Ottawa, Canada.", "Smythe Publishing", "James Green",3,20.0);
+                "The Light of Carleton" , "Coming of age novel starring an Engineering class in Ottawa, Canada.", "Smythe Publishing", "Tora Kaze",3,20.0);
             Book book3 = new Book("348-0-127456-27-3",1,
                     "How to Cook Steak" , "A book for teaching you how to cook steak.", "Ferocious Kitchen Books", "Bob Dylan",7,15.0);
             Book book4 = new Book("968-7-123456-47-4",1,
-                    "Nine Lives of a Mobster" , "An autobiography from a former gang member.", "Noir Publishing", "Frank Sinatra",8,14.0);
+                    "Nine Lives of a Mobster" , "Introductory lessons to racketeering.", "O'Reilly", "Frank O'Reilly",8,14.0);
             Book book5 = new Book("948-0-654321-47-5",1,
                     "Chemical Engineering" , "Introductory lessons to chemical engineering.", "O'Reilly", "Tim O'Reilly",9,129.99);
             books.save(book1);

@@ -22,15 +22,15 @@ public class BookStore{
         return (args) -> {
 
             Book book1 = new Book("978-0-122453-12-1", 1,
-                "Book1" , "desc 1", "abc",5,10.0);
+                "Golden Days" , "Slice of life novel about a high school in Japan.", "Japan Publishing House", "Tora Kaze",5,10.0);
             Book book2 = new Book("948-0-123456-47-2",1,
-                "Book2" , "desc 2", "abc",3,20.0);
+                "The Light of Carleton" , "Coming of age novel starring an Engineering class in Ottawa, Canada.", "Smythe Publishing", "James Green",3,20.0);
             Book book3 = new Book("348-0-127456-27-3",1,
-                    "Book3" , "desc 3", "abcd",7,15.0);
+                    "How to Cook Steak" , "A book for teaching you how to cook steak.", "Ferocious Kitchen Books", "Bob Dylan",7,15.0);
             Book book4 = new Book("968-7-123456-47-4",1,
-                    "Book4" , "desc 4", "abcef",8,14.0);
+                    "Nine Lives of a Mobster" , "An autobiography from a former gang member.", "Noir Publishing", "Frank Sinatra",8,14.0);
             Book book5 = new Book("948-0-654321-47-5",1,
-                    "Book5" , "desc 5", "abcgh",9,12.99);
+                    "Chemical Engineering" , "Introductory lessons to chemical engineering.", "O'Reilly", "Tim O'Reilly",9,129.99);
             books.save(book1);
             books.save(book2);
             books.save(book3);

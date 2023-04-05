@@ -18,6 +18,7 @@ public class Book implements Serializable{
     private String name;
     private String description;
     private String publisher;
+    private String author;
     private int stock;
     private double price;
     private boolean recommended;
@@ -57,11 +58,12 @@ public class Book implements Serializable{
 
     public Book(String isbn,
             String name, String description, 
-            String publisher, int stock, double price) {
+            String publisher, String author, int stock, double price) {
         this.isbn = isbn;
         this.name = name;
         this.description = description;
         this.publisher = publisher;
+        this.author = author;
         this.stock = stock;
         this.price = price;
         this.recommended = false;
@@ -69,11 +71,12 @@ public class Book implements Serializable{
 
     public Book(String isbn, int version,
                 String name, String description,
-                String publisher, int stock, double price) {
+                String publisher, String author, int stock, double price) {
         this.isbn = isbn;
         this.name = name;
         this.description = description;
         this.publisher = publisher;
+        this.author = author;
         this.stock = stock;
         this.price = price;
         this.version = version;
@@ -83,6 +86,7 @@ public class Book implements Serializable{
     public Book() {
         this.name = "";
         this.publisher = "";
+        this.author = "";
         this.recommended = false;
     }
 
@@ -115,6 +119,10 @@ public class Book implements Serializable{
     public String getPublisher() {return publisher;}
 
     public void setPublisher(String publisher) {this.publisher = publisher;}
+
+    public String getAuthor() {return author;}
+
+    public void setAuthor(String author) {this.author = author;}
 
     public int getStock() {return stock;}
     public void setStock(int stock) {this.stock = stock;}

@@ -25,6 +25,7 @@
                 <select name="filter" id="filter">
                     <option value="by-name">By Name</option>
                     <option value="by-publisher">By Publisher</option>
+                    <option value="by-author">By Author</option>
                 </select> <br />
 
                 <label for="search">Search For:</label>
@@ -42,6 +43,7 @@
                             <th>Version</th>
                             <th>Name</th>
                             <th>Publisher</th>
+                            <th>Author</th>
                             <th>Price</th>
                             <th>Stock</th>
                             <th>Description</th>
@@ -52,6 +54,7 @@
                             <td th:text="${book.version}" />
                             <td th:text="${book.name}" />
                             <td th:text="${book.publisher}" />
+                            <td th:text="${book.author}" />
                             <td th:text="${book.price}" />
                             <td th:text="${book.stock}" />
                             <td th:text="${book.description}" />

@@ -49,16 +49,16 @@ public class BookControllerTests {
 
     @Test
     public void createNewBook() throws Exception {
-        Book newBook = new Book("978-0-122453-12-1", 2, "Book1", "description", "publisher", 1, 1);
+        Book newBook = new Book("978-0-122453-12-1", 2, "Book1", "description", "publisher", "author", 1, 1);
         bookRepository.save(newBook);
         this.mockMvc.perform(get("http://localhost:8080/book?isbn=978-0-122453-12-1&version=2")).andDo(print()).andExpect(status().isOk()).andExpect(content().string(containsString("\"name\":\"Book1\"")));
     }
 
     @Test
     public void editBook() throws Exception {
-        Book newBook = new Book("978-0-122453-12-1", 2, "Book1", "description", "publisher", 1, 1);
+        Book newBook = new Book("978-0-122453-12-1", 2, "Book1", "description", "publisher", "author", 1, 1);
         bookRepository.save(newBook);
-        Book newBookEdited = new Book("978-0-122453-12-1", 2, "Book1Edited", "description", "publisher", 1, 1);
+        Book newBookEdited = new Book("978-0-122453-12-1", 2, "Book1Edited", "description", "publisher", "author", 1, 1);
         bookRepository.save(newBookEdited);
         this.mockMvc.perform(get("http://localhost:8080/book?isbn=978-0-122453-12-1&version=2")).andDo(print()).andExpect(status().isOk()).andExpect(content().string(containsString("\"name\":\"Book1Edited\"")));
     }

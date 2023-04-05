@@ -12,6 +12,7 @@ public interface BookRepository extends CrudRepository<Book, BookId> {
     Iterable<Book> findBooksByName(String name);
     Iterable<Book> findBooksByIsbn(String isbn);
     Iterable<Book> findBooksByPublisher(String publisher);
+    Iterable<Book> findBooksByAuthor(String author);
     Optional<Book> findById(BookId bookId);
 
     //Find All Books and order by recommended First

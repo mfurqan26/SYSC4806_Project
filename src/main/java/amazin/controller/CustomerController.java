@@ -132,6 +132,9 @@ public class CustomerController {
             if(filter.equals("by-publisher")){
                 books = bookRepository.findBooksByPublisher(search);
             }
+            else if(filter.equals("by-author")){
+                books = bookRepository.findBooksByAuthor(search);
+            }
             else if(filter.equals("by-name")){
                 books = bookRepository.findBooksByName(search);
             }
@@ -335,7 +338,6 @@ public class CustomerController {
         String userName = (String) session.getAttribute("username");
         Optional<Account> account = accountRepository.findAccountByUserName(userName);
         if (account.isEmpty() || account.get().getType() != Account.Type.CUSTOMER) {
-            // redirect to login page
             return "redirect:/CustomerLogin";
         }
 

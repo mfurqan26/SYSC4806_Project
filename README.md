@@ -22,10 +22,7 @@ And visit:
 
 http://localhost:8080
 
-To see the website from the home page, which is our sign up/prompt for login page
-
-# Entity Relation Diagram
-<img src="./docs/er.drawio.svg">
+To see the website from the home page, which is has our login/sign up prompts for vendor and customer workflows
 
 # Entity Relation Diagram (Persistent Entities)
 
@@ -36,7 +33,13 @@ To see the website from the home page, which is our sign up/prompt for login pag
 
 # Milestone 3, Final Milestone Feature Set
 
-For milestone 3, the final milestone, we have decided on the final scope of the project as below, and have implemented all of the features along with tests for all the pages and backend repository calls:
+For milestone 3, the final milestone, we have finished the milestone goals we layed out in milestone 2, which is to finish the customer shopping cart, buy books, checkout, and jaccard distance recommendation system workflows.
+
+We have successfully implemented all of the features along with tests for all the pages and backend repository calls along with CSS styling rework for all of our webpages
+
+![image](https://user-images.githubusercontent.com/60205850/230138195-a4dca2fc-ae9c-4bca-b9d7-261ad5c84bf2.png)
+
+Above is our main page for 
 
 ## Login/Create Account Features
 

@@ -6,9 +6,15 @@
         <link rel="stylesheet" th:href="@{/css/styles.css}"/>
     </head>
     <body>
-        <h1>Amazing Book Store</h1>
+        <h1 style="margin: 50px">Sign Up</h1>
 
-        <div>
+        <navbar>
+            <a th:href="@{/CustomerLogin}">Customer Login</a>
+            <a th:href="@{/VendorLogin}">Vendor Login</a>
+            <a th:href="@{/SignUp}">Sign Up</a>
+        </navbar>
+
+        <div style="margin: 50px">
             <h2>Sign Up</h2>
             <form method="post" action="/SignUp" th:object="${newAccount}">
                 <label>
@@ -31,7 +37,7 @@
                     <input type="checkbox" name="type" value="Vendor"/>
                 </label><br />
                 <p style="color: red" th:text="${signUpError}"></p>
-                <input type="submit" value="SignUp" name="SignUp" />
+                <input type="submit" value="Sign Up" name="SignUp" />
             </form>
         </div>
 

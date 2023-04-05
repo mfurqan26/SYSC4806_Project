@@ -132,6 +132,9 @@ public class CustomerController {
             if(filter.equals("by-publisher")){
                 books = bookRepository.findBooksByPublisher(search);
             }
+            else if(filter.equals("by-author")){
+                books = bookRepository.findBooksByAuthor(search);
+            }
             else if(filter.equals("by-name")){
                 books = bookRepository.findBooksByName(search);
             }

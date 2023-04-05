@@ -53,6 +53,7 @@ public class VendorController {
             @RequestParam(name="name", required=false, defaultValue = "") String name,
             @RequestParam(name="description", required=false, defaultValue = "") String description,
             @RequestParam(name="publisher", required=false, defaultValue = "") String publisher,
+            @RequestParam(name="author", required=false, defaultValue = "") String author,
             @RequestParam(name="stock", required=false, defaultValue = "") String stock,
             @RequestParam(name="price", required=false, defaultValue = "") String price, Model model) {
         boolean conditionAnyNotSet = isbn.equals("") || name.equals("") ||
@@ -82,7 +83,7 @@ public class VendorController {
             int newStock = Integer.parseInt(stock);
             if (newPrice >= 0 && newStock >= 0) {
                 int version = numBooksWithSameISBN + 1;
-                Book newBook = new Book(isbn, version, name, description, publisher, newStock, newPrice);
+                Book newBook = new Book(isbn, version, name, description, publisher, author, newStock, newPrice);
                 bookRepository.save(newBook);
                 return "redirect:/Vendor";
             } else {
@@ -112,12 +113,13 @@ public class VendorController {
             @RequestParam(name="name", required=false, defaultValue = "") String name,
             @RequestParam(name="description", required=false, defaultValue = "") String description,
             @RequestParam(name="publisher", required=false, defaultValue = "") String publisher,
+            @RequestParam(name="author", required=false, defaultValue = "") String author,
             @RequestParam(name="stock", required=false, defaultValue = "") String stock,
             @RequestParam(name="price", required=false, defaultValue = "") String price, Model model) {
         try {
             Book.BookId bookId = new Book.BookId(isbn, Integer.parseInt(version));
             Optional<Book> foundBook = bookRepository.findById(bookId);
-            if (isbn.equals("") || version.equals("0") || name.equals("") || description.equals("") || publisher.equals("") || stock.equals("") || price.equals("")) {
+            if (isbn.equals("") || version.equals("0") || name.equals("") || description.equals("") || publisher.equals("") || author.equals("") || stock.equals("") || price.equals("")) {
                 model.addAttribute("BookSearchError", "Please ensure all the book fields are filled!");
                 return "VendorEdit";
             }
@@ -128,7 +130,7 @@ public class VendorController {
             double newPrice = Double.parseDouble(price);
             int newStock = Integer.parseInt(stock);
             if (newPrice >= 0 && newStock >= 0) {
-                Book newBook = new Book(isbn, Integer.parseInt(version), name, description, publisher, newStock, newPrice);
+                Book newBook = new Book(isbn, Integer.parseInt(version), name, description, publisher, author, newStock, newPrice);
                 bookRepository.save(newBook);
                 return "redirect:/Vendor";
             } else {

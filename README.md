@@ -26,10 +26,10 @@ To see the website from the home page, which is has our login/sign up prompts fo
 
 # Entity Relation Diagram (Persistent Entities)
 
-<img src="./docs/ER_Diagram_Milestone2.png">
+<img src="./docs/ER_Diagram_Milestone3.png">
 
 # UML Diagram
-<img src="./docs/Uml Class Diagram.png">
+<img src="./docs/Uml_Class_Diagram_M3.png">
 
 # Milestone 3, Final Milestone Feature Set
 

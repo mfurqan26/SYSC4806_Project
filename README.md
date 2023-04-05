@@ -35,11 +35,11 @@ To see the website from the home page, which is has our login/sign up prompts fo
 
 For milestone 3, the final milestone, we have finished the milestone goals we layed out in milestone 2, which is to finish the customer shopping cart, buy books, checkout, and jaccard distance recommendation system workflows.
 
-We have successfully implemented all of the features along with tests for all the pages and backend repository calls along with CSS styling rework for all of our webpages
+We have successfully implemented all of the features along with tests for all the pages and backend repository calls along with CSS styling rework for all of our webpages 
 
 ![image](https://user-images.githubusercontent.com/60205850/230150209-9d3dd3e6-81bd-4751-9ca9-cd478a8c405a.png)
 
-Above is our main page for the bookstore, which has a nav bar with three buttons, Customer Login, Vendor Login, and Sign Up that leads to each of our user's usecase workflows
+Above is our main page for the bookstore, which has a nav bar with three buttons, Customer Login, Vendor Login, and Sign Up that leads to each of our user's usecase workflows.
 
 ## Login/Create Account Features
 
@@ -47,7 +47,34 @@ Next, we have kept the Sign Up page features the same from previous milestones, 
 
 ![image](https://user-images.githubusercontent.com/60205850/230150927-8289fa92-2e7d-413a-88f1-2d96cd94c8c1.png)
 
+Below, we can still create a new account, and since we did vendor's workflow for milestone 2, and this time for our milestone 3's workflow we are creating customers' workflow, we will create a new customer here, Gary.
+
+![image](https://user-images.githubusercontent.com/60205850/230163640-434512fc-b2ee-4020-b6cf-85a5eea31e71.png)
+
+And we will sign in as Gary below:
+
 ## Customer User Features
+
+Next, once we logged in as Gary, we get to see all the books that are in the bookstore below.
+
+![image](https://user-images.githubusercontent.com/60205850/230165021-0bf44a1f-b1e3-4738-abaf-62cdc54132d9.png)
+
+Here, we have filter features
+
+![image](https://user-images.githubusercontent.com/60205850/230165172-150cd7d3-0e01-42f0-b162-70fe6e7a1713.png)
+
+We can filter by publisher, such as O'Reilly
+
+![image](https://user-images.githubusercontent.com/60205850/230165375-37f0b79c-2b81-46ec-94f5-1557dae115e3.png)
+
+And here are the books published by O'Reilly
+
+![image](https://user-images.githubusercontent.com/60205850/230165476-2908c7f1-f2c6-4514-b8fd-30ff7efaa5fe.png)
+
+And we can filter by author, such as Tora Kaze
+
+![image](https://user-images.githubusercontent.com/60205850/230165573-a279a182-3a52-4ef6-9a2d-f232235253c0.png)
+
 
 ## Jaccard Distance Feature
 
